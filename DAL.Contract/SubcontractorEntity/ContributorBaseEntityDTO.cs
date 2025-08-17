@@ -1,0 +1,33 @@
+﻿using System;
+
+namespace DAL.Contracts.SubcontractorEntity
+{
+    public class ContributorBaseEntityDTO
+    {
+        public int ID { get; set; }
+        public int ID_Contact { get; set; }
+        public string RaisonSocial { get; set; }
+        public string Representant { get; set; }
+
+        public string NumCptBank { get; set; }
+        public DateTime CreationDate { get; set; }
+        public int CreePar { get; set; }
+        public DateTime ModificationDate { get; set; }
+        public int ModifierPar { get; set; }
+        public bool IsActive { get; set; }
+
+        public ContributorBaseEntityDTO(int iD, int iD_Contact, string raisonSocial, string representant, string numCptBank, DateTime creationDate, int creePar, DateTime modificationDate, int modifierPar, bool isActive)
+        {
+            this.ID = iD;
+            this.ID_Contact = iD_Contact;
+            this.RaisonSocial = raisonSocial;
+            this.Representant = representant;
+            this.NumCptBank = numCptBank;
+            this.CreationDate = creationDate;
+            this.CreePar = creePar;
+            this.ModificationDate = modificationDate;
+            this.ModifierPar = modifierPar;
+            this.IsActive = isActive;
+        }
+    }
+}

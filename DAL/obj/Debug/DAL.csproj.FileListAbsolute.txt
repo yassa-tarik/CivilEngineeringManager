@@ -1,0 +1,30 @@
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL\bin\Debug\DAL.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL\bin\Debug\DAL.pdb
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL\bin\Debug\Common.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL\bin\Debug\DTO.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL\bin\Debug\Common.pdb
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL\bin\Debug\DTO.pdb
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL\obj\Debug\DAL.csproj.Up2Date
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL\obj\Debug\DAL.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL\obj\Debug\DAL.pdb
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL\bin\Debug\DAL.Interfaces.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL\bin\Debug\DAL.Interfaces.pdb
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL\bin\Debug\DAL.Contract.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL\bin\Debug\DAL.Contract.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL\bin\Debug\DAL.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL\bin\Debug\DAL.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL\bin\Debug\Common.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL\bin\Debug\DAL.Contract.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL\bin\Debug\DAL.Interfaces.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL\bin\Debug\DTO.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL\bin\Debug\Common.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL\bin\Debug\DAL.Contract.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL\bin\Debug\DAL.Interfaces.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL\bin\Debug\DTO.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL\obj\Debug\DAL.csproj.Up2Date
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL\obj\Debug\DAL.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL\obj\Debug\DAL.pdb

@@ -1,0 +1,12 @@
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL.Contract\obj\Debug\DAL.Contracts.csproj.AssemblyReference.cache
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL.Contract\obj\Debug\DAL.Contracts.csproj.CoreCompileInputs.cache
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL.Contract\bin\Debug\DAL.Contract.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL.Contract\bin\Debug\DAL.Contract.pdb
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL.Contract\obj\Debug\DAL.Contract.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DAL.Contract\obj\Debug\DAL.Contract.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL.Contract\bin\Debug\DAL.Contract.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL.Contract\bin\Debug\DAL.Contract.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL.Contract\obj\Debug\DAL.Contracts.csproj.AssemblyReference.cache
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL.Contract\obj\Debug\DAL.Contracts.csproj.CoreCompileInputs.cache
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL.Contract\obj\Debug\DAL.Contract.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DAL.Contract\obj\Debug\DAL.Contract.pdb

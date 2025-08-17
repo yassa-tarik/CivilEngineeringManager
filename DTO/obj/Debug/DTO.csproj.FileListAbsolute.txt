@@ -1,0 +1,12 @@
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DTO\bin\Debug\DTO.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DTO\bin\Debug\DTO.pdb
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DTO\obj\Debug\DTO.csproj.AssemblyReference.cache
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DTO\obj\Debug\DTO.csproj.CoreCompileInputs.cache
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DTO\obj\Debug\DTO.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\DTO\obj\Debug\DTO.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DTO\bin\Debug\DTO.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DTO\bin\Debug\DTO.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DTO\obj\Debug\DTO.csproj.AssemblyReference.cache
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DTO\obj\Debug\DTO.csproj.CoreCompileInputs.cache
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DTO\obj\Debug\DTO.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\DTO\obj\Debug\DTO.pdb

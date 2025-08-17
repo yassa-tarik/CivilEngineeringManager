@@ -1,0 +1,34 @@
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\BLL\bin\Debug\BLL.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\BLL\bin\Debug\BLL.pdb
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\BLL\bin\Debug\Common.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\BLL\bin\Debug\DTO.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\BLL\bin\Debug\Common.pdb
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\BLL\bin\Debug\DTO.pdb
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\BLL\obj\Debug\BLL.csproj.AssemblyReference.cache
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\BLL\obj\Debug\BLL.csproj.Up2Date
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\BLL\obj\Debug\BLL.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\BLL\obj\Debug\BLL.pdb
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\BLL\bin\Debug\CivilEngineeringManager.BLL.Interfaces.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\BLL\bin\Debug\DAL.Interfaces.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\BLL\bin\Debug\CivilEngineeringManager.BLL.Interfaces.pdb
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\BLL\bin\Debug\DAL.Interfaces.pdb
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\BLL\bin\Debug\DAL.Contract.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\BLL\bin\Debug\DAL.Contract.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\BLL\bin\Debug\BLL.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\BLL\bin\Debug\BLL.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\BLL\bin\Debug\CivilEngineeringManager.BLL.Interfaces.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\BLL\bin\Debug\Common.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\BLL\bin\Debug\DAL.Contract.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\BLL\bin\Debug\DAL.Interfaces.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\BLL\bin\Debug\DTO.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\BLL\bin\Debug\CivilEngineeringManager.BLL.Interfaces.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\BLL\bin\Debug\Common.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\BLL\bin\Debug\DAL.Contract.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\BLL\bin\Debug\DAL.Interfaces.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\BLL\bin\Debug\DTO.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\BLL\obj\Debug\BLL.csproj.AssemblyReference.cache
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\BLL\obj\Debug\BLL.csproj.Up2Date
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\BLL\obj\Debug\BLL.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\BLL\obj\Debug\BLL.pdb

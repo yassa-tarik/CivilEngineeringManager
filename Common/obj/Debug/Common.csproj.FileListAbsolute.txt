@@ -1,0 +1,12 @@
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\Common\bin\Debug\Common.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\Common\bin\Debug\Common.pdb
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\Common\obj\Debug\Common.csproj.AssemblyReference.cache
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\Common\obj\Debug\Common.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\Common\obj\Debug\Common.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\Common\bin\Debug\Common.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\Common\bin\Debug\Common.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\Common\obj\Debug\Common.csproj.AssemblyReference.cache
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\Common\obj\Debug\Common.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\Common\obj\Debug\Common.pdb

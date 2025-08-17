@@ -1,0 +1,18 @@
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\CivilEngineeringManager.BLL.Interfaces\bin\Debug\CivilEngineeringManager.BLL.Interfaces.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\CivilEngineeringManager.BLL.Interfaces\bin\Debug\CivilEngineeringManager.BLL.Interfaces.pdb
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\CivilEngineeringManager.BLL.Interfaces\bin\Debug\DTO.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\CivilEngineeringManager.BLL.Interfaces\bin\Debug\DTO.pdb
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\CivilEngineeringManager.BLL.Interfaces\obj\Debug\Interfaces.BLL.csproj.AssemblyReference.cache
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\CivilEngineeringManager.BLL.Interfaces\obj\Debug\Interfaces.BLL.csproj.CoreCompileInputs.cache
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\CivilEngineeringManager.BLL.Interfaces\obj\Debug\Interfac.4D75CE97.Up2Date
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\CivilEngineeringManager.BLL.Interfaces\obj\Debug\CivilEngineeringManager.BLL.Interfaces.dll
+E:\programming copy from C\My own Projects\Mokran cousin\ETB TPH CHELIL\Using AI\Source Code\Current\CivilEngineeringManager.BLL.Interfaces\obj\Debug\CivilEngineeringManager.BLL.Interfaces.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\CivilEngineeringManager.BLL.Interfaces\bin\Debug\CivilEngineeringManager.BLL.Interfaces.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\CivilEngineeringManager.BLL.Interfaces\bin\Debug\CivilEngineeringManager.BLL.Interfaces.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\CivilEngineeringManager.BLL.Interfaces\bin\Debug\DTO.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\CivilEngineeringManager.BLL.Interfaces\bin\Debug\DTO.pdb
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\CivilEngineeringManager.BLL.Interfaces\obj\Debug\Interfaces.BLL.csproj.AssemblyReference.cache
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\CivilEngineeringManager.BLL.Interfaces\obj\Debug\Interfaces.BLL.csproj.CoreCompileInputs.cache
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\CivilEngineeringManager.BLL.Interfaces\obj\Debug\Interfac.4D75CE97.Up2Date
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\CivilEngineeringManager.BLL.Interfaces\obj\Debug\CivilEngineeringManager.BLL.Interfaces.dll
+E:\programming-copy-from-C\My-own-Projects\Github-Repos\CivilEngineeringManager\CivilEngineeringManager.BLL.Interfaces\obj\Debug\CivilEngineeringManager.BLL.Interfaces.pdb
