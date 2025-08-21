@@ -14,7 +14,7 @@ namespace DAL.Contracts.SubcontractorEntity
         public int ID_Country { get; set; }
         public int ID_City { get; set; }
         public string APC { get; set; }
-        public string Address { get; set; }
+        public string Street { get; set; }
         public string PostalCode { get; set; }
         public string LieuDit { get; set; }
         public string Reper { get; set; }
@@ -29,7 +29,7 @@ namespace DAL.Contracts.SubcontractorEntity
             this.ID_Country = ID_Country;
             this.ID_City = ID_City;
             this.APC = aPC;
-            this.Address = address;
+            this.Street = address;
             this.PostalCode = PostalCode;
             this.LieuDit = lieuDit;
             this.Reper = reper;
