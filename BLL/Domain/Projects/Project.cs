@@ -81,9 +81,9 @@ namespace BLL.Domain.Projects
             if (DTO.Duree <= 0)
                 throw new ArgumentException("Project duration must be greater than zero.", nameof(DTO.Duree));
             var address = DTO.Address != null
-        ? AddressMapper.ToDomain(DTO.Address)
+        ? AddressMapper.DTOToDomain(DTO.Address)
         : null; // or you could decide to throw if Address is mandatory
-            return new Project(DTO.ID, DTO.Nom, DTO.CodeProjet, DTO.isDeleted, DTO.DateDebut, DTO.Duree, DTO.TypeProjet, DTO.Description, DTO.Avancement, DTO.IsActive, DTO.CreePar, DTO.ConcervationFonciere, DTO.PermisDeLotirNum, DTO.PermisDeLotirDu, DTO.PermisDeConstNum, DTO.PermisDeConstDu, DTO.ActeVolume, DTO.ActeNum, DTO.ActeFolio, DTO.LivretFoncier, DTO.LivretFoncierLe, DTO.LivretFoncierPar, DTO.isSpecComplete, DTO.Progress, AddressMapper.ToDomain(DTO.Address));
+            return new Project(DTO.ID, DTO.Nom, DTO.CodeProjet, DTO.isDeleted, DTO.DateDebut, DTO.Duree, DTO.TypeProjet, DTO.Description, DTO.Avancement, DTO.IsActive, DTO.CreePar, DTO.ConcervationFonciere, DTO.PermisDeLotirNum, DTO.PermisDeLotirDu, DTO.PermisDeConstNum, DTO.PermisDeConstDu, DTO.ActeVolume, DTO.ActeNum, DTO.ActeFolio, DTO.LivretFoncier, DTO.LivretFoncierLe, DTO.LivretFoncierPar, DTO.isSpecComplete, DTO.Progress, AddressMapper.DTOToDomain(DTO.Address));
         }
     }
 }

@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Addresses\Address.cs" />
+    <Compile Include="Domain\Contacts\Contact.cs" />
     <Compile Include="Domain\Projects\Project.cs" />
     <Compile Include="Domain\Subcontractors\ContributorsBase.cs" />
     <Compile Include="Domain\Subcontractors\Subcontractor.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Factories\AddressFactory.cs" />
     <Compile Include="Factories\SubcontractorFactory.cs" />
     <Compile Include="Mappers\Addesses\AddresseMapper.cs" />
+    <Compile Include="Mappers\Contacts\ContactMapper.cs" />
     <Compile Include="Mappers\Projects\ProjectMapper.cs" />
     <Compile Include="Mappers\Subcontractors\SubcontractorMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

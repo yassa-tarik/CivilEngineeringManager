@@ -18,7 +18,7 @@ namespace BLL.Services
         public async Task<List<ProjectDTO>> GetAllFullAsync()
         {
             var entities = await _projectRepo.GetAllFullAsync();
-            return entities.ConvertAll(ProjectMapper.ToDTO);
+            return entities.ConvertAll(ProjectMapper.EntityToDTO);
         }
         public async Task<List<ProjectMinimalDTO>> GetAllMinimalProjectsAsync()
         {

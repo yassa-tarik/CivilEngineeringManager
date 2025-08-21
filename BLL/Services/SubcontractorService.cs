@@ -28,7 +28,7 @@ namespace BLL.Services
                 throw new InvalidOperationException("Subcontractor already exist.");
             }
             var domain = Subcontractor.AddEdit(subcontractorDTO);
-            var entityDTO = SubcontractorMapper.ToEntityDTO(domain);
+            var entityDTO = SubcontractorMapper.DomainToEntityDTO(domain);
             return _subcontractorRepo.AddNew(entityDTO);
         }
 
@@ -42,16 +42,16 @@ namespace BLL.Services
             List<SubcontractorDTO> allDTOs = new List<SubcontractorDTO>();
             var originalDtos = await _subcontractorRepo.GetAllAsync();
             // TODO: will convert directly to DTO
-            var allDomains = originalDtos.ConvertAll((p) => SubcontractorMapper.ToDomain(p));
-            allDTOs = allDomains.ConvertAll((p) => SubcontractorMapper.ToDTO(p));
+            var allDomains = originalDtos.ConvertAll((p) => SubcontractorMapper.EntityToDomain(p));
+            allDTOs = allDomains.ConvertAll((p) => SubcontractorMapper.DomainToDTO(p));
             return allDTOs;
         }
 
         public SubcontractorDTO GetById(int id)
         {
             var entityDTO = _subcontractorRepo.GetById(id);
-            var domain = SubcontractorMapper.ToDomain(entityDTO);
-            return SubcontractorMapper.ToDTO(domain);
+            var domain = SubcontractorMapper.EntityToDomain(entityDTO);
+            return SubcontractorMapper.DomainToDTO(domain);
         }
 
         public bool Update(SubcontractorDTO subcontractorDTO)
@@ -63,7 +63,7 @@ namespace BLL.Services
                 throw new InvalidOperationException("Subcontractor doesn't exist.");
             }
             var domain = Subcontractor.AddEdit(subcontractorDTO);
-            var entityDTO = SubcontractorMapper.ToEntityDTO(domain);
+            var entityDTO = SubcontractorMapper.DomainToEntityDTO(domain);
             return _subcontractorRepo.Update(entityDTO);
         }
     }

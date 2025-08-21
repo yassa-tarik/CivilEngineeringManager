@@ -7,7 +7,7 @@ namespace BLL.Mappers.Addesses
     internal class AddressMapper
     {
         // Domain <-> DTO
-        public static AddressDTO ToDto(Address domain)
+        public static AddressDTO DomainToDto(Address domain)
         {
             if (domain == null) return null;
 
@@ -23,7 +23,7 @@ namespace BLL.Mappers.Addesses
             );
         }
 
-        public static Address ToDomain(AddressDTO dto)
+        public static Address DTOToDomain(AddressDTO dto)
         {
             if (dto == null) return null;
 
@@ -40,7 +40,7 @@ namespace BLL.Mappers.Addesses
         }
 
         // DAL Entity <-> Domain
-        public static Address ToDomain(AddressEntityDTO entity)
+        public static Address EntityToDomain(AddressEntityDTO entity)
         {
             if (entity == null) return null;
 
@@ -56,7 +56,7 @@ namespace BLL.Mappers.Addesses
             );
         }
 
-        public static AddressEntityDTO ToEntity(Address domain)
+        public static AddressEntityDTO DomainToEntity(Address domain)
         {
             if (domain == null) return null;
 
@@ -72,20 +72,9 @@ namespace BLL.Mappers.Addesses
             );
         }
 
-        internal static AddressDTO ToDTO(AddressEntityDTO entity)
-        {
-            if (entity == null) return null;
-
-            return new AddressDTO(
-                entity.ID,
-                entity.ID_Country,
-                entity.ID_City,
-                entity.APC,
-                entity.Street,
-                entity.PostalCode,
-                entity.LieuDit,
-                entity.Reper
-            );
+        internal static AddressDTO EntityToDTO(int ID, int ID_Country, int ID_City, string APC, string Street, string PostalCode, string LieuDit, string Reper)
+        {            
+            return new AddressDTO(ID,ID_Country,ID_City,APC,Street,PostalCode,LieuDit,Reper);
         }
     }    
 }

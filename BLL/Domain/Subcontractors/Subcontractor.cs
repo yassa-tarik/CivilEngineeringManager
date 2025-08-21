@@ -1,5 +1,6 @@
-﻿using BLL.Domain.Subcontractors;
-using DTO.Contact;
+﻿using BLL.Domain.Contacts;
+using BLL.Domain.Subcontractors;
+using BLL.Mappers.Contacts;
 using DTO.Subcontractor;
 using System;
 
@@ -7,9 +8,7 @@ namespace BLL.Domain
 {
     internal class Subcontractor : ContributorsBase
     {
-        //enum Mode { AddNew, Update,  }
-        //Mode mode = Mode.AddNew;
-        internal Subcontractor(int iD, int iD_Contact, string raisonSocial, string representant, string numCptBank, DateTime creationDate, int creePar, DateTime modificationDate, int modifierPar, bool isActive, ContactDTO contact) : base(iD, iD_Contact, raisonSocial, representant, numCptBank, creationDate, creePar, modificationDate, modifierPar, isActive, contact)
+        internal Subcontractor(int iD, int iD_Contact, string raisonSocial, string representant, string numCptBank, DateTime creationDate, int creePar, DateTime modificationDate, int modifierPar, bool isActive, Contact contact) : base(iD, iD_Contact, raisonSocial, representant, numCptBank, creationDate, creePar, modificationDate, modifierPar, isActive, contact)
         {
         }
         internal static Subcontractor AddEdit(SubcontractorDTO dto)
@@ -35,10 +34,9 @@ namespace BLL.Domain
             if (dto.Address == null || dto.Address.Id <= 0)
                 throw new DomainException("Valid address is required.");
             */
-            return new Subcontractor(dto.ID, dto.ID_Contact, dto.RaisonSocial, dto.Representant, dto.NumCptBank, dto.CreationDate, dto.CreePar, dto.ModificationDate, dto.ModifierPar, dto.IsActive, dto.Contact );
+            return new Subcontractor(dto.ID, dto.ID_Contact, dto.RaisonSocial, dto.Representant, dto.NumCptBank, dto.CreationDate, dto.CreePar, dto.ModificationDate, dto.ModifierPar, dto.IsActive, ContactMapper.DTOToDomain(dto.Contact));
         }
 
         //TODO: implement logic, validations and rules specific to subcontractors
-
     }
 }

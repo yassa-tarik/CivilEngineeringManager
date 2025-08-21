@@ -29,5 +29,4 @@ namespace DAL.Contract.Address
             Reper = reper;
         }
     }
-
 }

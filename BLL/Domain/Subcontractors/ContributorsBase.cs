@@ -1,4 +1,5 @@
-﻿using DTO.Contact;
+﻿using BLL.Domain.Contacts;
+using DTO.Contact;
 using System;
 
 namespace BLL.Domain.Subcontractors
@@ -15,9 +16,9 @@ namespace BLL.Domain.Subcontractors
         public DateTime ModificationDate { get; private set; }
         public int ModifierPar { get; private set; }
         public bool IsActive { get; private set; }
-        public ContactDTO Contact { get; private set; }
+        public Contact Contact { get; private set; }
 
-        protected ContributorsBase(int iD, int iD_Contact, string raisonSocial, string representant, string numCptBank, DateTime creationDate, int creePar, DateTime modificationDate, int modifierPar, bool isActive, ContactDTO contact)
+        protected ContributorsBase(int iD, int iD_Contact, string raisonSocial, string representant, string numCptBank, DateTime creationDate, int creePar, DateTime modificationDate, int modifierPar, bool isActive, Contact contact)
         {                       
             // Validate company name
             if (string.IsNullOrWhiteSpace(raisonSocial))

@@ -31,7 +31,7 @@ namespace DAL.Pepositories
                     cmd.Parameters.AddWithValue("@ID_Country", EntityDTO.ID_Country);
                     cmd.Parameters.AddWithValue("@ID_City", EntityDTO.ID_City);
                     cmd.Parameters.AddWithValue("@APC", EntityDTO.APC);
-                    cmd.Parameters.AddWithValue("@Street", EntityDTO.Address);
+                    cmd.Parameters.AddWithValue("@Street", EntityDTO.Street);
                     cmd.Parameters.AddWithValue("@PostalCode", EntityDTO.PostalCode);
                     cmd.Parameters.AddWithValue("@LieuDit", EntityDTO.LieuDit ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@Reper", EntityDTO.Reper ?? (object)DBNull.Value);
@@ -181,7 +181,7 @@ namespace DAL.Pepositories
                     cmd.Parameters.AddWithValue("@ID_Country", EntityDTO.ID_Country);
                     cmd.Parameters.AddWithValue("@ID_City", EntityDTO.ID_City);
                     cmd.Parameters.AddWithValue("@APC", EntityDTO.APC);
-                    cmd.Parameters.AddWithValue("@Street", EntityDTO.Address);
+                    cmd.Parameters.AddWithValue("@Street", EntityDTO.Street);
                     cmd.Parameters.AddWithValue("@PostalCode", EntityDTO.PostalCode);
                     cmd.Parameters.AddWithValue("@LieuDit", EntityDTO.LieuDit ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@Reper", EntityDTO.Reper ?? (object)DBNull.Value);
