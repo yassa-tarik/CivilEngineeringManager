@@ -41,17 +41,15 @@ namespace BLL.Services
         {
             List<SubcontractorDTO> allDTOs = new List<SubcontractorDTO>();
             var originalDtos = await _subcontractorRepo.GetAllAsync();
-            // TODO: will convert directly to DTO
-            var allDomains = originalDtos.ConvertAll((p) => SubcontractorMapper.EntityToDomain(p));
-            allDTOs = allDomains.ConvertAll((p) => SubcontractorMapper.DomainToDTO(p));
+            // TODO: will convert directly to DTO       
+            allDTOs = originalDtos.ConvertAll((p) => SubcontractorMapper.EntityToDTO(p));
             return allDTOs;
         }
 
         public SubcontractorDTO GetById(int id)
         {
             var entityDTO = _subcontractorRepo.GetById(id);
-            var domain = SubcontractorMapper.EntityToDomain(entityDTO);
-            return SubcontractorMapper.DomainToDTO(domain);
+            return SubcontractorMapper.EntityToDTO(entityDTO);
         }
 
         public bool Update(SubcontractorDTO subcontractorDTO)

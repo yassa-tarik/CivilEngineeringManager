@@ -68,7 +68,7 @@ namespace BLL.Mappers.Projects
                 entity.LivretFoncierPar,
                 entity.isSpecComplete,
                 entity.Progress,
-                AddressMapper.EntityToDTO(new AddressEntityDTO(entity.ID_Adresse,entity.ID_Country, entity.ID_City, entity.APC, entity.Street, entity.PostalCode, entity.LieuDit,entity.Reper)) // assumes ProjectEntityDTO has AddressEntityDTO
+                AddressMapper.EntityToDTO(entity.ID_Adresse,entity.ID_Country, entity.ID_City, entity.APC, entity.Street, entity.PostalCode, entity.LieuDit,entity.Reper) // assumes ProjectEntityDTO has AddressEntityDTO
             );
         }
     }
