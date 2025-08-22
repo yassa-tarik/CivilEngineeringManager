@@ -12,7 +12,7 @@ namespace BLL.Domain.Addresses
         public string LieuDit { get; private set; }
         public string Reper { get; private set; }
 
-        public Address(int id,int countryId,int cityId,string apc,string street,string codePostal,string lieuDit,string reper)
+        public Address(int id, int countryId, int cityId, string apc, string street, string codePostal, string lieuDit, string reper)
         {
             if (countryId <= 0)
                 throw new ArgumentException("Country Id must be greater than 0.");

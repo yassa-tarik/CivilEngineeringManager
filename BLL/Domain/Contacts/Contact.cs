@@ -1,9 +1,4 @@
 ﻿using BLL.Domain.Addresses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.Domain.Contacts
 {
@@ -17,7 +12,7 @@ namespace BLL.Domain.Contacts
         public string Email { get; }
         public Address Address { get; }
 
-        internal Contact(int id,int idAddress,string telephone,string mobile,string telecopie,string email,Address address)
+        internal Contact(int id, int idAddress, string telephone, string mobile, string telecopie, string email, Address address)
         {
             ID = id;
             ID_Address = idAddress;

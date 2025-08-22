@@ -37,7 +37,7 @@ namespace DAL.Contract.Project
         public string LieuDit { get; set; }
         public string Reper { get; set; }
 
-        public  ProjectEntityDTO(int ID, int ID_Adresse, string Nom, string CodeProjet, bool isDeleted, DateTime DateDebut, int Duree, string TypeProjet, string Description, int Avancement, bool IsActive, int CreePar, string ConcervationFonciere, string PermisDeLotirNum, Nullable<DateTime> PermisDeLotirDu, string PermisDeConstNum, DateTime PermisDeConstDu, string ActeVolume, string ActeNum, string ActeFolio, string LivretFoncier, Nullable<DateTime> LivretFoncierLe, string LivretFoncierPar, bool isSpecComplete, byte Progress, int ID_Country, int ID_City, string aPC, string street, string PostalCode, string lieuDit, string reper)
+        public ProjectEntityDTO(int ID, int ID_Adresse, string Nom, string CodeProjet, bool isDeleted, DateTime DateDebut, int Duree, string TypeProjet, string Description, int Avancement, bool IsActive, int CreePar, string ConcervationFonciere, string PermisDeLotirNum, Nullable<DateTime> PermisDeLotirDu, string PermisDeConstNum, DateTime PermisDeConstDu, string ActeVolume, string ActeNum, string ActeFolio, string LivretFoncier, Nullable<DateTime> LivretFoncierLe, string LivretFoncierPar, bool isSpecComplete, byte Progress, int ID_Country, int ID_City, string aPC, string street, string PostalCode, string lieuDit, string reper)
         {
             this.ID = ID;
             this.ID_Adresse = ID_Adresse;

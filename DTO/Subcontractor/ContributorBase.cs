@@ -5,7 +5,7 @@ namespace DTO.Subcontractor
 {
     public class ContributorBaseDTO
     {
-        public int ID { get;  }
+        public int ID { get; }
         public int ID_Contact { get; set; }
         public string RaisonSocial { get; set; }
         public string Representant { get; set; }

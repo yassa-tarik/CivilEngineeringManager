@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Project\IProjectRepository.cs" />
     <Compile Include="Subcontractor\ISubcontractorRepository.cs" />
+    <Compile Include="Subcontractor\ISubcontractorUniquenessChecker.cs" />
     <Compile Include="Task\ITaskRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,6 +1,8 @@
 ﻿using BLL.Domain.Contacts;
 using BLL.Domain.Subcontractors;
 using BLL.Mappers.Contacts;
+using BLL.Mappers.Subcontractors;
+using DAL.Interfaces.Subcontractor;
 using DTO.Subcontractor;
 using System;
 
@@ -11,32 +13,49 @@ namespace BLL.Domain
         internal Subcontractor(int iD, int iD_Contact, string raisonSocial, string representant, string numCptBank, DateTime creationDate, int creePar, DateTime modificationDate, int modifierPar, bool isActive, Contact contact) : base(iD, iD_Contact, raisonSocial, representant, numCptBank, creationDate, creePar, modificationDate, modifierPar, isActive, contact)
         {
         }
-        internal static Subcontractor AddEdit(SubcontractorDTO dto)
+       
+        // ✅ Factory for new subcontractor
+        public static Subcontractor Create(SubcontractorDTO dto, ISubcontractorUniquenessChecker uniquenessChecker)
         {
-            //TODO: implement validation logic here
-            if (dto == null)
-            {
-                throw new ArgumentNullException(nameof(dto) + "is empty");
-            }
-            /*
-            if (dto == null)
-                throw new DomainException("Subcontractor data is missing.");
+            if (string.IsNullOrWhiteSpace(dto.RaisonSocial))
+                throw new ArgumentException("RaisonSocial is required.");
 
-            if (string.IsNullOrWhiteSpace(dto.Name))
-                throw new DomainException("Name is required.");
+            if (uniquenessChecker.ExistsByName(dto.RaisonSocial))
+                throw new InvalidOperationException("Subcontractor already exists.");
 
-            if (string.IsNullOrWhiteSpace(dto.MatriculeFiscale))
-                throw new DomainException("Matricule Fiscale is required.");
-
-            if (dto.Contact == null || dto.Contact.Id <= 0)
-                throw new DomainException("Valid contact is required.");
-
-            if (dto.Address == null || dto.Address.Id <= 0)
-                throw new DomainException("Valid address is required.");
-            */
-            return new Subcontractor(dto.ID, dto.ID_Contact, dto.RaisonSocial, dto.Representant, dto.NumCptBank, dto.CreationDate, dto.CreePar, dto.ModificationDate, dto.ModifierPar, dto.IsActive, ContactMapper.DTOToDomain(dto.Contact));
+            return SubcontractorMapper.DTOToDomain(dto);
         }
 
-        //TODO: implement logic, validations and rules specific to subcontractors
+        // ✅ Update method
+        public void Update(SubcontractorDTO dto, ISubcontractorUniquenessChecker checker)
+        {
+            if (dto == null)
+                throw new ArgumentNullException(nameof(dto));
+
+            // Check uniqueness only if RaisonSocial is being changed
+            if (!string.Equals(this.RaisonSocial, dto.RaisonSocial, StringComparison.OrdinalIgnoreCase))
+            {
+                if (checker.ExistsByName(dto.RaisonSocial))
+                    throw new InvalidOperationException($"Another subcontractor already uses the name {dto.RaisonSocial}.");
+            }
+
+            // Apply updates
+            base.ID_Contact = dto.ID_Contact;
+            this.RaisonSocial = dto.RaisonSocial;
+            this.Representant = dto.Representant;
+            this.NumCptBank = dto.NumCptBank;
+
+            // CreationDate and CreePar should not normally change on update
+            // this.CreationDate = dto.CreationDate;
+            // this.CreePar = dto.CreePar;
+
+            this.ModificationDate = DateTime.Now;
+            this.ModifierPar = dto.ModifierPar;
+            this.IsActive = dto.IsActive;
+
+            // Contact is an object — you may want to delegate updating it via a Contact.Update(dto.Contact) instead of full replace
+            this.Contact = ContactMapper.DTOToDomain( dto.Contact);
+        }
+
     }
 }

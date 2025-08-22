@@ -73,8 +73,8 @@ namespace BLL.Mappers.Addesses
         }
 
         internal static AddressDTO EntityToDTO(int ID, int ID_Country, int ID_City, string APC, string Street, string PostalCode, string LieuDit, string Reper)
-        {            
-            return new AddressDTO(ID,ID_Country,ID_City,APC,Street,PostalCode,LieuDit,Reper);
+        {
+            return new AddressDTO(ID, ID_Country, ID_City, APC, Street, PostalCode, LieuDit, Reper);
         }
-    }    
+    }
 }

@@ -12,6 +12,9 @@ namespace CivilEngineeringManager
         [STAThread]
         static void Main()
         {
+            // Initialize the database connection string
+            Composition.DependencyBuilder.InitializeDB_Connection();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainDashboardForm());

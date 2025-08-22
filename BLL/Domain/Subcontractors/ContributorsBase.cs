@@ -1,25 +1,24 @@
 ﻿using BLL.Domain.Contacts;
-using DTO.Contact;
 using System;
 
 namespace BLL.Domain.Subcontractors
 {
     abstract class ContributorsBase
     {
-        public int ID { get; private set; }
-        public int ID_Contact { get; private set; }
-        public string RaisonSocial { get; private set; }
-        public string Representant { get; private set; }
-        public string NumCptBank { get; private set; }
-        public DateTime CreationDate { get; private set; }
-        public int CreePar { get; private set; }
-        public DateTime ModificationDate { get; private set; }
-        public int ModifierPar { get; private set; }
-        public bool IsActive { get; private set; }
-        public Contact Contact { get; private set; }
+        public int ID { get; internal set; }
+        public int ID_Contact { get; internal set; }
+        public string RaisonSocial { get; internal set; }
+        public string Representant { get; internal set; }
+        public string NumCptBank { get; internal set; }
+        public DateTime CreationDate { get; internal set; }
+        public int CreePar { get; internal set; }
+        public DateTime ModificationDate { get; internal set; }
+        public int ModifierPar { get; internal set; }
+        public bool IsActive { get; internal set; }
+        public Contact Contact { get; internal set; }
 
         protected ContributorsBase(int iD, int iD_Contact, string raisonSocial, string representant, string numCptBank, DateTime creationDate, int creePar, DateTime modificationDate, int modifierPar, bool isActive, Contact contact)
-        {                       
+        {
             // Validate company name
             if (string.IsNullOrWhiteSpace(raisonSocial))
                 throw new ArgumentException("Company name cannot be empty", nameof(raisonSocial));

@@ -59,7 +59,7 @@ namespace DAL.Repositories
                             string Street = reader.GetString(reader.GetOrdinal("Street"));
                             string PostalCode = reader.GetString(reader.GetOrdinal("PostalCode"));
                             string LieuDit = reader.GetString(reader.GetOrdinal("LieuDit"));
-                            string Reper = reader.GetString(reader.GetOrdinal("Reper"));                          
+                            string Reper = reader.GetString(reader.GetOrdinal("Reper"));
 
                             //*************Projet part ************
                             //because a common type was not found between types (DateTime & null.
@@ -102,7 +102,7 @@ namespace DAL.Repositories
            , reader.GetBoolean(reader.GetOrdinal("isSpecComplete"))
            , reader.GetByte(reader.GetOrdinal("Progress"))
 
-           , ID_Country, ID_City,APC, Street, PostalCode, LieuDit, Reper ));
+           , ID_Country, ID_City, APC, Street, PostalCode, LieuDit, Reper));
                         }
                         reader.Close();
                     }
@@ -221,7 +221,7 @@ namespace DAL.Repositories
                             string Reper = reader.GetString(reader.GetOrdinal("Reper"));
                             // create objects
                             AddressDTO adresse = new AddressDTO(AdresseID, ID_Country, ID_City, APC, Street, PostalCode, LieuDit, Reper);
-                            projetEntityDTO = new ProjectEntityDTO(id, ID_Adresse, nom, codeProjet, isDeleted, dateDebut, duree, typeProjet, description, avancement, isActive, creePar, conservationFonciere, permisDeLotirNum, permisDeLotirDu, permisDeConstNum, permisDeConstDu, acteVolume, acteNum, acteFolio, livretFoncier, Convert.ToDateTime(livretFoncierLe), livretFoncierPar, isSpecComplete, progress,ID_Country, ID_City, APC, Street, PostalCode, LieuDit, Reper );
+                            projetEntityDTO = new ProjectEntityDTO(id, ID_Adresse, nom, codeProjet, isDeleted, dateDebut, duree, typeProjet, description, avancement, isActive, creePar, conservationFonciere, permisDeLotirNum, permisDeLotirDu, permisDeConstNum, permisDeConstDu, acteVolume, acteNum, acteFolio, livretFoncier, Convert.ToDateTime(livretFoncierLe), livretFoncierPar, isSpecComplete, progress, ID_Country, ID_City, APC, Street, PostalCode, LieuDit, Reper);
                         }
                     }
                 }

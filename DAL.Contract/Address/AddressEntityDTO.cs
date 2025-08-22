@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DAL.Contract.Address
+﻿namespace DAL.Contract.Address
 {
     public class AddressEntityDTO
     {
@@ -17,7 +11,7 @@ namespace DAL.Contract.Address
         public string LieuDit { get; }
         public string Reper { get; }
 
-        public AddressEntityDTO (int id,int idCountry,int idCity,string apc,string street,string postalCode,string lieuDit,string reper)
+        public AddressEntityDTO(int id, int idCountry, int idCity, string apc, string street, string postalCode, string lieuDit, string reper)
         {
             ID = id;
             ID_Country = idCountry;

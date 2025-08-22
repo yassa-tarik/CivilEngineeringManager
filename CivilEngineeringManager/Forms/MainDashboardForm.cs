@@ -48,7 +48,7 @@ namespace CivilEngineeringManager.Forms
         public MainDashboardForm()
         {
             InitializeComponent();
-            DependencyBuilder.InitializeDB_Connection();
+            //DependencyBuilder.InitializeDB_Connection();
             _subcontractorService = DependencyBuilder.BuildSubcontractorService();
         }
 
@@ -118,11 +118,11 @@ namespace CivilEngineeringManager.Forms
         }
 
         private async void button2_Click(object sender, EventArgs e)
-        {         
+        {
             var projectPanel = CreateSectionPanel("Project Overview", new Point(10, 0), new Size(950, 300));
-            
+
             var subcontractors = await _subcontractorService.GetAllAsync();
-           
+
             DataGridView dataGridView = new DataGridView();
             dataGridView.Location = new System.Drawing.Point(200, 0);
             dataGridView.Name = "grid";
@@ -131,7 +131,7 @@ namespace CivilEngineeringManager.Forms
             dataGridView.DataSource = subcontractors;
             mainPanel.Controls.Add(dataGridView);
             mainPanel.Controls["grid"].Dock = DockStyle.Bottom;
-            
+
             projectPanel.Dock = DockStyle.Top;
             mainPanel.Controls.Add(projectPanel);
         }

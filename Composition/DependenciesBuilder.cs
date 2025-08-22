@@ -2,8 +2,10 @@
 using BLL.Services;
 using DAL.Database;
 using DAL.Interfaces;
+using DAL.Interfaces.Subcontractor;
 using DAL.Pepositories;
 using DAL.Repositories;
+using DAL.Subcontractor;
 using DTO.Subcontractor;
 using System;
 
@@ -20,21 +22,22 @@ namespace Composition
         {
             string connectionString = SqlConnectionFactory.connectionString;
             if (string.IsNullOrWhiteSpace(connectionString))
-                {
-                    throw new InvalidOperationException("Invalid database connection " +
-                        "");
-                }
+            {
+                throw new InvalidOperationException("Invalid database connection " +
+                    "");
+            }
             _connectionString = connectionString;
         }
 
         /// <summary>
-        /// Builds a ready-to-use ISubcontractorService with repository injected.
+        /// Builds a ready-to-use ISubcontractorService with repository and subcontractorUniquenessChecker injected.
         /// </summary>
         public static ISubcontractorService BuildSubcontractorService()
-        {            
+        {
             ISubcontractorRepository subcontractorRepo = new SubcontractorRepository(_connectionString);
-            return new SubcontractorService(subcontractorRepo);
-        }
+            ISubcontractorUniquenessChecker subcontractorUniquenessChecker = new SubcontractorUniquenessChecker(subcontractorRepo);
+            return new SubcontractorService(subcontractorRepo, subcontractorUniquenessChecker);
+        }        
 
         /// <summary>
         /// Builds a ready-to-use IProjectService (if needed).
@@ -73,7 +76,7 @@ namespace Composition
 
         private static void EnsureInitialized()
         {
-            
+
         }
     }
 }

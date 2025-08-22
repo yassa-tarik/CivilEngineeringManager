@@ -177,7 +177,7 @@ namespace DAL.Pepositories
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    // Street Parameters
+                    // Address Parameters
                     cmd.Parameters.AddWithValue("@ID_Country", EntityDTO.ID_Country);
                     cmd.Parameters.AddWithValue("@ID_City", EntityDTO.ID_City);
                     cmd.Parameters.AddWithValue("@APC", EntityDTO.APC);
@@ -296,8 +296,9 @@ namespace DAL.Pepositories
                 // Handle other general exceptions
                 throw new Exception("General Error: " + ex.Message);
             }
-            finally { 
-                _conn.Close();  
+            finally
+            {
+                _conn.Close();
             }
             return exists;
         }
