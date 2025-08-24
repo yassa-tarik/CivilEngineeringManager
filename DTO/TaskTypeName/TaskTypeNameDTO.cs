@@ -8,13 +8,13 @@ namespace DTO.TaskTypeName
 {
     public class TaskTypeNameDTO
     {
-        public int ID { get; set; }
-        public string Nom { get; set; }
+        public int ID { get; private set; }
+        public string Name { get; private set; }
 
-        public TaskTypeNameDTO(int ID, string Nom)
+        public TaskTypeNameDTO(int id, string name)
         {
-            this.ID = ID;
-            this.Nom = Nom;
+            ID = id;
+            Name = name;
         }
     }
 }
