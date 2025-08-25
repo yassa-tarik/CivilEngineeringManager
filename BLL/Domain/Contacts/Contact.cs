@@ -8,17 +8,17 @@ namespace BLL.Domain.Contacts
         public int ID_Address { get; }
         public string Telephone { get; }
         public string Mobile { get; }
-        public string Telecopie { get; }
+        public string Fax { get; }
         public string Email { get; }
         public Address Address { get; }
 
-        internal Contact(int id, int idAddress, string telephone, string mobile, string telecopie, string email, Address address)
+        internal Contact(int id, int idAddress, string telephone, string mobile, string fax, string email, Address address)
         {
             ID = id;
             ID_Address = idAddress;
             Telephone = telephone;
             Mobile = mobile;
-            Telecopie = telecopie;
+            Fax = fax;
             Email = email;
             Address = address;
         }

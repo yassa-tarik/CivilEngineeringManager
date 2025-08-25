@@ -39,9 +39,9 @@ namespace DAL.Repositories
             return (rowsAffected > 0);
         }
         // Full Project info
-        public async Task<List<ProjectEntityDTO>> GetAllFullAsync()
+        public async Task<List<Contract.Project.ProjectEntityDTO>> GetAllFullAsync()
         {
-            List<ProjectEntityDTO> allProjetsEntityDTO = new List<ProjectEntityDTO>();
+            List<Contract.Project.ProjectEntityDTO> allProjetsEntityDTO = new List<Contract.Project.ProjectEntityDTO>();
             try
             {
                 using (SqlCommand command = new SqlCommand("SP_GetAllProjets", _conn))
@@ -73,7 +73,7 @@ namespace DAL.Repositories
                             {
                                 livretFoncierLe = Convert.ToDateTime(reader["LivretFoncierLe"]);
                             }
-                            allProjetsEntityDTO.Add(new ProjectEntityDTO
+                            allProjetsEntityDTO.Add(new Contract.Project.ProjectEntityDTO
                                 (
             reader.GetInt32(reader.GetOrdinal("ID"))
            , reader.GetInt32(reader.GetOrdinal("ID_Adresse"))
@@ -158,9 +158,9 @@ namespace DAL.Repositories
             };
         }
 
-        public ProjectEntityDTO GetByID(int ID)
+        public Contract.Project.ProjectEntityDTO GetByID(int ID)
         {
-            ProjectEntityDTO projetEntityDTO = null;
+            Contract.Project.ProjectEntityDTO projetEntityDTO = null;
             try
             {
                 using (SqlCommand command = new SqlCommand("SP_GetProjetByID", _conn))
@@ -221,7 +221,7 @@ namespace DAL.Repositories
                             string Reper = reader.GetString(reader.GetOrdinal("Reper"));
                             // create objects
                             AddressDTO adresse = new AddressDTO(AdresseID, ID_Country, ID_City, APC, Street, PostalCode, LieuDit, Reper);
-                            projetEntityDTO = new ProjectEntityDTO(id, ID_Adresse, nom, codeProjet, isDeleted, dateDebut, duree, typeProjet, description, avancement, isActive, creePar, conservationFonciere, permisDeLotirNum, permisDeLotirDu, permisDeConstNum, permisDeConstDu, acteVolume, acteNum, acteFolio, livretFoncier, Convert.ToDateTime(livretFoncierLe), livretFoncierPar, isSpecComplete, progress, ID_Country, ID_City, APC, Street, PostalCode, LieuDit, Reper);
+                            projetEntityDTO = new Contract.Project.ProjectEntityDTO(id, ID_Adresse, nom, codeProjet, isDeleted, dateDebut, duree, typeProjet, description, avancement, isActive, creePar, conservationFonciere, permisDeLotirNum, permisDeLotirDu, permisDeConstNum, permisDeConstDu, acteVolume, acteNum, acteFolio, livretFoncier, Convert.ToDateTime(livretFoncierLe), livretFoncierPar, isSpecComplete, progress, ID_Country, ID_City, APC, Street, PostalCode, LieuDit, Reper);
                         }
                     }
                 }
@@ -233,7 +233,7 @@ namespace DAL.Repositories
         }
 
         //the related Table info are added at the S_Procedure level, the ID adresse is not apdated after the Add (ID Adresse -> -1)
-        public bool AddNew(ProjectDTO dto)
+        public bool AddNew(Contract.Project.ProjectEntityDTO dto)
         {
             bool isAdded = false;
             try
@@ -242,99 +242,99 @@ namespace DAL.Repositories
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     // Adresse part
-                    command.Parameters.AddWithValue("@ID_Country", dto.Address.ID_Country);
-                    command.Parameters.AddWithValue("@ID_City", dto.Address.ID_City);
-                    command.Parameters.AddWithValue("@APC", dto.Address.APC);
-                    command.Parameters.AddWithValue("@Street", dto.Address.Street);
-                    command.Parameters.AddWithValue("@PostalCode", dto.Address.PostalCode);
-                    if (string.IsNullOrEmpty(dto.Address.LieuDit))
+                    command.Parameters.AddWithValue("@ID_Country", dto.CountryID);
+                    command.Parameters.AddWithValue("@ID_City", dto.CityID);
+                    command.Parameters.AddWithValue("@APC", dto.APC);
+                    command.Parameters.AddWithValue("@Street", dto.Street);
+                    command.Parameters.AddWithValue("@PostalCode", dto.PostalCode);
+                    if (string.IsNullOrEmpty(dto.PlaceName))
                     {
                         command.Parameters.AddWithValue("@LieuDit", DBNull.Value);
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@LieuDit", dto.Address.LieuDit);
+                        command.Parameters.AddWithValue("@LieuDit", dto.PlaceName);
                     }
-                    if (string.IsNullOrEmpty(dto.Address.Reper))
+                    if (string.IsNullOrEmpty(dto.Landmark))
                     {
                         command.Parameters.AddWithValue("@Reper", DBNull.Value);
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@Reper", dto.Address.Reper);
+                        command.Parameters.AddWithValue("@Reper", dto.Landmark);
                     }
 
                     // Projet part
-                    command.Parameters.AddWithValue("@Nom", dto.Nom);
+                    command.Parameters.AddWithValue("@Nom", dto.Name);
 
-                    if (string.IsNullOrEmpty(dto.CodeProjet))
+                    if (string.IsNullOrEmpty(dto.ProjectCode))
                     {
                         command.Parameters.AddWithValue("@CodeProjet", DBNull.Value);
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@CodeProjet", dto.CodeProjet);
+                        command.Parameters.AddWithValue("@CodeProjet", dto.ProjectCode);
                     }
-                    command.Parameters.AddWithValue("@isDeleted", dto.isDeleted);
-                    command.Parameters.AddWithValue("@DateDebut", dto.DateDebut);
+                    command.Parameters.AddWithValue("@isDeleted", dto.IsDeleted);
+                    command.Parameters.AddWithValue("@DateDebut", dto.StartDate);
 
-                    command.Parameters.AddWithValue("@Duree", dto.Duree);
-                    command.Parameters.AddWithValue("@TypeProjet", dto.TypeProjet);
+                    command.Parameters.AddWithValue("@Duree", dto.Duration);
+                    command.Parameters.AddWithValue("@TypeProjet", dto.ProjectType);
 
                     command.Parameters.AddWithValue("@Description", dto.Description);
-                    command.Parameters.AddWithValue("@Avancement", dto.Avancement);
+                    command.Parameters.AddWithValue("@Avancement", dto.Progression);
                     command.Parameters.AddWithValue("@IsActive", dto.IsActive);
-                    command.Parameters.AddWithValue("@CreePar", dto.CreePar);
+                    command.Parameters.AddWithValue("@CreePar", dto.CreatedBy);
 
-                    command.Parameters.AddWithValue("@ConcervationFonciere", dto.ConcervationFonciere);
-                    if (string.IsNullOrEmpty(dto.PermisDeLotirNum))
+                    command.Parameters.AddWithValue("@ConcervationFonciere", dto.LandRegistry);
+                    if (string.IsNullOrEmpty(dto.SubdivisionPermitNumber))
                     {
                         command.Parameters.AddWithValue("@PermisDeLotirNum", DBNull.Value);
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@PermisDeLotirNum", dto.PermisDeLotirNum);
+                        command.Parameters.AddWithValue("@PermisDeLotirNum", dto.SubdivisionPermitNumber);
                     }
-                    if (dto.PermisDeLotirDu == null)
+                    if (dto.SubdivisionPermitDate == null)
                     {
                         command.Parameters.AddWithValue("@PermisDeLotirDu", DBNull.Value);
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@PermisDeLotirDu", dto.PermisDeLotirDu);
+                        command.Parameters.AddWithValue("@PermisDeLotirDu", dto.SubdivisionPermitDate);
                     }
-                    command.Parameters.AddWithValue("@PermisDeConstNum", dto.PermisDeConstNum);
-                    command.Parameters.AddWithValue("@PermisDeConstDu", dto.PermisDeConstDu);
+                    command.Parameters.AddWithValue("@PermisDeConstNum", dto.ConstructionPermitNumber);
+                    command.Parameters.AddWithValue("@PermisDeConstDu", dto.ConstructionPermitDate);
 
-                    if (string.IsNullOrEmpty(dto.ActeVolume))
+                    if (string.IsNullOrEmpty(dto.DeedVolume))
                     {
                         command.Parameters.AddWithValue("@ActeVolume", DBNull.Value);
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@ActeVolume", dto.ActeVolume);
+                        command.Parameters.AddWithValue("@ActeVolume", dto.DeedVolume);
                     }
-                    command.Parameters.AddWithValue("@ActeNum", dto.ActeNum);
+                    command.Parameters.AddWithValue("@ActeNum", dto.DeedNumber);
 
-                    if (string.IsNullOrEmpty(dto.ActeFolio))
+                    if (string.IsNullOrEmpty(dto.DeedFolio))
                     {
                         command.Parameters.AddWithValue("@ActeFolio", DBNull.Value);
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@ActeFolio", dto.ActeFolio);
+                        command.Parameters.AddWithValue("@ActeFolio", dto.DeedFolio);
                     }
-                    command.Parameters.AddWithValue("@LivretFoncier", dto.LivretFoncier);
+                    command.Parameters.AddWithValue("@LivretFoncier", dto.LandBook);
 
-                    if (dto.LivretFoncierLe == null)
+                    if (dto.LandBookDate == null)
                     {
                         command.Parameters.AddWithValue("@LivretFoncierLe", DBNull.Value);
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@LivretFoncierLe", dto.LivretFoncierLe);
+                        command.Parameters.AddWithValue("@LivretFoncierLe", dto.LandBookDate);
                     }
-                    command.Parameters.AddWithValue("@LivretFoncierPar", dto.LivretFoncierPar);
+                    command.Parameters.AddWithValue("@LivretFoncierPar", dto.LandBookBy);
 
                     var outputIdParam = new SqlParameter("@NewProjetIDToReturn", SqlDbType.Int)
                     {
@@ -358,7 +358,7 @@ namespace DAL.Repositories
             return isAdded;
         }
 
-        public bool Update(ProjectDTO dto)
+        public bool Update(ProjectEntityDTO dto)
         {
             int rowsAffected = -1;
             try
@@ -367,100 +367,100 @@ namespace DAL.Repositories
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     // Street part
-                    command.Parameters.AddWithValue("@ID_Country", dto.Address.ID_Country);
-                    command.Parameters.AddWithValue("@ID_City", dto.Address.ID_City);
-                    command.Parameters.AddWithValue("@APC", dto.Address.APC);
-                    command.Parameters.AddWithValue("@Street", dto.Address.Street);
-                    command.Parameters.AddWithValue("@PostalCode", dto.Address.PostalCode);
-                    if (string.IsNullOrEmpty(dto.Address.LieuDit))
+                    command.Parameters.AddWithValue("@ID_Country", dto.CountryID);
+                    command.Parameters.AddWithValue("@ID_City", dto.CityID);
+                    command.Parameters.AddWithValue("@APC", dto.APC);
+                    command.Parameters.AddWithValue("@Street", dto.Street);
+                    command.Parameters.AddWithValue("@PostalCode", dto.PostalCode);
+                    if (string.IsNullOrEmpty(dto.PlaceName))
                     {
                         command.Parameters.AddWithValue("@LieuDit", DBNull.Value);
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@LieuDit", dto.Address.LieuDit);
+                        command.Parameters.AddWithValue("@LieuDit", dto.PlaceName);
                     }
-                    if (string.IsNullOrEmpty(dto.Address.Reper))
+                    if (string.IsNullOrEmpty(dto.Landmark))
                     {
                         command.Parameters.AddWithValue("@Reper", DBNull.Value);
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@Reper", dto.Address.Reper);
+                        command.Parameters.AddWithValue("@Reper", dto.Landmark);
                     }
 
                     // Projet part                        
-                    command.Parameters.AddWithValue("@Nom", dto.Nom);
+                    command.Parameters.AddWithValue("@Nom", dto.Name);
 
-                    if (string.IsNullOrEmpty(dto.CodeProjet))
+                    if (string.IsNullOrEmpty(dto.ProjectCode))
                     {
                         command.Parameters.AddWithValue("@CodeProjet", DBNull.Value);
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@CodeProjet", dto.CodeProjet);
+                        command.Parameters.AddWithValue("@CodeProjet", dto.ProjectCode);
                     }
-                    command.Parameters.AddWithValue("@isDeleted", dto.isDeleted);
-                    command.Parameters.AddWithValue("@DateDebut", dto.DateDebut);
+                    command.Parameters.AddWithValue("@isDeleted", dto.IsDeleted);
+                    command.Parameters.AddWithValue("@DateDebut", dto.StartDate);
 
-                    command.Parameters.AddWithValue("@Duree", dto.Duree);
-                    command.Parameters.AddWithValue("@TypeProjet", dto.TypeProjet);
+                    command.Parameters.AddWithValue("@Duree", dto.Duration);
+                    command.Parameters.AddWithValue("@TypeProjet", dto.ProjectType);
 
                     command.Parameters.AddWithValue("@Description", dto.Description);
-                    command.Parameters.AddWithValue("@Avancement", dto.Avancement);
+                    command.Parameters.AddWithValue("@Avancement", dto.Progression);
                     command.Parameters.AddWithValue("@IsActive", dto.IsActive);
-                    command.Parameters.AddWithValue("@CreePar", dto.CreePar);
+                    command.Parameters.AddWithValue("@CreePar", dto.CreatedBy);
 
-                    command.Parameters.AddWithValue("@ConcervationFonciere", dto.ConcervationFonciere);
-                    if (string.IsNullOrEmpty(dto.PermisDeLotirNum))
+                    command.Parameters.AddWithValue("@ConcervationFonciere", dto.LandRegistry);
+                    if (string.IsNullOrEmpty(dto.SubdivisionPermitNumber))
                     {
                         command.Parameters.AddWithValue("@PermisDeLotirNum", DBNull.Value);
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@PermisDeLotirNum", dto.PermisDeLotirNum);
+                        command.Parameters.AddWithValue("@PermisDeLotirNum", dto.SubdivisionPermitNumber);
                     }
-                    if (dto.PermisDeLotirDu == null)
+                    if (dto.SubdivisionPermitDate == null)
                     {
                         command.Parameters.AddWithValue("@PermisDeLotirDu", DBNull.Value);
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@PermisDeLotirDu", dto.PermisDeLotirDu);
+                        command.Parameters.AddWithValue("@PermisDeLotirDu", dto.SubdivisionPermitDate);
                     }
-                    command.Parameters.AddWithValue("@PermisDeConstNum", dto.PermisDeConstNum);
-                    command.Parameters.AddWithValue("@PermisDeConstDu", dto.PermisDeConstDu);
+                    command.Parameters.AddWithValue("@PermisDeConstNum", dto.ConstructionPermitNumber);
+                    command.Parameters.AddWithValue("@PermisDeConstDu", dto.ConstructionPermitDate);
 
-                    if (string.IsNullOrEmpty(dto.ActeVolume))
+                    if (string.IsNullOrEmpty(dto.DeedVolume))
                     {
                         command.Parameters.AddWithValue("@ActeVolume", DBNull.Value);
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@ActeVolume", dto.ActeVolume);
+                        command.Parameters.AddWithValue("@ActeVolume", dto.DeedVolume);
                     }
-                    command.Parameters.AddWithValue("@ActeNum", dto.ActeNum);
+                    command.Parameters.AddWithValue("@ActeNum", dto.DeedNumber);
 
-                    if (string.IsNullOrEmpty(dto.ActeFolio))
+                    if (string.IsNullOrEmpty(dto.DeedFolio))
                     {
                         command.Parameters.AddWithValue("@ActeFolio", DBNull.Value);
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@ActeFolio", dto.ActeFolio);
+                        command.Parameters.AddWithValue("@ActeFolio", dto.DeedFolio);
                     }
-                    command.Parameters.AddWithValue("@LivretFoncier", dto.LivretFoncier);
+                    command.Parameters.AddWithValue("@LivretFoncier", dto.LandBook);
 
-                    if (dto.LivretFoncierLe == null)
+                    if (dto.LandBookDate == null)
                     {
                         command.Parameters.AddWithValue("@LivretFoncierLe", DBNull.Value);
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@LivretFoncierLe", dto.LivretFoncierLe);
+                        command.Parameters.AddWithValue("@LivretFoncierLe", dto.LandBookDate);
                     }
-                    command.Parameters.AddWithValue("@LivretFoncierPar", dto.LivretFoncierPar);
-                    command.Parameters.AddWithValue("@isSpecComplete", dto.isSpecComplete);
+                    command.Parameters.AddWithValue("@LivretFoncierPar", dto.LandBookBy);
+                    command.Parameters.AddWithValue("@isSpecComplete", dto.IsSpecComplete);
 
                     command.Parameters.AddWithValue("@ProjetID", dto.ID);
 

@@ -18,8 +18,8 @@ namespace BLL.Mappers.Addesses
                 domain.APC,
                 domain.Street,
                 domain.PostalCode,
-                domain.LieuDit,
-                domain.Reper
+                domain.PlaceName,
+                domain.Landmark
             );
         }
 
@@ -34,8 +34,8 @@ namespace BLL.Mappers.Addesses
                 dto.APC,
                 dto.Street,
                 dto.PostalCode,
-                dto.LieuDit,
-                dto.Reper
+                dto.PlaceName,
+                dto.Landmark
             );
         }
 
@@ -51,8 +51,8 @@ namespace BLL.Mappers.Addesses
                 entity.APC,
                 entity.Street,
                 entity.PostalCode,
-                entity.LieuDit,
-                entity.Reper
+                entity.PlaceName,
+                entity.Landmark
             );
         }
 
@@ -67,14 +67,14 @@ namespace BLL.Mappers.Addesses
                 domain.APC,
                 domain.Street,
                 domain.PostalCode,
-                domain.LieuDit,
-                domain.Reper
+                domain.PlaceName,
+                domain.Landmark
             );
         }
 
-        internal static AddressDTO EntityToDTO(int ID, int ID_Country, int ID_City, string APC, string Street, string PostalCode, string LieuDit, string Reper)
+        internal static AddressDTO EntityToDTO(int ID, int ID_Country, int ID_City, string APC, string Street, string PostalCode, string PlaceName, string Landmark)
         {
-            return new AddressDTO(ID, ID_Country, ID_City, APC, Street, PostalCode, LieuDit, Reper);
+            return new AddressDTO(ID, ID_Country, ID_City, APC, Street, PostalCode, PlaceName, Landmark);
         }
     }
 }

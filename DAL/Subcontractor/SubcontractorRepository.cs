@@ -33,23 +33,23 @@ namespace DAL.Pepositories
                     cmd.Parameters.AddWithValue("@APC", EntityDTO.APC);
                     cmd.Parameters.AddWithValue("@Street", EntityDTO.Street);
                     cmd.Parameters.AddWithValue("@PostalCode", EntityDTO.PostalCode);
-                    cmd.Parameters.AddWithValue("@LieuDit", EntityDTO.LieuDit ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@Reper", EntityDTO.Reper ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@LieuDit", EntityDTO.PlaceName ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Reper", EntityDTO.Landmark ?? (object)DBNull.Value);
 
                     // Contact Parameters
                     cmd.Parameters.AddWithValue("@Telephone", EntityDTO.Telephone);
                     cmd.Parameters.AddWithValue("@Mobile", EntityDTO.Mobile ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@Telecopie", EntityDTO.Telecopie ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Telecopie", EntityDTO.Fax ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@Email", EntityDTO.Email ?? (object)DBNull.Value);
 
                     // SousTraitant Parameters
-                    cmd.Parameters.AddWithValue("@RaisonSocial", EntityDTO.RaisonSocial);
-                    cmd.Parameters.AddWithValue("@Representant", EntityDTO.Representant);
-                    cmd.Parameters.AddWithValue("@NumCptBank", EntityDTO.NumCptBank ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@RaisonSocial", EntityDTO.CompanyName);
+                    cmd.Parameters.AddWithValue("@Representant", EntityDTO.Representative);
+                    cmd.Parameters.AddWithValue("@NumCptBank", EntityDTO.BankAccountNumber ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@CreationDate", EntityDTO.CreationDate);
-                    cmd.Parameters.AddWithValue("@CreePar", EntityDTO.CreePar);
+                    cmd.Parameters.AddWithValue("@CreePar", EntityDTO.CreatedBy);
                     cmd.Parameters.AddWithValue("@ModificationDate", EntityDTO.ModificationDate);
-                    cmd.Parameters.AddWithValue("@ModifierPar", EntityDTO.ModifierPar);
+                    cmd.Parameters.AddWithValue("@ModifierPar", EntityDTO.ModifiedBy);
                     cmd.Parameters.AddWithValue("@IsActive", EntityDTO.IsActive);
 
                     // Output Parameter
@@ -159,7 +159,6 @@ namespace DAL.Pepositories
             }
             catch (Exception)
             {
-
                 throw;
             }
             finally
@@ -183,24 +182,24 @@ namespace DAL.Pepositories
                     cmd.Parameters.AddWithValue("@APC", EntityDTO.APC);
                     cmd.Parameters.AddWithValue("@Street", EntityDTO.Street);
                     cmd.Parameters.AddWithValue("@PostalCode", EntityDTO.PostalCode);
-                    cmd.Parameters.AddWithValue("@LieuDit", EntityDTO.LieuDit ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@Reper", EntityDTO.Reper ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@LieuDit", EntityDTO.PlaceName ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Reper", EntityDTO.Landmark ?? (object)DBNull.Value);
 
                     // Contact Parameters
                     cmd.Parameters.AddWithValue("@Telephone", EntityDTO.Telephone);
                     cmd.Parameters.AddWithValue("@Mobile", EntityDTO.Mobile ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@Telecopie", EntityDTO.Telecopie ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Telecopie", EntityDTO.Fax ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@Email", EntityDTO.Email ?? (object)DBNull.Value);
 
                     // SousTraitant Parameters
                     cmd.Parameters.AddWithValue("@SousTraitantID", EntityDTO.ID);
-                    cmd.Parameters.AddWithValue("@RaisonSocial", EntityDTO.RaisonSocial);
-                    cmd.Parameters.AddWithValue("@Representant", EntityDTO.Representant);
-                    cmd.Parameters.AddWithValue("@NumCptBank", EntityDTO.NumCptBank ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@RaisonSocial", EntityDTO.CompanyName);
+                    cmd.Parameters.AddWithValue("@Representant", EntityDTO.Representative);
+                    cmd.Parameters.AddWithValue("@NumCptBank", EntityDTO.BankAccountNumber ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@CreationDate", EntityDTO.CreationDate);
-                    cmd.Parameters.AddWithValue("@CreePar", EntityDTO.CreePar);
+                    cmd.Parameters.AddWithValue("@CreePar", EntityDTO.CreatedBy);
                     cmd.Parameters.AddWithValue("@ModificationDate", EntityDTO.ModificationDate);
-                    cmd.Parameters.AddWithValue("@ModifierPar", EntityDTO.ModifierPar);
+                    cmd.Parameters.AddWithValue("@ModifierPar", EntityDTO.ModifiedBy);
                     cmd.Parameters.AddWithValue("@IsActive", EntityDTO.IsActive);
 
                     _conn.Open();

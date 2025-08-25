@@ -8,10 +8,10 @@
         public string APC { get; }
         public string Street { get; }
         public string PostalCode { get; }
-        public string LieuDit { get; }
-        public string Reper { get; }
+        public string PlaceName { get; }
+        public string Landmark { get; }
 
-        public AddressEntityDTO(int id, int idCountry, int idCity, string apc, string street, string postalCode, string lieuDit, string reper)
+        public AddressEntityDTO(int id, int idCountry, int idCity, string apc, string street, string postalCode, string placeName, string landmark)
         {
             ID = id;
             ID_Country = idCountry;
@@ -19,8 +19,8 @@
             APC = apc;
             Street = street;
             PostalCode = postalCode;
-            LieuDit = lieuDit;
-            Reper = reper;
+            PlaceName = placeName;
+            Landmark = landmark;
         }
     }
 }

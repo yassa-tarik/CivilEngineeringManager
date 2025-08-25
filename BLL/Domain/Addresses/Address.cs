@@ -9,10 +9,10 @@ namespace BLL.Domain.Addresses
         public string APC { get; private set; }
         public string Street { get; private set; }
         public string PostalCode { get; private set; }
-        public string LieuDit { get; private set; }
-        public string Reper { get; private set; }
+        public string PlaceName { get; private set; }
+        public string Landmark { get; private set; }
 
-        public Address(int id, int countryId, int cityId, string apc, string street, string codePostal, string lieuDit, string reper)
+        public Address(int id, int countryId, int cityId, string apc, string street, string codePostal, string placeName, string landmark)
         {
             if (countryId <= 0)
                 throw new ArgumentException("Country Id must be greater than 0.");
@@ -29,8 +29,8 @@ namespace BLL.Domain.Addresses
             APC = apc?.Trim();
             Street = street.Trim();
             PostalCode = PostalCode?.Trim();
-            LieuDit = lieuDit?.Trim();
-            Reper = reper?.Trim();
+            PlaceName = placeName?.Trim();
+            Landmark = landmark?.Trim();
         }
     }
 }

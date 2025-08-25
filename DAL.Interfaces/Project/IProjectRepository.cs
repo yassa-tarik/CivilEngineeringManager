@@ -7,17 +7,17 @@ namespace DAL.Interfaces
 {
     public interface IProjectRepository
     {
-        ProjectEntityDTO GetByID(int ID);
+        Contract.Project.ProjectEntityDTO GetByID(int ID);
 
         // Full Project info
-        Task<List<ProjectEntityDTO>> GetAllFullAsync();
+        Task<List<Contract.Project.ProjectEntityDTO>> GetAllFullAsync();
 
         // Full Project info
         Task<List<ProjectMinimalDTO>> GetAllMinimalAsync();
 
-        bool AddNew(ProjectDTO dto);
+        bool AddNew(ProjectEntityDTO entityDto);
 
-        bool Update(ProjectDTO dto);
+        bool Update(ProjectEntityDTO dto);
 
         bool Delete(int id);
 

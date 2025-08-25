@@ -18,17 +18,17 @@ namespace BLL.Mappers.Contacts
                 dto.ID_Address,
                 dto.Telephone,
                 dto.Mobile,
-                dto.Telecopie,
+                dto.Fax,
                 dto.Email,
                 addressDomain
             );
         }
 
-        public static ContactDTO EntityToDTO(int id, int id_Address, string telephone, string mobile, string telecopie, string email, int idCountry, int idCity, string apc, string street, string postalCode, string lieuDit, string reper)
+        public static ContactDTO EntityToDTO(int id, int id_Address, string telephone, string mobile, string fax, string email, int idCountry, int idCity, string apc, string street, string postalCode, string placeName, string landmark)
         {
-            var addressDto = new AddressDTO(id_Address, idCountry, idCity, apc, street, postalCode, lieuDit, reper);
+            var addressDto = new AddressDTO(id_Address, idCountry, idCity, apc, street, postalCode, placeName, landmark);
 
-            return new ContactDTO(id, id_Address, telephone, mobile, telecopie, email, addressDto);
+            return new ContactDTO(id, id_Address, telephone, mobile, fax, email, addressDto);
         }
     }
 }

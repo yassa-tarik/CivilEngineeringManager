@@ -8,82 +8,58 @@ namespace BLL.Domain.Projects
     internal class Project
     {
         public int ID { get; }
-        public string Nom { get; }
-        public string CodeProjet { get; }
-        public bool isDeleted { get; set; }
-        public DateTime DateDebut { get; set; }
-        public int Duree { get; set; }
-        public string TypeProjet { get; set; }
+        public string Name { get; }
+        public string ProjectCode { get; }
+        public bool IsDeleted { get; set; }
+        public DateTime StartDate { get; set; }
+        public int Duration { get; set; }
+        public string ProjectType { get; set; }
         public string Description { get; set; }
-        public int Avancement { get; set; }
+        public int Progression { get; set; }
         public bool IsActive { get; set; }
-        public int CreePar { get; set; }
-        public string ConcervationFonciere { get; set; }
-        public string PermisDeLotirNum { get; set; }
-        public Nullable<DateTime> PermisDeLotirDu { get; set; }
-        public string PermisDeConstNum { get; set; }
-        public DateTime PermisDeConstDu { get; set; }
-        public string ActeVolume { get; set; }
-        public string ActeNum { get; set; }
-        public string ActeFolio { get; set; }
-        public string LivretFoncier { get; set; }
-        public Nullable<DateTime> LivretFoncierLe { get; set; }
-        public string LivretFoncierPar { get; set; }
-        public bool isSpecComplete { get; set; }
+        public int CreatedBy { get; set; }
+        public string LandRegistry { get; set; }
+        public string SubdivisionPermitNumber { get; set; }
+        public Nullable<DateTime> SubdivisionPermitDate { get; set; }
+        public string ConstructionPermitNumber { get; set; }
+        public DateTime ConstructionPermitDate { get; set; }
+        public string DeedVolume { get; set; }
+        public string DeedNumber { get; set; }
+        public string DeedFolio { get; set; }
+        public string LandBook { get; set; }
+        public Nullable<DateTime> LandBookDate { get; set; }
+        public string LandBookBy { get; set; }
+        public bool IsSpecComplete { get; set; }
         public byte Progress { get; set; }
         public Address Address { get; }
 
-        public Project(int ID, string Nom, string CodeProjet, bool isDeleted, DateTime DateDebut, int Duree, string TypeProjet, string Description, int Avancement, bool IsActive, int CreePar, string ConcervationFonciere, string PermisDeLotirNum, Nullable<DateTime> PermisDeLotirDu, string PermisDeConstNum, DateTime PermisDeConstDu, string ActeVolume, string ActeNum, string ActeFolio, string LivretFoncier, Nullable<DateTime> LivretFoncierLe, string LivretFoncierPar, bool isSpecComplete, byte Progress, Address address)
+        public Project(int id, string name, string projectCode, bool isDeleted, DateTime startDate, int duration, string projectType, string description, int progression, bool isActive, int createdBy, string landRegistry, string subdivisionPermitNumber, Nullable<DateTime> subdivisionPermitDate, string constructionPermitNumber, DateTime constructionPermitDate, string deedVolume, string deedNumber, string deedFolio, string landBook, Nullable<DateTime> landBookDate, string landBookBy, bool isSpecComplete, byte progress, Address address)
         {
-            this.ID = ID;
-            this.Nom = Nom;
-            this.CodeProjet = CodeProjet;
-            this.isDeleted = isDeleted;
-            this.DateDebut = DateDebut;
-            this.Duree = Duree;
-            this.TypeProjet = TypeProjet;
-            this.Description = Description;
-            this.Avancement = Avancement;
-            this.IsActive = IsActive;
-            this.CreePar = CreePar;
-            this.ConcervationFonciere = ConcervationFonciere;
-            this.PermisDeLotirNum = PermisDeLotirNum;
-            this.PermisDeLotirDu = PermisDeLotirDu;
-            this.PermisDeConstNum = PermisDeConstNum;
-            this.PermisDeConstDu = PermisDeConstDu;
-            this.ActeVolume = ActeVolume;
-            this.ActeNum = ActeNum;
-            this.ActeFolio = ActeFolio;
-            this.LivretFoncier = LivretFoncier;
-            this.LivretFoncierLe = LivretFoncierLe;
-            this.LivretFoncierPar = LivretFoncierPar;
-            this.isSpecComplete = isSpecComplete;
-            this.Progress = Progress;
+            this.ID = id;
+            this.Name = name;
+            this.ProjectCode = projectCode;
+            this.IsDeleted = isDeleted;
+            this.StartDate = startDate;
+            this.Duration = duration;
+            this.ProjectType = projectType;
+            this.Description = description;
+            this.Progression = progression;
+            this.IsActive = isActive;
+            this.CreatedBy = createdBy;
+            this.LandRegistry = landRegistry;
+            this.SubdivisionPermitNumber = subdivisionPermitNumber;
+            this.SubdivisionPermitDate = subdivisionPermitDate;
+            this.ConstructionPermitNumber = constructionPermitNumber;
+            this.ConstructionPermitDate = constructionPermitDate;
+            this.DeedVolume = deedVolume;
+            this.DeedNumber = deedNumber;
+            this.DeedFolio = deedFolio;
+            this.LandBook = landBook;
+            this.LandBookDate = landBookDate;
+            this.LandBookBy = landBookBy;
+            this.IsSpecComplete = isSpecComplete;
+            this.Progress = progress;
             this.Address = address;
-        }
-
-        internal static Project AddEdit(ProjectDTO DTO)
-        {
-            //TODO: implement validation logic here
-            if (DTO == null)
-                throw new ArgumentNullException(nameof(DTO), "ProjectDTO cannot be null");
-
-            // Example: ID validation (0 means new, >0 means edit)
-            if (DTO.ID < 0)
-                throw new ArgumentException("Project ID cannot be negative.", nameof(DTO.ID));
-
-            if (string.IsNullOrWhiteSpace(DTO.Nom))
-                throw new ArgumentException("Project name cannot be empty.", nameof(DTO.Nom));
-
-            if (DTO.DateDebut == default)
-                throw new ArgumentException("Project start date must be specified.", nameof(DTO.DateDebut));
-
-            if (DTO.Duree <= 0)
-                throw new ArgumentException("Project duration must be greater than zero.", nameof(DTO.Duree));
-            var address = DTO.Address != null
-        ? AddressMapper.DTOToDomain(DTO.Address)
-        : null; // or you could decide to throw if Address is mandatory
-            return new Project(DTO.ID, DTO.Nom, DTO.CodeProjet, DTO.isDeleted, DTO.DateDebut, DTO.Duree, DTO.TypeProjet, DTO.Description, DTO.Avancement, DTO.IsActive, DTO.CreePar, DTO.ConcervationFonciere, DTO.PermisDeLotirNum, DTO.PermisDeLotirDu, DTO.PermisDeConstNum, DTO.PermisDeConstDu, DTO.ActeVolume, DTO.ActeNum, DTO.ActeFolio, DTO.LivretFoncier, DTO.LivretFoncierLe, DTO.LivretFoncierPar, DTO.isSpecComplete, DTO.Progress, AddressMapper.DTOToDomain(DTO.Address));
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using DTO.Contact;
+using System;
 
-namespace DAL.Contracts.SubcontractorEntity
+namespace DTO.Subcontractor
 {
-    public class ContributorBaseEntityDTO
+    public class ContributorBaseDTO
     {
-        public int ID { get; set; }
+        public int ID { get; }
         public int ID_Contact { get; set; }
         public string CompanyName { get; set; }
         public string Representative { get; set; }
@@ -15,8 +16,9 @@ namespace DAL.Contracts.SubcontractorEntity
         public DateTime ModificationDate { get; set; }
         public int ModifiedBy { get; set; }
         public bool IsActive { get; set; }
+        public ContactDTO Contact { get; }
 
-        public ContributorBaseEntityDTO(int iD, int iD_Contact, string companyName, string representative, string bankAccountNumber, DateTime creationDate, int createdBy, DateTime modificationDate, int modifiedBy, bool isActive)
+        public ContributorBaseDTO(int iD, int iD_Contact, string companyName, string representative, string bankAccountNumber, DateTime creationDate, int createdBy, DateTime modificationDate, int modifiedBy, bool isActive, ContactDTO contact)
         {
             ID = iD;
             ID_Contact = iD_Contact;
@@ -28,6 +30,7 @@ namespace DAL.Contracts.SubcontractorEntity
             ModificationDate = modificationDate;
             ModifiedBy = modifiedBy;
             IsActive = isActive;
+            Contact = contact;
         }
     }
 }

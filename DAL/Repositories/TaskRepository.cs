@@ -29,6 +29,7 @@ namespace DAL.Pepositories
                     {
                         while (reader.Read())
                         {
+                            /*
                             taskList.Add(
                                 new TaskDTO(
                                  reader.GetInt32(reader.GetOrdinal("ID"))
@@ -43,7 +44,7 @@ namespace DAL.Pepositories
                                , reader.IsDBNull(reader.GetOrdinal("ParentID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("ParentID"))
                                , reader.GetBoolean(reader.GetOrdinal("HasChild"))
                                )
-                            );
+                            ); */
                         }
                         reader.Close();
                     }

@@ -8,7 +8,7 @@ namespace DAL.Contracts.SubcontractorEntity
         public int ID_Address { get; } = default;
         public string Telephone { get; }
         public string Mobile { get; }
-        public string Telecopie { get; }
+        public string Fax { get; }
         public string Email { get; }
         //Address part
         public int ID_Country { get; set; }
@@ -16,23 +16,23 @@ namespace DAL.Contracts.SubcontractorEntity
         public string APC { get; set; }
         public string Street { get; set; }
         public string PostalCode { get; set; }
-        public string LieuDit { get; set; }
-        public string Reper { get; set; }
+        public string PlaceName { get; set; }
+        public string Landmark { get; set; }
 
-        public SubcontractorEntityDTO(int iD, int iD_Contact, string raisonSocial, string representant, string numCptBank, DateTime creationDate, int creePar, DateTime modificationDate, int modifierPar, bool isActive, int ID_Address, string telephone, string mobile, string telecopie, string email, int ID_Country, int ID_City, string aPC, string address, string PostalCode, string lieuDit, string reper) : base(iD, iD_Contact, raisonSocial, representant, numCptBank, creationDate, creePar, modificationDate, modifierPar, isActive)
+        public SubcontractorEntityDTO(int iD, int iD_Contact, string companyName, string representative, string bankAccountNumber, DateTime creationDate, int createdBy, DateTime modificationDate, int modifiedBy, bool isActive, int ID_Address, string telephone, string mobile, string fax, string email, int ID_Country, int ID_City, string aPC, string street, string PostalCode, string placeName, string landmark) : base(iD, iD_Contact, companyName, representative, bankAccountNumber, creationDate, createdBy, modificationDate, modifiedBy, isActive)
         {
             this.ID_Address = ID_Address;
             this.Telephone = telephone;
             this.Mobile = mobile;
-            this.Telecopie = telecopie;
+            this.Fax = fax;
             this.Email = email;
             this.ID_Country = ID_Country;
             this.ID_City = ID_City;
             this.APC = aPC;
-            this.Street = address;
+            this.Street = street;
             this.PostalCode = PostalCode;
-            this.LieuDit = lieuDit;
-            this.Reper = reper;
+            this.PlaceName = placeName;
+            this.Landmark = landmark;
         }
     }
 }
