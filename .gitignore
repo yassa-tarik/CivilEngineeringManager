@@ -4,9 +4,9 @@ CivilEngineeringManager/obj/
 CivilEngineeringManager/bin/
 
 # Visual Studio / Project build artifacts
+.vs/
 [Bb]in/
 [Oo]bj/
-.vs/
 *.dll
 *.pdb
 *.cache
