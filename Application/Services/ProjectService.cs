@@ -15,7 +15,6 @@ namespace MyApplication
         private readonly IProjectRepository _projectRepo;
         private readonly IAddressRepository _addressRepo;
 
-
         public ProjectService(IProjectRepository projectRepo, IAddressRepository addressRepo)
         {
             _projectRepo = projectRepo;
@@ -158,7 +157,7 @@ namespace MyApplication
         // done
         public async Task<IEnumerable<ProjectDTO>> SearchProjectsAsync(string searchTerm)
         {
-            // Simulate an asynchronous I/O operation
+            // TODO: Simulate an asynchronous I/O operation
             await Task.Delay(100);
 
             if (string.IsNullOrWhiteSpace(searchTerm))
@@ -179,6 +178,43 @@ namespace MyApplication
                 p.ProjectType.ToLowerInvariant().Contains(normalizedSearchTerm) ||
                 p.Description.ToLowerInvariant().Contains(normalizedSearchTerm)
             ).ToList(); /*.Select(p => ProjectMapper.DomainToDtoWithAddress(p))*/
+        }
+
+        /// <summary>
+        /// Get Minimal data Projects List
+        /// </summary>
+        /// <returns>IEnumerable of type ProjectMinDTO </returns>
+        // done
+        public async Task<IEnumerable<ProjectMinDTO>> GetAllMinAsync()
+        {
+            try
+            {
+                IEnumerable<Project> projects = await _projectRepo.FindAllFullAsync();
+                
+                return projects.Select(p => ProjectMapper.DomainsToMinDto(p));
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<ProjectMinDTO>();
+            }
+        }
+
+        //******************************* Mock Data *****************************
+        public List<ProjectMinDTO> GetMockProjects()
+        {
+            return new List<ProjectMinDTO>
+        {
+            new ProjectMinDTO(1, "E-Commerce Website", false),
+            new ProjectMinDTO(2, "Mobile Banking App", false),
+            new ProjectMinDTO(3, "Inventory Management System", false),
+            new ProjectMinDTO(4, "Customer Relationship Management", false),
+            new ProjectMinDTO(5, "Analytics Dashboard", false),
+            new ProjectMinDTO(6, "IoT Smart Home System", false),
+            new ProjectMinDTO(7, "Learning Management Platform", false),
+            new ProjectMinDTO(8, "Healthcare Patient Portal", false),
+            new ProjectMinDTO(9, "Real Estate Listing Service", false),
+            new ProjectMinDTO(10, "Social Media Analytics Tool", false)
+        };
         }
     }
 }

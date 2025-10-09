@@ -73,9 +73,9 @@ namespace Infrastructure.Persistence.Works
         {
             _categories = new List<WorkCategory>
             {
-                new WorkCategory(id: 1, project_ID: 101, workCategoryName_ID: 1001, workCategoryName: "Construction", createdBy:10 ),
-                new WorkCategory(id: 2, project_ID: 101, workCategoryName_ID: 1002, workCategoryName: "IT and Technology",createdBy:10 ),
-                new WorkCategory(id: 3, project_ID: 102, workCategoryName_ID: 1003, workCategoryName: "Marketing",createdBy:10 )
+                new WorkCategory(id: 1, project_ID: 101, workCategoryName_ID: 1, workCategoryName: "Construction", createdBy:10 ),
+                new WorkCategory(id: 2, project_ID: 101, workCategoryName_ID: 2, workCategoryName: "IT and Technology",createdBy:10 ),
+                new WorkCategory(id: 3, project_ID: 102, workCategoryName_ID: 3, workCategoryName: "Marketing",createdBy:10 )
             };
         }
     }

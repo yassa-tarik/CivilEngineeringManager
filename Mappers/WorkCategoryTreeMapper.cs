@@ -17,11 +17,11 @@ namespace CivilEngineeringManager.Mappers
             if (root == null) throw new ArgumentNullException("invalid data");
             return new TreeNodeViewModel(
                 root.ID,
-                root.Name,
-                null,
-                null,
-                null,
-                null,
+                root.Designation,
+                //null,
+                //null,
+                //null,
+                //null,
                 //dto.WorkTypes);
                 //root.WorkTypes.Select(wt => WorkTypeTreeMapper.FromWorkType(wt))
                 root.WorkTypes,

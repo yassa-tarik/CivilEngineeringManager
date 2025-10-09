@@ -30,10 +30,13 @@ namespace DTO.TreeDTOs
         /// <summary>
         /// Initializes a new instance of the <see cref="WorkTypeTreeDTO"/> class.
         /// </summary>
-        public WorkTypeTreeDTO()
+        public WorkTypeTreeDTO(/*int ID, int? workCategoryID, int? parentID*/)
         {
-            WorkTypes = new List<WorkTypeTreeDTO>();
-            WorkSpecs = new List<WorkSpecDTO>();
+            //this.ID = ID;
+            //this.WorkCategoryID = workCategoryID;
+            //this.ParentID = parentID;
+            this.WorkTypes = new List<WorkTypeTreeDTO>();
+            this.WorkSpecs = new List<WorkSpecDTO>();
         }
     }
 }

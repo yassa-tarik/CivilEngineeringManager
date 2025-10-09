@@ -32,6 +32,8 @@
             this.treeListView1 = new BrightIdeasSoftware.TreeListView();
             this.olvColumn1 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn2 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColumn3 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColumn4 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -39,11 +41,16 @@
             // 
             this.treeListView1.AllColumns.Add(this.olvColumn1);
             this.treeListView1.AllColumns.Add(this.olvColumn2);
+            this.treeListView1.AllColumns.Add(this.olvColumn3);
+            this.treeListView1.AllColumns.Add(this.olvColumn4);
             this.treeListView1.CellEditUseWholeCell = false;
             this.treeListView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.olvColumn1,
-            this.olvColumn2});
+            this.olvColumn2,
+            this.olvColumn3,
+            this.olvColumn4});
             this.treeListView1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.treeListView1.FullRowSelect = true;
             this.treeListView1.HideSelection = false;
             this.treeListView1.Location = new System.Drawing.Point(206, 24);
             this.treeListView1.Name = "treeListView1";
@@ -66,6 +73,16 @@
             this.olvColumn2.Text = "ID";
             this.olvColumn2.Width = 142;
             // 
+            // olvColumn3
+            // 
+            this.olvColumn3.AspectName = "Unit";
+            this.olvColumn3.Text = "Unit";
+            // 
+            // olvColumn4
+            // 
+            this.olvColumn4.AspectName = "UnitPrice";
+            this.olvColumn4.Text = "Unit price";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -85,6 +102,8 @@
         private BrightIdeasSoftware.TreeListView treeListView1;
         private BrightIdeasSoftware.OLVColumn olvColumn1;
         private BrightIdeasSoftware.OLVColumn olvColumn2;
+        private BrightIdeasSoftware.OLVColumn olvColumn3;
+        private BrightIdeasSoftware.OLVColumn olvColumn4;
     }
 }
 

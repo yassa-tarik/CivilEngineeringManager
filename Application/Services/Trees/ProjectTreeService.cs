@@ -1,6 +1,7 @@
 ﻿using Domain.Abstractions.Works;
 using DTO.TreeDTOs;
 using DTO.Works.WorkSpecs;
+using MyApplication.Abstractions;
 using MyApplication.Abstractions.Works;
 using MyApplication.Mappers;
 using System;
@@ -14,20 +15,36 @@ namespace MyApplication.Services.Trees
     /// <summary>
     /// A service responsible for retrieving and building a hierarchical tree of WorkCategories, WorkTypes, and WorkSpecs.
     /// </summary>
-    public class WorkCategoryTreeService : IWorkCategoryTreeService
-    {
-        
-        // In a real application, you would inject repositories here
+    public class ProjectTreeService : IProjectTreeService
+    {   
+         private readonly IProjectService _projectService;
          private readonly IWorkCategoryRepository _workCategoryRepo;
          private readonly IWorkTypeRepository _workTypeRepo;
          private readonly IWorkSpecRepository _workSpecRepo;
+         private readonly IWorkCategoryService _workCategoryService;
         
-         public WorkCategoryTreeService( IWorkCategoryRepository workCategoryRepository, IWorkTypeRepository workTypeRepository, IWorkSpecRepository workSpecRepository)
+         public ProjectTreeService(IProjectService projectService, IWorkCategoryRepository workCategoryRepository, IWorkTypeRepository workTypeRepository, IWorkSpecRepository workSpecRepository, IWorkCategoryService workCategoryService)
          {
+             _projectService = projectService;
              _workCategoryRepo = workCategoryRepository;
              _workTypeRepo = workTypeRepository;
              _workSpecRepo = workSpecRepository;
+            _workCategoryService = workCategoryService;
          }
+
+        public async Task<ProjectTreeDTO> GetProjectTreeAsync(int projectID)
+        {
+            var projectMin = _projectService.GetMockProjects().Find(p => p.ID == projectID);
+            if (projectMin == null)
+                throw new Exception("project not found!");
+            var projectTree = new ProjectTreeDTO(projectMin.ID, projectMin.Name);
+            var categoryTrees = await GetWorkCategoryTreeAsync();
+            foreach (var item in categoryTrees)
+            {
+                projectTree.WorkCategories.Add(item);
+            }            
+            return projectTree;          
+        }
 
         /// <summary>
         /// Builds the complete hierarchical tree for all work categories.
@@ -35,8 +52,10 @@ namespace MyApplication.Services.Trees
         /// <returns>A collection of WorkCategoryTreeDTO objects representing the full hierarchy.</returns>
         public async Task<IEnumerable<WorkCategoryTreeDTO>> GetWorkCategoryTreeAsync()
         {
+            //TODO: will fetch only lists for specific Project using ID
             // Step 1: Fetch all data from the database
-            var allCategories = await _workCategoryRepo.GetAllAsync();
+            var allCategories = await _workCategoryService.GetAllAsync();
+            //var allCategories = await _workCategoryRepo.GetAllAsync();
             var allWorkTypes = await _workTypeRepo.GetAllAsync();
             var allWorkSpecs = await _workSpecRepo.GetAllAsync();
 
@@ -85,7 +104,7 @@ namespace MyApplication.Services.Trees
             var categoryTrees = allCategories.Select(c => new WorkCategoryTreeDTO
             {
                 ID = c.ID,
-                Name = c.WorkCategoryName,
+                Designation = c.WorkCategoryName,
                 WorkTypes = workTypeMap.Values.Where(wt => wt.WorkCategoryID == c.ID && !wt.ParentID.HasValue).ToList(),
                 WorkSpecs = workSpecsByWorkCategory.ContainsKey(c.ID)? workSpecsByWorkCategory[c.ID] : new List<WorkSpecDTO>()
             } ).ToList();

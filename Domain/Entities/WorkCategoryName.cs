@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-
     /// <summary>
     /// A domain entity representing a specific work category name.
     /// This is used as a lookup table to avoid redundant strings in the database.

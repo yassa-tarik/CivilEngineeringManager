@@ -2,7 +2,6 @@
 using DTO.Projects;
 using DTO.Works.WorkCategories;
 using System;
-using static MyApplication.Services.Trees.WorkCategoryTreeService;
 
 namespace MyApplication.Mappers
 {

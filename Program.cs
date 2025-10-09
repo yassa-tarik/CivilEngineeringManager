@@ -1,9 +1,6 @@
 ﻿using System;
-
 using System.Windows.Forms;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using CivilEngineeringManager.Forms;
 
 namespace CivilEngineeringManager
 {
@@ -18,7 +15,11 @@ namespace CivilEngineeringManager
             Application.EnableVisualStyles();
             
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new AddEditProjectSpecifications());
+            //Application.Run(new FormTreeWithDTOs());
+            //Application.Run(new Form1());
+            //Application.Run(new AddSpecifications());
+            //Application.Run(new TestProject());
         }
     }
 }

@@ -14,10 +14,10 @@ namespace DTO.Works.WorkSpecs
         public int ID { get; }
         public int? WorkCategory_ID { get; }
         public int? WorkType_ID { get; }
-        public string Designation { get; }
-        public string Unit { get; }
-        public decimal UnitPrice { get; }
-        public double Quantity { get; }
+        public string Designation { get; set; }
+        public string Unit { get; set; }
+        public decimal UnitPrice { get; set; }
+        public double Quantity { get; set; }
         public string VAT { get; }
 
         // Computed property: no setter, as its value is always calculated.

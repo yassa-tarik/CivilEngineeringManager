@@ -1,6 +1,7 @@
-﻿using Domain.Abstractions.Works;
+﻿using MyApplication.Abstractions.Works;
+using Domain.Abstractions.Works;
+using Domain.Entities;
 using DTO.Works.WorkCategories;
-using MyApplication.Abstractions.Works;
 using MyApplication.Mappers;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,14 @@ namespace MyApplication.Services.Works
     public class WorkCategoryService : IWorkCategoryService
     {
         private readonly IWorkCategoryRepository _repository;
+        private readonly IWorkCategoryNameService _categoryNameService;
         /// <summary>
         /// The service's constructor uses dependency injection to receive the repository.
         /// </summary>
-        public WorkCategoryService(IWorkCategoryRepository repository)
+        public WorkCategoryService(IWorkCategoryRepository repository, IWorkCategoryNameService categoryNameService)
         {
             _repository = repository;
+            _categoryNameService = categoryNameService;
         }
 
         public Task<WorkCategoryDTO> AddAsync(WorkCategoryDTO category)
@@ -40,11 +43,32 @@ namespace MyApplication.Services.Works
         /// <returns>A collection of WorkCategoryDTO objects.</returns>
         public async Task<ICollection<WorkCategoryDTO>> GetAllAsync()
         {
-            var categories = await _repository.GetAllAsync();
+            // Await all necessary data retrievals
+            IEnumerable<WorkCategory> categories = await _repository.GetAllAsync();
+            // Assuming this returns a Task<Dictionary<int, string>> and is awaited
+            Dictionary<int, string> categoryNameMap = _categoryNameService.GetAllAsync();
 
-            // The business logic of mapping from the internal model to the DTO
-            // lives in the service layer, not the repository.
-            var categoryDTOs = categories.Select(c => WorkCategoryMapper.DomainToDto(c)).ToList();
+            // Use LINQ Select to iterate and perform the lookup
+            var categoryDTOs = categories.Select(category =>
+            {
+                // 1. Map the WorkCategory model to the DTO (e.g., using AutoMapper or a static method)
+                var dto = WorkCategoryMapper.DomainToDto(category);
+
+                // 2. Perform the dictionary lookup using the WorkCategoryName_ID
+                if (categoryNameMap.TryGetValue(category.WorkCategoryName_ID, out string name))
+                {
+                    // 3. Set the name property on the DTO
+                    // NOTE: Assuming WorkCategoryDTO has a 'Name' property for the full name.
+                    dto.WorkCategoryName = name;
+                }
+                else
+                {
+                    // Handle case where ID is not found (e.g., log it or set a default value)
+                    dto.WorkCategoryName = "Unknown Category";
+                }
+                return dto;
+            }).ToList();
+
             return categoryDTOs;
         }
 

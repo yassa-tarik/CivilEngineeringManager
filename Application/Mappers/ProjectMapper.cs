@@ -4,6 +4,7 @@ using DTO.Projects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -53,6 +54,17 @@ namespace MyApplication.Mappers
         {
             var addressMap = addresses.ToDictionary(a => a.ID);
             return projects.Select(p => DomainToDtoWithAddress(p, addressMap.FirstOrDefault(a => (a.Key == p.Address_ID)).Value));
+        }
+
+        public static ProjectMinDTO DomainsToMinDto(Project project)
+        {
+            if (project == null) throw new ArgumentNullException(nameof(project) + "not found!");
+            return new ProjectMinDTO
+            (
+                project.ID,
+                project.Name,
+                project.IsSpecComplete
+            );
         }
     }
 }

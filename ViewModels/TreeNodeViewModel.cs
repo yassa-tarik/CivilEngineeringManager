@@ -26,9 +26,16 @@ namespace CivilEngineeringManager.ViewModels
             }
         }
         
-        public ICollection<WorkTypeTreeDTO> WorkTypes { get; }
+        public ICollection<WorkTypeTreeDTO> WorkTypes { get; set; }
         public ICollection<WorkSpecDTO> WorkSpecs { get; set; }
 
+        public TreeNodeViewModel(int iD, string designation, ICollection<WorkTypeTreeDTO> workTypes, ICollection<WorkSpecDTO> workSpecs)
+        {
+            ID = iD;
+            Designation = designation;
+            WorkTypes = workTypes;
+            WorkSpecs = workSpecs;
+        }
         public TreeNodeViewModel(int iD, string designation, string unit, decimal? unitPrice, double? quantity, decimal? amount, ICollection<WorkTypeTreeDTO> workTypes, ICollection<WorkSpecDTO> workSpecs)
         {
             ID = iD;

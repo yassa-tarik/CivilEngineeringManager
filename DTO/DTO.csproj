@@ -48,12 +48,14 @@
     <Compile Include="Projects\ProjectBaseDTO.cs" />
     <Compile Include="Projects\ProjectCreateDTO.cs" />
     <Compile Include="Projects\ProjectDTO.cs" />
+    <Compile Include="Projects\ProjectMinDTO.cs" />
     <Compile Include="Projects\ProjectUpdateDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Subcontractors\SubcontractorBaseDTO.cs" />
     <Compile Include="Subcontractors\SubcontractorCreateDTO.cs" />
     <Compile Include="Subcontractors\SubcontractorDTO.cs" />
     <Compile Include="Subcontractors\SubcontractorUpdateDTO.cs" />
+    <Compile Include="TreeDTOs\ProjectTreeDTO.cs" />
     <Compile Include="TreeDTOs\WorkCategoryTreeDTO.cs" />
     <Compile Include="TreeDTOs\WorkTypeTreeDTO.cs" />
     <Compile Include="Works\AssignedWorks\AssignedWorkBaseDTO.cs" />

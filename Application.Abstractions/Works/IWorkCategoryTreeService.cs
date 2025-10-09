@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace MyApplication.Abstractions.Works
 {
-    public interface IWorkCategoryTreeService
+    public interface IProjectTreeService
     {
-        Task<IEnumerable<WorkCategoryTreeDTO>> GetWorkCategoryTreeAsync();
+        Task<ProjectTreeDTO> GetProjectTreeAsync(int projectID);
     }
 }

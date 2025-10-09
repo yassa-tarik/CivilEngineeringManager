@@ -14,5 +14,8 @@ namespace MyApplication.Abstractions
         Task<bool> UpdateAsync(ProjectUpdateDTO dto);
         Task<bool> ArchiveAsync(int projectId, int modifiedBy);
         Task<IEnumerable<ProjectDTO>> SearchProjectsAsync(string searchTerm);
+        Task<IEnumerable<ProjectMinDTO>> GetAllMinAsync();
+        //************************* MOCK Data ****************************
+        List<ProjectMinDTO> GetMockProjects();
     }
 }
