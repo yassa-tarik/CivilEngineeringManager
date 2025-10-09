@@ -38,8 +38,9 @@ namespace CivilEngineeringManager.Forms
                 comboBox1.DisplayMember = "Name";
                 comboBox1.ValueMember = "ID";
 
-                //_projectTreeDTO = await _projectTreeService.GetProjectTreeAsync((int)comboBox1.SelectedValue);
-                _projectTreeDTO = await _projectTreeService.GetProjectTreeAsync(0);
+                _projectTreeDTO = await _projectTreeService.GetProjectTreeAsync((int)comboBox1.SelectedValue);
+                // test empty data
+                //_projectTreeDTO = await _projectTreeService.GetProjectTreeAsync(0);
             }
             catch (Exception)
             {
