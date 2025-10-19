@@ -1,11 +1,10 @@
-﻿using MyApplication.Abstractions;
-using Domain.Abstractions;
+﻿using Domain.Abstractions;
 using DTO.Addresses;
+using MyApplication.Abstractions;
 using MyApplication.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MyApplication.Services
@@ -27,7 +26,7 @@ namespace MyApplication.Services
         /// </summary>
         public async Task<IEnumerable<AddressDTO>> GetAllAddressesAsync()
         {
-            var addresses = await _addressRepository.FindAllAsync();            
+            var addresses = await _addressRepository.FindAllAsync();
             return addresses.Select(a => AddressMapper.DomainToDTO(a));
         }
 

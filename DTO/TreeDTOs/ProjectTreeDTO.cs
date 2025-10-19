@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace DTO.TreeDTOs
 {
@@ -17,11 +13,11 @@ namespace DTO.TreeDTOs
         public ICollection<WorkCategoryTreeDTO> WorkCategories { get; set; }
 
 
-        public ProjectTreeDTO (int id, string name)
+        public ProjectTreeDTO(int id, string name)
         {
             ID = id;
             Name = name;
-            WorkCategories = new List<WorkCategoryTreeDTO> ();
+            WorkCategories = new List<WorkCategoryTreeDTO>();
         }
 
         public ProjectTreeDTO()

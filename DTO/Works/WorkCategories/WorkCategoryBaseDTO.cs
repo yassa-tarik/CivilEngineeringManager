@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DTO.Works.WorkCategories
+﻿namespace DTO.Works.WorkCategories
 {
     /// <summary>
     /// A base data transfer object (DTO) that contains common properties
@@ -12,15 +6,15 @@ namespace DTO.Works.WorkCategories
     /// </summary>
     public abstract class WorkCategoryBaseDTO
     {
-        public int ProjectID { get; set; }
-        public int WorkCategoryNameID { get; set; }
-        public string WorkCategoryName { get; set; }
+        public int Project_ID { get; set; }
+        public int WorkCategoryDesignation_ID { get; set; }
+        public string WorkCategoryDesignation { get; set; }
 
-        protected WorkCategoryBaseDTO(int projectID, int workCategoryNameID, string workCategoryName)
+        protected WorkCategoryBaseDTO(int project_ID, int workCategoryDesignation_ID, string workCategoryDesignation)
         {
-            ProjectID = projectID;
-            WorkCategoryNameID = workCategoryNameID;
-            WorkCategoryName = workCategoryName;
+            Project_ID = project_ID;
+            WorkCategoryDesignation_ID = workCategoryDesignation_ID;
+            WorkCategoryDesignation = workCategoryDesignation;
         }
     }
 }

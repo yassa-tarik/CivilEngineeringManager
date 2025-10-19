@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,9 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBConnectionStringBaseRepo.cs" />
     <Compile Include="IAddressRepository.cs" />
     <Compile Include="IProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Works\IWorkCategoryDesignationRepository.cs" />
     <Compile Include="Works\IWorkTypeRepository.cs" />
     <Compile Include="Works\IWorkCategoryRepository.cs" />
     <Compile Include="Works\IWorkSpecRepository.cs" />

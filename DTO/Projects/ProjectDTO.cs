@@ -1,9 +1,5 @@
 ﻿using DTO.Addresses;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DTO.Projects
 {
@@ -21,6 +17,6 @@ namespace DTO.Projects
             CreatedDate = createdDate;
             ModificationDate = modificationDate;
             Address = address;
-        }        
+        }
     }
 }

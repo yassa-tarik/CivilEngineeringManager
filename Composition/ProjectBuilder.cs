@@ -7,11 +7,6 @@ using MyApplication.Abstractions;
 using MyApplication.Abstractions.Works;
 using MyApplication.Services.Trees;
 using MyApplication.Services.Works;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Composition
 {
@@ -26,12 +21,15 @@ namespace Composition
         public IProjectTreeService ProjectTreeService()
         {
             IProjectService projectService = BuildProjectService();
-            IWorkCategoryNameService workCategoryName = new WorkCategoryNameService();
+            IWorkCategoryDesignationRepository categoryDesignationRepository = new WorkCategoryDesignationRepository();
+            IWorkCategoryDesignationService workCategoryName = new WorkCategoryDesignationService(categoryDesignationRepository);
             IWorkCategoryRepository workCategoryRepo = new WorkCategoryRepository();
             IWorkCategoryService workCategoryService = new WorkCategoryService(workCategoryRepo, workCategoryName);
             IWorkTypeRepository workTypeRepo = new WorkTypeRepository();
+            IWorkTypeService workTypeService = new WorkTypeService(workTypeRepo);
             IWorkSpecRepository workSpecRepo = new WorkSpecRepository();
-            return new ProjectTreeService(projectService,workCategoryRepo, workTypeRepo, workSpecRepo, workCategoryService);
+            IWorkSpecService workSpec = new WorkSpecService(workSpecRepo);
+            return new ProjectTreeService(projectService, workCategoryRepo, workTypeService, workCategoryService, workSpec);
         }
     }
 }

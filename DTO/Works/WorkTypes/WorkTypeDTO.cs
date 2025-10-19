@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DTO.Works.WorkTypes
+﻿namespace DTO.Works.WorkTypes
 {
     /// <summary>
     /// A data transfer object (DTO) that represents a work type for read-only operations (it doesn't inherit from the WorkTypeBaseDTO).
@@ -12,15 +6,15 @@ namespace DTO.Works.WorkTypes
     public class WorkTypeDTO
     {
         public int ID { get; set; }
-        public int? WorkCategoryID { get; set; }
-        public int? ParentID { get; set; }
+        public int? WorkCategory_ID { get; set; }
+        public int? Parent_ID { get; set; }
         public string Designation { get; set; }
 
         public WorkTypeDTO(int iD, int? workCategoryID, int? parentID, string designation)
         {
             ID = iD;
-            WorkCategoryID = workCategoryID;
-            ParentID = parentID;
+            WorkCategory_ID = workCategoryID;
+            Parent_ID = parentID;
             Designation = designation;
         }
     }

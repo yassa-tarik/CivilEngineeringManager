@@ -1,16 +1,16 @@
-﻿using MyApplication.Abstractions.Works;
-using MyApplication.Mappers;
-using Domain.Abstractions.Works;
+﻿using Domain.Abstractions.Works;
+using Domain.Entities;
 using DTO.Works.WorkSpecs;
+using MyApplication.Abstractions.Works;
+using MyApplication.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MyApplication.Services.Works
 {
-    public class WorkSpecService : IWorkSpecSerice
+    public class WorkSpecService : IWorkSpecService
     {
         private readonly IWorkSpecRepository _workSpecRepo;
 
@@ -18,22 +18,59 @@ namespace MyApplication.Services.Works
         {
             _workSpecRepo = workSpecRepo;
         }
-        public Task<WorkSpecDTO> AddAsync(WorkSpecDTO spec)
+
+        //Done
+        public Task<bool> AddAsync(WorkSpecCreateDTO specDTO)
         {
-            throw new NotImplementedException();
+            if (specDTO == null)
+                throw new ArgumentException("WorkSpec data is required");
+
+            try
+            {
+                // 1- check uniqueness
+                WorkSpec workSpec = WorkSpecMapper.CreateDtoToDomain(specDTO);
+
+                return _workSpecRepo.AddNewAsync(workSpec);
+            }
+            catch (Exception)
+            {
+                // TODO: logging
+                throw;
+            }
+        }
+        //Done
+        public async Task<bool> UpdateAsync(WorkSpecUpdateDTO specDTO)
+        {
+            if (specDTO == null)
+                throw new ArgumentException("WorkSpec should hav data!" );
+            
+            var existing = await _workSpecRepo.GetByIdAsync(specDTO.ID);
+
+            if (existing == null)            
+                throw new ArgumentException("WorkSpec not found!");
+            
+            existing.Update(specDTO.WorkCategory_ID, specDTO.WorkType_ID, specDTO.Designation, specDTO.Unit, specDTO.UnitPrice, specDTO.Quantity, specDTO.VAT);
+
+            return await _workSpecRepo.UpdateAsync(existing);
         }
 
-        public Task DeleteAsync(int id)
+        public async Task<List<WorkSpecUpdateDTO>> GetAllSpecsForCategoriesAndTypesAsync(int projectID, List<int> categoryListIDs)
         {
-            throw new NotImplementedException();
+            var workSpecs = await _workSpecRepo.GetAllSpecsForCategoriesAndTypesAsync(projectID, categoryListIDs);
+            var workSpecsDTO = workSpecs.Select(ws => WorkSpecMapper.DomainToDto(ws)).ToList();
+            return workSpecsDTO;
         }
-
+        public Task<bool> DeleteAsync(int id)
+        {
+            throw new NotFiniteNumberException();
+        }
         /// <summary>
         /// Retrieves all work specifications and maps them to WorkSpecDTO objects.
         /// This method demonstrates the service logic even with an empty repository.
         /// </summary>
         /// <returns>A collection of WorkSpecDTO objects.</returns>
-        public async Task<IEnumerable<WorkSpecDTO>> GetAllAsync()
+        // mock data
+        public async Task<IEnumerable<WorkSpecUpdateDTO>> GetAllAsync()
         {
             var specs = await _workSpecRepo.GetAllAsync();
 
@@ -43,14 +80,11 @@ namespace MyApplication.Services.Works
             return specDTOs;
         }
 
-        public Task<WorkSpecDTO> GetByIdAsync(int id)
+        public Task<WorkSpecUpdateDTO> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(WorkSpecDTO spec)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

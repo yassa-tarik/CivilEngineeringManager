@@ -1,12 +1,6 @@
-﻿using CivilEngineeringManager.Helpers.Tree;
-using CivilEngineeringManager.ViewModels;
+﻿using CivilEngineeringManager.ViewModels;
 using DTO.TreeDTOs;
-using DTO.Works.WorkSpecs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CivilEngineeringManager.Mappers
 {

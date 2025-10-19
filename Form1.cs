@@ -2,7 +2,6 @@
 using CivilEngineeringManager.Mappers;
 using CivilEngineeringManager.ViewModels;
 using Composition;
-using DTO.TreeDTOs;
 using MyApplication.Abstractions;
 using MyApplication.Abstractions.Works;
 using System;
@@ -13,11 +12,11 @@ using System.Windows.Forms;
 namespace CivilEngineeringManager
 {
     public partial class Form1 : Form
-    {        
+    {
         ProjectBuilder _projectBuilder;
         private readonly IProjectService _projectService;
         private readonly IProjectTreeService _projectTreeService;
-        public Form1( )
+        public Form1()
         {
             InitializeComponent();
             _projectBuilder = new ProjectBuilder();
@@ -35,6 +34,6 @@ namespace CivilEngineeringManager
             treeListView1.ChildrenGetter = ((x) => TreeViewConverters.MergeTypesAndSpecsLists((TreeNodeViewModel)x));
 
             treeListView1.ExpandAll();
-        }       
+        }
     }
 }

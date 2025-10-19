@@ -1,8 +1,5 @@
 ﻿using DTO.Works.WorkCategories;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MyApplication.Abstractions.Works
@@ -13,9 +10,9 @@ namespace MyApplication.Abstractions.Works
     public interface IWorkCategoryService
     {
         Task<WorkCategoryDTO> GetByIdAsync(int id);
-        Task<ICollection<WorkCategoryDTO>> GetAllAsync();
-        Task<WorkCategoryDTO> AddAsync(WorkCategoryDTO category);
-        Task UpdateAsync(WorkCategoryDTO category);
+        Task<ICollection<WorkCategoryDTO>> GetAllForProjectAsync(int projectID);
+        Task<int> AddAsync(WorkCategoryCreateDTO category);
+        Task<int> UpdateAsync(WorkCategoryUpdateDTO category);
         Task DeleteAsync(int id);
     }
 }

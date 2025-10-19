@@ -1,12 +1,8 @@
 ﻿using Domain.Entities;
-using DTO.Addresses;
 using DTO.Projects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyApplication.Mappers
 {
@@ -40,10 +36,10 @@ namespace MyApplication.Mappers
                 project.LandBook,
                 project.LandBookDate,
                 project.LandBookBy,
-                project.IsSpecComplete,
+                project.IsSpecCompleted,
                 project.Progress,
                 addressDTO,
-                project.CreatedDate,
+                project.CreationDate,
                 project.CreatedBy,
                 project.ModificationDate,
                 project.ModifiedBy,
@@ -63,8 +59,46 @@ namespace MyApplication.Mappers
             (
                 project.ID,
                 project.Name,
-                project.IsSpecComplete
+                project.IsSpecCompleted
             );
+        }
+
+        public static (Project project, Address address) CreateDtoToDomain( ProjectCreateDTO dto)
+        {
+            if (dto == null)
+                throw new ArgumentNullException(nameof(dto));
+            var address = new Address(
+                -1,
+                dto.AddressCreate.ID_Country,
+                dto.AddressCreate.ID_City,
+                dto.AddressCreate.APC,
+                dto.AddressCreate.Street,
+                dto.AddressCreate.PostalCode,
+                dto.AddressCreate.PlaceName,
+                dto.AddressCreate.Landmark);
+
+            var project = new Project(
+                dto.Name,
+                dto.ProjectCode,
+                dto.StartDate,
+                dto.Duration,
+                dto.ProjectType,
+                dto.Description,
+                dto.LandRegistry,
+                dto.SubdivisionPermitNumber,
+                dto.SubdivisionPermitDate,
+                dto.ConstructionPermitNumber,
+                dto.ConstructionPermitDate,
+                dto.DeedVolume,
+                dto.DeedNumber,
+                dto.DeedFolio,
+                dto.LandBook,
+                dto.LandBookDate,
+                dto.LandBookBy,
+                dto.IsSpecComplete,
+                dto.Progress );
+
+            return (project, address);
         }
     }
 }

@@ -46,7 +46,7 @@
     <Compile Include="Entities\Project.cs" />
     <Compile Include="Entities\Subcontractor.cs" />
     <Compile Include="Entities\WorkCategory.cs" />
-    <Compile Include="Entities\WorkCategoryName.cs" />
+    <Compile Include="Entities\WorkCategoryDesignation.cs" />
     <Compile Include="Entities\WorkSpec.cs" />
     <Compile Include="Entities\WorkType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

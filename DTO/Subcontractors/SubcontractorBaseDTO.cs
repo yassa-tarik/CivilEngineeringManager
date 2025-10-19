@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DTO.Subcontractors
+﻿namespace DTO.Subcontractors
 {    /// <summary>
-    /// A base data transfer object (DTO) that contains common properties
-    /// for both creating and updating a subcontractor.
-    /// </summary>
+     /// A base data transfer object (DTO) that contains common properties
+     /// for both creating and updating a subcontractor.
+     /// </summary>
     public class SubcontractorBaseDTO
     {
         public string CompanyName { get; set; }

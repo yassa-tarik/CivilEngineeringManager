@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DTO.Subcontractors
+﻿namespace DTO.Subcontractors
 {
     /// <summary>
     /// A data transfer object (DTO) used to update an existing subcontractor.

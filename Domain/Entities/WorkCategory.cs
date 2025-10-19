@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
@@ -14,61 +10,123 @@ namespace Domain.Entities
     {
         public int ID { get; private set; }
         public int Project_ID { get; private set; }
-        public int WorkCategoryName_ID { get; private set; }
-        public string WorkCategoryName { get; private set; }
+        public int WorkCategoryDesignation_ID { get; private set; }
+        //public string Designation { get; private set; }
         // Audit
-        internal DateTime CreationDate { get; private set; }
-        internal int CreatedBy { get; private set; }
-        internal DateTime ModificationDate { get; private set; }
-        internal int ModifiedBy { get; private set; }
-        public WorkCategory(int id, int project_ID, int workCategoryName_ID, string workCategoryName, int createdBy)
+        public DateTime CreationDate { get; private set; }
+        public int CreatedBy { get; private set; }
+        public DateTime ModificationDate { get; private set; }
+        public int ModifiedBy { get; private set; }
+
+        public WorkCategory(int project_ID, int workCategoryDesignation_ID/*, string designation*/)
         {
-            if (id <= 0)
-            {
-                throw new ArgumentException("ID must be greater than zero.", nameof(id));
-            }
             if (project_ID <= 0)
             {
                 throw new ArgumentException("Project_ID must be greater than zero.", nameof(project_ID));
             }
-            if (workCategoryName_ID <= 0)
+            if (workCategoryDesignation_ID <= 0)
             {
-                throw new ArgumentException("WorkCategoryName_ID must be greater than zero.", nameof(workCategoryName_ID));
+                throw new ArgumentException("WorkCategoryName_ID must be greater than zero.", nameof(workCategoryDesignation_ID));
             }
-            if (string.IsNullOrWhiteSpace(workCategoryName))
+            //if (string.IsNullOrWhiteSpace(designation))
+            //{
+            //    throw new ArgumentException("WorkCategoryName cannot be null or empty.", nameof(designation));
+            //}
+
+            Project_ID = project_ID;
+            WorkCategoryDesignation_ID = workCategoryDesignation_ID;
+            //Designation = designation;
+            //CreationDate = DateTime.Now;
+            CreatedBy = 1;  //will be current user id
+            ModificationDate = DateTime.Now;
+            ModifiedBy = 1;  //will be current user id
+        }
+
+        // for creation new entity
+        public WorkCategory(int id, int project_ID, int workCategoryDesignation_ID/*, string designation*/)
+        {
+            //if (id >= 0)
+            //{
+            //    throw new ArgumentException("ID must be smaller than zero.", nameof(id));
+            //}
+            if (project_ID <= 0)
             {
-                throw new ArgumentException("WorkCategoryName cannot be null or empty.", nameof(workCategoryName));
+                throw new ArgumentException("Project_ID must be greater than zero.", nameof(project_ID));
             }
+            if (workCategoryDesignation_ID <= 0)
+            {
+                throw new ArgumentException("WorkCategoryName_ID must be greater than zero.", nameof(workCategoryDesignation_ID));
+            }
+            //if (string.IsNullOrWhiteSpace(designation))
+            //{
+            //    throw new ArgumentException("WorkCategoryName cannot be null or empty.", nameof(designation));
+            //}
 
             ID = id;
             Project_ID = project_ID;
-            WorkCategoryName_ID = workCategoryName_ID;
-            WorkCategoryName = workCategoryName;
+            WorkCategoryDesignation_ID = workCategoryDesignation_ID;
+            //Designation = designation;
             CreationDate = DateTime.Now;
-            CreatedBy = createdBy;
+            CreatedBy = 1;  //will be current user id;
             ModificationDate = DateTime.Now;
-            ModifiedBy = createdBy;
+            ModifiedBy = 1;  //will be current user id;
         }
 
         /// <summary>
         /// Updates the WorkCategory's name and modification details.
         /// </summary>
-        public void Update(int workCategoryName_ID, string workCategoryName, int modifiedBy)
-        {
-            if (workCategoryName_ID <= 0)
-            {
-                throw new ArgumentException("WorkCategoryName_ID must be greater than zero.", nameof(workCategoryName_ID));
-            }
-            if (string.IsNullOrWhiteSpace(workCategoryName))
-            {
-                throw new ArgumentException("WorkCategoryName cannot be null or empty.", nameof(workCategoryName));
-            }
-
-            WorkCategoryName_ID = workCategoryName_ID;
-            WorkCategoryName = workCategoryName;
+        public void Update(int workCategoryDesignation_ID/*, string designation*/)
+        {           
+            WorkCategoryDesignation_ID = workCategoryDesignation_ID;
+            //Designation = designation;
             ModificationDate = DateTime.Now;
-            ModifiedBy = modifiedBy;
+            ModifiedBy = 1; // will be the current user ID
+
+            Validate();
+        }
+        // used for Update
+        private void Validate()
+        {
+            if (ID <= 0)
+                throw new InvalidOperationException("ID must be positive.");
+            // Designation validation
+            //if (string.IsNullOrWhiteSpace(Designation))
+            //    throw new InvalidOperationException("Designation is required.");
+            //else if (Designation.Length > 255)
+            //    throw new InvalidOperationException("Designation cannot exceed 255 characters.");
+
+            // CreatedBy validation
+            if (CreatedBy <= 0)
+                throw new InvalidOperationException("CreatedBy must be a valid user ID.");
+           
+            if (Project_ID <= 0)
+                throw new InvalidOperationException("Project_ID must be positive.");
+
         }
 
+        public void AddNew(int id, int project_ID, int workCategoryName_ID/*, string designation*/)
+        {
+            Validate(id, project_ID, workCategoryName_ID/*, designation*/);
+
+            WorkCategoryDesignation_ID = workCategoryName_ID;
+            //Designation = designation;
+            ModificationDate = DateTime.Now;
+            ModifiedBy = 1; // will be the current user ID
+
+        }
+        // used for Create
+        private void Validate(int id, int project_ID, int workCategoryName_ID/*, string designation*/)
+        {
+            if (ID >= 0)
+                throw new InvalidOperationException("ID must be negative.");
+            // Designation validation
+            //if (string.IsNullOrWhiteSpace(Designation))
+            //    throw new InvalidOperationException("Designation is required.");
+            //else if (Designation.Length > 255)
+            //    throw new InvalidOperationException("Designation cannot exceed 255 characters.");
+
+            //if (Project_ID <= 0)
+            //    throw new InvalidOperationException("Project_ID must be positive.");
+        }
     }
 }

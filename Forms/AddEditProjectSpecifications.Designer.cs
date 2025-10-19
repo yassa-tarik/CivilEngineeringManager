@@ -45,6 +45,8 @@
             this.btnExpand = new System.Windows.Forms.Button();
             this.btnCollapse = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
+            this.btnSaveTree = new System.Windows.Forms.Button();
+            this.btnAddNewCat = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.treeListView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -71,10 +73,10 @@
             this.treeListView1.FullRowSelect = true;
             this.treeListView1.GridLines = true;
             this.treeListView1.HideSelection = false;
-            this.treeListView1.Location = new System.Drawing.Point(0, 117);
+            this.treeListView1.Location = new System.Drawing.Point(0, 160);
             this.treeListView1.Name = "treeListView1";
             this.treeListView1.ShowGroups = false;
-            this.treeListView1.Size = new System.Drawing.Size(1241, 625);
+            this.treeListView1.Size = new System.Drawing.Size(1241, 582);
             this.treeListView1.TabIndex = 0;
             this.treeListView1.UseCompatibleStateImageBehavior = false;
             this.treeListView1.View = System.Windows.Forms.View.Details;
@@ -147,9 +149,9 @@
             // btnFind
             // 
             this.btnFind.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFind.Location = new System.Drawing.Point(330, 29);
+            this.btnFind.Location = new System.Drawing.Point(482, 29);
             this.btnFind.Name = "btnFind";
-            this.btnFind.Size = new System.Drawing.Size(117, 29);
+            this.btnFind.Size = new System.Drawing.Size(144, 28);
             this.btnFind.TabIndex = 9;
             this.btnFind.Text = "Find";
             this.btnFind.UseVisualStyleBackColor = true;
@@ -162,7 +164,7 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(31, 29);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(277, 28);
+            this.comboBox1.Size = new System.Drawing.Size(416, 28);
             this.comboBox1.TabIndex = 8;
             this.comboBox1.Text = "Choose a Project";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
@@ -174,7 +176,7 @@
             this.comboBox2.Items.AddRange(new object[] {
             "Category 1",
             "Category 2"});
-            this.comboBox2.Location = new System.Drawing.Point(31, 83);
+            this.comboBox2.Location = new System.Drawing.Point(31, 105);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(416, 28);
             this.comboBox2.Sorted = true;
@@ -182,7 +184,7 @@
             // 
             // btnExpand
             // 
-            this.btnExpand.Location = new System.Drawing.Point(837, 36);
+            this.btnExpand.Location = new System.Drawing.Point(1145, 43);
             this.btnExpand.Name = "btnExpand";
             this.btnExpand.Size = new System.Drawing.Size(84, 30);
             this.btnExpand.TabIndex = 12;
@@ -192,7 +194,7 @@
             // 
             // btnCollapse
             // 
-            this.btnCollapse.Location = new System.Drawing.Point(983, 36);
+            this.btnCollapse.Location = new System.Drawing.Point(1145, 7);
             this.btnCollapse.Name = "btnCollapse";
             this.btnCollapse.Size = new System.Drawing.Size(84, 30);
             this.btnCollapse.TabIndex = 13;
@@ -203,19 +205,42 @@
             // btnRemove
             // 
             this.btnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemove.Location = new System.Drawing.Point(572, 48);
+            this.btnRemove.Location = new System.Drawing.Point(683, 29);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(117, 29);
+            this.btnRemove.Size = new System.Drawing.Size(117, 28);
             this.btnRemove.TabIndex = 14;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
+            // btnSaveTree
+            // 
+            this.btnSaveTree.Location = new System.Drawing.Point(1145, 88);
+            this.btnSaveTree.Name = "btnSaveTree";
+            this.btnSaveTree.Size = new System.Drawing.Size(84, 62);
+            this.btnSaveTree.TabIndex = 15;
+            this.btnSaveTree.Text = "Save Tree";
+            this.btnSaveTree.UseVisualStyleBackColor = true;
+            this.btnSaveTree.Click += new System.EventHandler(this.btnSaveTree_Click);
+            // 
+            // btnAddNewCat
+            // 
+            this.btnAddNewCat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddNewCat.Location = new System.Drawing.Point(482, 105);
+            this.btnAddNewCat.Name = "btnAddNewCat";
+            this.btnAddNewCat.Size = new System.Drawing.Size(144, 28);
+            this.btnAddNewCat.TabIndex = 16;
+            this.btnAddNewCat.Text = "Add new Category";
+            this.btnAddNewCat.UseVisualStyleBackColor = true;
+            this.btnAddNewCat.Click += new System.EventHandler(this.btnAddNewCat_Click);
             // 
             // AddEditProjectSpecifications
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1241, 742);
+            this.Controls.Add(this.btnAddNewCat);
+            this.Controls.Add(this.btnSaveTree);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.btnCollapse);
             this.Controls.Add(this.btnExpand);
@@ -250,5 +275,7 @@
         private System.Windows.Forms.Button btnExpand;
         private System.Windows.Forms.Button btnCollapse;
         private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.Button btnSaveTree;
+        private System.Windows.Forms.Button btnAddNewCat;
     }
 }

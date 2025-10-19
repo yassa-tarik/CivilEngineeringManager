@@ -1,9 +1,5 @@
 ﻿using DTO.Works.WorkSpecs;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DTO.TreeDTOs
 {
@@ -13,8 +9,8 @@ namespace DTO.TreeDTOs
     public class WorkTypeTreeDTO
     {
         public int ID { get; set; }
-        public int? WorkCategoryID { get; set; }
-        public int? ParentID { get; set; }
+        public int? WorkCategory_ID { get; set; }
+        public int? Parent_ID { get; set; }
         public string Designation { get; set; }
 
         /// <summary>
@@ -25,7 +21,7 @@ namespace DTO.TreeDTOs
         /// <summary>
         /// This collection holds the WorkSpec data associated with this specific WorkType.
         /// </summary>
-        public ICollection<WorkSpecDTO> WorkSpecs { get; set; }
+        public ICollection<WorkSpecUpdateDTO> WorkSpecs { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WorkTypeTreeDTO"/> class.
@@ -36,7 +32,7 @@ namespace DTO.TreeDTOs
             //this.WorkCategoryID = workCategoryID;
             //this.ParentID = parentID;
             this.WorkTypes = new List<WorkTypeTreeDTO>();
-            this.WorkSpecs = new List<WorkSpecDTO>();
+            this.WorkSpecs = new List<WorkSpecUpdateDTO>();
         }
     }
 }

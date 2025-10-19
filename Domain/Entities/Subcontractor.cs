@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
@@ -12,12 +8,11 @@ namespace Domain.Entities
     public class Subcontractor
     {
         public int ID { get; internal set; }
-        public int ID_Contact { get; internal set; }
+        public int Contact_ID { get; internal set; }
         public string CompanyName { get; internal set; }
         public string Representative { get; internal set; }
         public string BankAccountNumber { get; internal set; }
         public bool IsActive { get; internal set; }
-        public int Contact_ID { get; internal set; }
 
         // Audit
         public DateTime CreationDate { get; private set; }
@@ -33,7 +28,7 @@ namespace Domain.Entities
             }
 
             ID = id;
-            ID_Contact = id_contact;
+            Contact_ID = id_contact;
             CompanyName = companyName;
             Representative = representative;
             BankAccountNumber = bankAccountNumber;
@@ -54,7 +49,7 @@ namespace Domain.Entities
             Representative = representative;
             BankAccountNumber = bankAccountNumber;
             IsActive = isActive;
-            ID_Contact = id_contact;
+            Contact_ID = id_contact;
             Contact_ID = contact_ID;
             ModificationDate = DateTime.Now;
             ModifiedBy = modifiedBy;

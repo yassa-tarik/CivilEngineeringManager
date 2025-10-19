@@ -2,17 +2,14 @@
 using CivilEngineeringManager.ViewModels;
 using DTO.TreeDTOs;
 using DTO.Works.WorkSpecs;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CivilEngineeringManager.Helpers.Tree
 {
     internal static class TreeViewConverters
     {
-        internal static List<TreeNodeViewModel> CombineTypeWithSpecLists(ICollection<WorkTypeTreeDTO> workTypes, ICollection<WorkSpecDTO> workSpecs)
+        internal static List<TreeNodeViewModel> CombineTypeWithSpecLists(ICollection<WorkTypeTreeDTO> workTypes, ICollection<WorkSpecUpdateDTO> workSpecs)
         {
             var mainList = new List<TreeNodeViewModel>();
             var typesTreeView = workTypes.Select(wt => WorkTypeTreeMapper.FromWorkType(wt));

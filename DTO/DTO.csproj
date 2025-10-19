@@ -66,10 +66,10 @@
     <Compile Include="Works\WorkCategories\WorkCategoryCreateDTO.cs" />
     <Compile Include="Works\WorkCategories\WorkCategoryDTO.cs" />
     <Compile Include="Works\WorkCategories\WorkCategoryUpdateDTO.cs" />
-    <Compile Include="Works\WorkCategoryNames\WorkCategoryNameBaseDTO.cs" />
-    <Compile Include="Works\WorkCategoryNames\WorkCategoryNameCreateDTO.cs" />
-    <Compile Include="Works\WorkCategoryNames\WorkCategoryNameDTO.cs" />
-    <Compile Include="Works\WorkCategoryNames\WorkCategoryNameUpdateDTO.cs" />
+    <Compile Include="Works\WorkCategoryDesignations\WorkCategoryDesignationBaseDTO.cs" />
+    <Compile Include="Works\WorkCategoryDesignations\WorkCategoryDesignationCreateDTO.cs" />
+    <Compile Include="Works\WorkCategoryDesignations\WorkCategoryDesignationDTO.cs" />
+    <Compile Include="Works\WorkCategoryDesignations\WorkCategoryDesignationUpdateDTO.cs" />
     <Compile Include="Works\WorkSpecs\WorkSpecBaseDTO.cs" />
     <Compile Include="Works\WorkSpecs\WorkSpecCreateDTO.cs" />
     <Compile Include="Works\WorkSpecs\WorkSpecDTO.cs" />

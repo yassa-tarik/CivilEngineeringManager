@@ -1,6 +1,6 @@
-﻿using System;
+﻿using CivilEngineeringManager.Forms;
+using System;
 using System.Windows.Forms;
-using CivilEngineeringManager.Forms;
 
 namespace CivilEngineeringManager
 {
@@ -12,10 +12,9 @@ namespace CivilEngineeringManager
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AddEditProjectSpecifications());
+            System.Windows.Forms.Application.EnableVisualStyles();
+            System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+            System.Windows.Forms.Application.Run(new AddEditProjectSpecifications());
             //Application.Run(new FormTreeWithDTOs());
             //Application.Run(new Form1());
             //Application.Run(new AddSpecifications());

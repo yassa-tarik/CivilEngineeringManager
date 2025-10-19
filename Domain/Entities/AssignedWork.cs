@@ -1,11 +1,8 @@
 ﻿using Common.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Domain.Entities
-{    
+{
     /// <summary>
     /// A domain entity representing the assignment of a WorkSpec to a Subcontractor.
     /// This is a one-to-one relationship.
@@ -20,6 +17,8 @@ namespace Domain.Entities
         internal decimal NegotiatedUnitPrice { get; private set; }
         internal byte Progress { get; private set; }
         internal AssignedWorkStatus Status { get; private set; }
+        internal bool IsActive { get; private set; }
+        internal bool IsDeleted { get; private set; }
 
         // Audit
         internal DateTime CreationDate { get; private set; }

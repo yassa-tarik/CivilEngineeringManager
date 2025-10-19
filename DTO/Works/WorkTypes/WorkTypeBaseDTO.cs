@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DTO.Works
+﻿namespace DTO.Works
 {
     /// <summary>
     /// A base data transfer object (DTO) that contains common properties
@@ -12,14 +6,14 @@ namespace DTO.Works
     /// </summary>
     public abstract class WorkTypeBaseDTO
     {
-        public int? WorkCategoryID { get; set; }
-        public int? ParentID { get; set; }
+        public int? WorkCategory_ID { get; set; }
+        public int? Parent_ID { get; set; }
         public string Designation { get; set; }
 
-        public WorkTypeBaseDTO(int? workCategoryID, int? parentID, string designation)
+        public WorkTypeBaseDTO(int? workCategory_ID, int? parent_ID, string designation)
         {
-            WorkCategoryID = workCategoryID;
-            ParentID = parentID;
+            WorkCategory_ID = workCategory_ID;
+            Parent_ID = parent_ID;
             Designation = designation;
         }
     }

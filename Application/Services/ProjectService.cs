@@ -20,51 +20,57 @@ namespace MyApplication
             _projectRepo = projectRepo;
             _addressRepo = addressRepo;
         }
-
         /// <summary>
         /// Creates and adds a new project to the system.
         /// It maps a ProjectCreateDto to a new Project domain entity and adds it via the repository.
         /// </summary>
         /// <param name="dto">The DTO containing the data for the new project.</param>
         // Done
-        public async Task <bool> AddNewAsync(ProjectCreateDTO dto)
+        public async Task<bool> AddNewAsync(ProjectCreateDTO dto)
         {
+            if (dto == null)
+                throw new ArgumentException("Project data is required");
+            // Check for existing project (consider making this atomic in repository)
+            //if (await _projectRepo.ProjectExistsByNameAsync(dto.Name))
+            //    return Result<bool>.Failure("Project already exists");
             try
             {
                 if (_projectRepo.IsProjectExistByName(dto.Name))
                     throw new ArgumentException("Project already exists!");
-                // The service layer maps the DTO data to a new Project domain entity
+                /*// The service layer maps the DTO data to a new Project domain entity
                 Address newAddress = new Address(-1, dto.AddressCreate.ID_Country, dto.AddressCreate.ID_City, dto.AddressCreate.APC, dto.AddressCreate.Street, dto.AddressCreate.PostalCode, dto.AddressCreate.PlaceName, dto.AddressCreate.Landmark);
-
-                Project newProject = new Project(dto.Name, dto.ProjectCode, dto.StartDate, dto.Duration, dto.ProjectType, dto.Description, dto.LandRegistry, dto.SubdivisionPermitNumber, dto.SubdivisionPermitDate, dto.ConstructionPermitNumber, dto.ConstructionPermitDate, dto.DeedVolume, dto.DeedNumber, dto.DeedFolio, dto.LandBook, dto.LandBookDate, dto.LandBookBy, dto.IsSpecComplete, dto.Progress, dto.CreatedBy);
-
+                //The validation is done implicitly in the creation constructor
+                Project newProject = new Project(dto.Name, dto.ProjectCode, dto.StartDate, dto.Duration, dto.ProjectType, dto.Description, dto.LandRegistry, dto.SubdivisionPermitNumber, dto.SubdivisionPermitDate, dto.ConstructionPermitNumber, dto.ConstructionPermitDate, dto.DeedVolume, dto.DeedNumber, dto.DeedFolio, dto.LandBook, dto.LandBookDate, dto.LandBookBy, dto.IsSpecComplete, dto.Progress, dto.CreatedBy); */
+                // Map DTO to domain objects
+                var (project, address) = ProjectMapper.CreateDtoToDomain(dto);
                 // The repository handles persisting the new domain entity to the database
-                return await _projectRepo.SaveProjectWithAddressAsync(newProject, newAddress);              
+                return await _projectRepo.SaveProjectWithAddressAsync(project, address);
             }
             catch (InvalidOperationException ex)
             {
+                //TODO: _logger.LogError(ex, "Failed to create project");
                 throw new InvalidOperationException(ex.Message);
             }
             catch (Exception ex)
             {
-                throw new Exception (ex.Message);
+                throw ;
             }
         }
         // done
         public async Task<bool> UpdateAsync(ProjectUpdateDTO dto)
         {
-            if (dto == null)    
+            if (dto == null)
                 throw new ArgumentNullException(nameof(dto));
 
             Project existing = await _projectRepo.GetByID(dto.ID);
             if (existing == null)
-                throw new NotImplementedException();
+                throw new Exception("Project not found!");
 
             var existingAddress = await _addressRepo.GetById(existing.Address_ID);
             if (existingAddress == null)
                 throw new Exception("Address for this project not found!");
-
-            existingAddress.Update ( dto.AddressUpdate.ID_Country, dto.AddressUpdate.ID_City, dto.AddressUpdate.APC, dto.AddressUpdate.Street, dto.AddressUpdate.PostalCode, dto.AddressUpdate.PlaceName, dto.AddressUpdate.Landmark);
+            //TODO: should make a transaction here
+            existingAddress.Update(dto.AddressUpdate.ID_Country, dto.AddressUpdate.ID_City, dto.AddressUpdate.APC, dto.AddressUpdate.Street, dto.AddressUpdate.PostalCode, dto.AddressUpdate.PlaceName, dto.AddressUpdate.Landmark);
             if (!(await _addressRepo.UpdateAsync(existingAddress)))
                 throw new Exception("Address Failed to update!");
             //existing.UpdateAddress(newAddress); TODO: will use this one
@@ -89,9 +95,7 @@ namespace MyApplication
                 dto.LandBookBy,
                 dto.IsSpecComplete,
                 dto.Progress,
-                existingAddress.ID, // Address ID
-                dto.CreatedBy,
-                dto.ModifiedBy
+                existingAddress.ID // Address ID
                 );
             return await _projectRepo.UpdateAsync(existing);
         }
@@ -102,10 +106,10 @@ namespace MyApplication
         /// <param name="projectId">The ID of the project to archive.</param>
         /// <param name="modifiedBy">The ID of the user performing the action.</param>
         // Done
-        public async Task <ProjectDTO>  GetProjectDetails(int projectId)
+        public async Task<ProjectDTO> GetProjectDetails(int projectId)
         {
             try
-            {                
+            {
                 Project project = await _projectRepo.GetByID(projectId);
                 if (project == null)
                 {
@@ -120,7 +124,7 @@ namespace MyApplication
             }
             catch (Exception ex)
             {
-                throw new Exception($"An unexpected error occurred while fetching project {projectId}: {ex.Message}");                
+                throw new Exception($"An unexpected error occurred while fetching project {projectId}: {ex.Message}");
             }
         }
 
@@ -131,7 +135,7 @@ namespace MyApplication
             {
                 var existing = await _projectRepo.GetByID(projectId);
                 if (existing == null) throw new InvalidOperationException("project not found!");
-                return existing.MarkAsArchived(modifiedBy);                    
+                return existing.MarkAsArchived(modifiedBy);
             }
             catch (Exception ex)
             {
@@ -149,7 +153,7 @@ namespace MyApplication
                 return ProjectMapper.DomainsToDtoList(projects, addresses);
             }
             catch (Exception ex)
-            {                
+            {
                 return Enumerable.Empty<ProjectDTO>();
             }
         }
@@ -190,7 +194,7 @@ namespace MyApplication
             try
             {
                 IEnumerable<Project> projects = await _projectRepo.FindAllFullAsync();
-                
+
                 return projects.Select(p => ProjectMapper.DomainsToMinDto(p));
             }
             catch (Exception ex)

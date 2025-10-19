@@ -1,11 +1,6 @@
-﻿using CivilEngineeringManager.Helpers.Tree;
-using CivilEngineeringManager.ViewModels;
+﻿using CivilEngineeringManager.ViewModels;
 using DTO.TreeDTOs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CivilEngineeringManager.Mappers
 {
@@ -18,9 +13,9 @@ namespace CivilEngineeringManager.Mappers
             return new TreeNodeViewModel(
                 root.ID,
                 root.Designation,
-                //null,
-                //null,
-                //null,
+                null,
+                null,
+                null,
                 //null,
                 //dto.WorkTypes);
                 //root.WorkTypes.Select(wt => WorkTypeTreeMapper.FromWorkType(wt))

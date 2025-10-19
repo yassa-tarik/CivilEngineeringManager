@@ -42,8 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressRepository.cs" />
+    <Compile Include="MockData\MockWorkCategoryRepo.cs" />
     <Compile Include="ProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Works\WorkCategoryDesignationRepository.cs" />
     <Compile Include="Works\WorkCategoryRepository.cs" />
     <Compile Include="Works\WorkSpecRepository.cs" />
     <Compile Include="Works\WorkTypeRepository.cs" />

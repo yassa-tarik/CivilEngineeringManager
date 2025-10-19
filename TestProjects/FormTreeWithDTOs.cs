@@ -1,5 +1,4 @@
-﻿using BrightIdeasSoftware;
-using Composition;
+﻿using Composition;
 using DTO.TreeDTOs;
 using DTO.Works.WorkSpecs;
 using MyApplication.Abstractions;
@@ -9,7 +8,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using static CivilEngineeringManager.TestProjects.TestProject;
 
 namespace CivilEngineeringManager.TestProjects
 {
@@ -53,7 +51,7 @@ namespace CivilEngineeringManager.TestProjects
             {
                 if (x is WorkCategoryTreeDTO category)
                 {
-                    return category.WorkTypes.Count > 0 || category.WorkSpecs.Count > 0; 
+                    return category.WorkTypes.Count > 0 || category.WorkSpecs.Count > 0;
                 }
                 if (x is WorkTypeTreeDTO type)
                 {
@@ -80,7 +78,7 @@ namespace CivilEngineeringManager.TestProjects
                 if (x is WorkTypeTreeDTO typeParent)
                 {
                     var children = new List<object>();
-                    if (typeParent.WorkTypes != null) 
+                    if (typeParent.WorkTypes != null)
                     {
                         children.AddRange(typeParent.WorkTypes);
                     }
@@ -97,7 +95,7 @@ namespace CivilEngineeringManager.TestProjects
                 return null;
             };
             //treeListView1.ExpandAll();
-            
+
         }
 
         private void btnSendTree_Click(object sender, EventArgs e)
@@ -116,9 +114,9 @@ namespace CivilEngineeringManager.TestProjects
                 MessageBox.Show("Please select a parent node first.");
                 return;
             }
-            var newChild = new WorkSpecDTO(-1, selectedParent.ID, null, "new Spec", "m", 120, 20,"9%");         
+            var newChild = new WorkSpecDTO(-1, selectedParent.ID, null, "new Spec", "m", 120, 20, "9%");
             // Add to parent's children collection
-            selectedParent.WorkSpecs.Add(newChild);
+            //selectedParent.WorkSpecs.Add(newChild);
             // Refresh the tree view
             treeListView1.RefreshObject(selectedParent);
 
@@ -137,7 +135,8 @@ namespace CivilEngineeringManager.TestProjects
 
         void SetupColumnsMappingPutter()
         {
-            olvColumn1.AspectPutter = (rowObject, newValue) => {
+            olvColumn1.AspectPutter = (rowObject, newValue) =>
+            {
                 if (rowObject is WorkCategoryTreeDTO obj)
                 {
                     obj.Designation = newValue?.ToString();
@@ -151,13 +150,15 @@ namespace CivilEngineeringManager.TestProjects
                     spec.Designation = newValue?.ToString();
                 }
             };
-            olvColumn3.AspectPutter = (rowObject3, newValue3) => {
+            olvColumn3.AspectPutter = (rowObject3, newValue3) =>
+            {
                 if (rowObject3 is WorkSpecDTO spec)
                 {
                     spec.Unit = newValue3?.ToString();
                 }
             };
-            olvColumn4.AspectPutter = (rowObject4, newValue4) => {
+            olvColumn4.AspectPutter = (rowObject4, newValue4) =>
+            {
                 if (rowObject4 is WorkSpecDTO spec)
                 {
                     decimal newDecimalValue = spec.UnitPrice; // Keep old value as fallback

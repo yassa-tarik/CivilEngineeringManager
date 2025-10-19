@@ -1,14 +1,13 @@
 ﻿using BrightIdeasSoftware;
 using Composition;
-using DTO.Projects;
 using DTO.TreeDTOs;
 using DTO.Works.WorkSpecs;
 using MyApplication.Abstractions;
 using MyApplication.Abstractions.Works;
+using MyApplication.Services.Works;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Windows.Forms;
 
 namespace CivilEngineeringManager.Forms
@@ -54,7 +53,7 @@ namespace CivilEngineeringManager.Forms
             btnFind.Enabled = comboBox1.SelectedIndex > -1;
         }
 
-        private  void btnFind_Click(object sender, EventArgs e)
+        private void btnFind_Click(object sender, EventArgs e)
         {
             flagContextMenuStrip = true;
             treeListView1.Roots = null;
@@ -63,9 +62,9 @@ namespace CivilEngineeringManager.Forms
         }
 
         private void LoadTheTreeView()
-        {            
+        {
             SetupColumnsMappingPutter();
-            
+
             treeListView1.Roots = _projectTreeDTO.WorkCategories;
             treeListView1.CanExpandGetter = (x) =>
             {
@@ -119,7 +118,8 @@ namespace CivilEngineeringManager.Forms
         //this method used to edit model cells(properties)
         void SetupColumnsMappingPutter()
         {
-            olvDesignation.AspectPutter = (rowObject, newValue) => {
+            olvDesignation.AspectPutter = (rowObject, newValue) =>
+            {
                 if (rowObject is WorkCategoryTreeDTO obj)
                 {
                     obj.Designation = newValue?.ToString();
@@ -133,13 +133,15 @@ namespace CivilEngineeringManager.Forms
                     spec.Designation = newValue?.ToString();
                 }
             };
-            olvUnit.AspectPutter = (rowObject3, newValue3) => {
+            olvUnit.AspectPutter = (rowObject3, newValue3) =>
+            {
                 if (rowObject3 is WorkSpecDTO spec)
                 {
                     spec.Unit = newValue3?.ToString();
                 }
             };
-            olvUnitPrice.AspectPutter = (rowObject4, newValue4) => {
+            olvUnitPrice.AspectPutter = (rowObject4, newValue4) =>
+            {
                 if (rowObject4 is WorkSpecDTO spec)
                 {
                     decimal newDecimalValue = spec.UnitPrice; // Keep old value as fallback
@@ -162,7 +164,7 @@ namespace CivilEngineeringManager.Forms
                     }
                 }
             };
-        }                
+        }
 
         private void categoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -175,7 +177,7 @@ namespace CivilEngineeringManager.Forms
             var selectedParent = treeListView1.SelectedObject;
             if (selectedParent == null)
             {
-                var newChild = new WorkCategoryTreeDTO { ID = -10,  Designation = "New WorkCategory" };
+                var newChild = new WorkCategoryTreeDTO { ID = -10, Designation = "New WorkCategory" };
                 // Add to parent's children collection
                 _projectTreeDTO.WorkCategories.Add(newChild);
 
@@ -195,7 +197,7 @@ namespace CivilEngineeringManager.Forms
             //{
             //    return;
             //}
-            
+
         }
 
         private void specToolStripMenuItem_Click(object sender, EventArgs e)
@@ -211,7 +213,7 @@ namespace CivilEngineeringManager.Forms
             {
                 var newChild = new WorkSpecDTO(-1, workCategory.ID, null, "Enter New Specification", "unit", 00, 00, "vat");
                 // Add to parent's children collection
-                workCategory.WorkSpecs.Add(newChild);
+                //workCategory.WorkSpecs.Add(newChild);
                 // Refresh the tree view
                 treeListView1.RefreshObject(workCategory);
                 treeListView1.Expand(selectedParent);
@@ -219,9 +221,9 @@ namespace CivilEngineeringManager.Forms
             }
             else if (selectedParent is WorkTypeTreeDTO workType)
             {
-                var newChild = new WorkSpecDTO(-1, workType.ID, null, "Enter New Specification", "unit", 00, 00, "vat");
+                var newChild = new WorkSpecDTO(-1, null, workType.ID, "Enter New Specification", "unit", 00, 00, "vat");
                 // Add to parent's children collection
-                workType.WorkSpecs.Add(newChild);
+                //workType.WorkSpecs.Add(newChild);
                 // Refresh the tree view
                 treeListView1.RefreshObject(workType);
                 treeListView1.Expand(selectedParent);
@@ -241,7 +243,7 @@ namespace CivilEngineeringManager.Forms
 
             if (selectedParent is WorkCategoryTreeDTO workCategory)
             {
-                var newChild = new WorkTypeTreeDTO { ID = -10, WorkCategoryID = workCategory.ID, ParentID = null, Designation = "New WorkType" };
+                var newChild = new WorkTypeTreeDTO { ID = -10, WorkCategory_ID = workCategory.ID, Parent_ID = null, Designation = "New WorkType" };
                 // Add to parent's children collection
                 workCategory.WorkTypes.Add(newChild);
                 // Refresh the tree view
@@ -251,7 +253,7 @@ namespace CivilEngineeringManager.Forms
             }
             else if (selectedParent is WorkTypeTreeDTO workType)
             {
-                var newChild = new WorkTypeTreeDTO { ID = -10, WorkCategoryID = null, ParentID = workType.ID, Designation = "New WorkType" };
+                var newChild = new WorkTypeTreeDTO { ID = -10, WorkCategory_ID = null, Parent_ID = workType.ID, Designation = "New WorkType" };
                 // Add to parent's children collection
                 workType.WorkTypes.Add(newChild);
                 // Refresh the tree view
@@ -264,7 +266,7 @@ namespace CivilEngineeringManager.Forms
                 // Handle case where selected object is neither type
                 MessageBox.Show("Please select a valid parent node (Work Category or Work Type)");
                 return;
-            }                        
+            }
         }
 
         private void btnExpand_Click(object sender, EventArgs e)
@@ -281,7 +283,7 @@ namespace CivilEngineeringManager.Forms
         {
             AddNewWorkTypeRowModel();
         }
-       
+
         private void ContextMenuItemsEnableDisable()
         {
             contextMenuStrip1.Enabled = true;
@@ -322,7 +324,7 @@ namespace CivilEngineeringManager.Forms
                     //treeListView.SelectedObject = hitTest.Item.RowObject;
                     //contextMenuStrip1.Show(treeListView, e.Location);
                 }
-            }          
+            }
         }
 
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
@@ -339,6 +341,20 @@ namespace CivilEngineeringManager.Forms
         {
             treeListView1.RemoveObject(treeListView1.SelectedObject);
             treeListView1.Refresh();
+        }
+
+        private void btnSaveTree_Click(object sender, EventArgs e)
+        {
+            _projectTreeService.SaveProjectTree(_projectTreeDTO);
+        }
+
+        private void btnAddNewCat_Click(object sender, EventArgs e)
+        {
+            ////for testing purposes
+            //WorkCategoryDesignationRepository
+            //IWorkCategoryDesignationService repo = new WorkCategoryDesignationService WorkCategoryDesignation
+            //frmAddNewCategoryDesignation frm = new frmAddNewCategoryDesignation();
+            //frm.ShowDialog();
         }
     }
 }

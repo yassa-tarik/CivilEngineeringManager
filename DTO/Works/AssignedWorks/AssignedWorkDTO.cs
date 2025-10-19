@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Common.Enums;
-using System.Threading.Tasks;
+﻿using Common.Enums;
+using System;
 
 namespace DTO.Works.AssignedWorks
 {

@@ -1,9 +1,5 @@
 ﻿using DTO.Addresses;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DTO.Projects
 {
@@ -16,6 +12,6 @@ namespace DTO.Projects
         {
             this.ID = iD;
             this.AddressUpdate = addressUpdate;
-        }       
+        }
     }
 }

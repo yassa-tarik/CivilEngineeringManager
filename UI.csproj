@@ -68,6 +68,12 @@
     <Compile Include="Forms\AddEditProjectSpecifications.Designer.cs">
       <DependentUpon>AddEditProjectSpecifications.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmAddNewCategoryDesignation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAddNewCategoryDesignation.Designer.cs">
+      <DependentUpon>frmAddNewCategoryDesignation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\Tree\TreeViewConverters.cs" />
     <Compile Include="Mappers\WorkCategoryTreeMapper.cs" />
     <Compile Include="Mappers\WorkSpecTreeMapper.cs" />
@@ -95,6 +101,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddEditProjectSpecifications.resx">
       <DependentUpon>AddEditProjectSpecifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddNewCategoryDesignation.resx">
+      <DependentUpon>frmAddNewCategoryDesignation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -129,6 +138,10 @@
     <ProjectReference Include="Application.Abstractions\MyApplication.Abstractions.csproj">
       <Project>{109c8c7a-87cd-470d-ab65-6e5a5be2a8cc}</Project>
       <Name>MyApplication.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="Application\MyApplication.csproj">
+      <Project>{3101B011-64C6-4413-881D-A9F86DC15C2E}</Project>
+      <Name>MyApplication</Name>
     </ProjectReference>
     <ProjectReference Include="Composition\Composition.csproj">
       <Project>{9092722c-5a13-45d7-ad74-fc13fbc9d1f2}</Project>

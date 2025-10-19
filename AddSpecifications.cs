@@ -113,11 +113,12 @@ namespace CivilEngineeringManager
             treeListView1.ExpandAll();
             //**************************************************************
         }
-        void Fun(){       
+        void Fun()
+        {
             ObjectListView objectListView = new ObjectListView();
             //objectListView.Edi
-            TreeNodeViewModel work = new TreeNodeViewModel(nextId, null, "m2", 100, 150, 500, new List<WorkTypeTreeDTO>(), new List<WorkSpecDTO>());
-            var child = new WorkTypeTreeDTO { ID = -10, WorkCategoryID = 5, ParentID = null };
+            TreeNodeViewModel work = new TreeNodeViewModel(nextId, null, "m2", 100, 150, 500, new List<WorkTypeTreeDTO>(), new List<WorkSpecUpdateDTO>());
+            var child = new WorkTypeTreeDTO { ID = -10, WorkCategory_ID = 5, Parent_ID = null };
             child.Designation = "hello";
             work.WorkTypes.Add(child);
             var roots = treeListView1.Roots.Cast<TreeNodeViewModel>().ToList();
@@ -127,7 +128,8 @@ namespace CivilEngineeringManager
             treeListView1.EnsureModelVisible(work);
             //treeListView1.StartCellEdit(treeListView1.OverlayText, 0); // begin editing designation            
         }
-        private void button1_Click(object sender, EventArgs e){
+        private void button1_Click(object sender, EventArgs e)
+        {
             Fun();
             nextId++;
         }
@@ -136,13 +138,13 @@ namespace CivilEngineeringManager
         {
             if (treeListView1.SelectedObject == null)
             {
-                
+
                 contextMenuStrip1.Items[1].Enabled = false;
                 return;
             }
             {
-                if (treeListView1.Roots.Cast<TreeNodeViewModel>().Count() <=0)
-                {                    
+                if (treeListView1.Roots.Cast<TreeNodeViewModel>().Count() <= 0)
+                {
                     contextMenuStrip1.Items[1].Enabled = false;
                     contextMenuStrip1.Items[2].Enabled = false;
                     return;
@@ -152,15 +154,15 @@ namespace CivilEngineeringManager
             }
             contextMenuStrip1.Enabled = true;
             if (((TreeNodeViewModel)treeListView1.SelectedObject).ID > 0)
-                    contextMenuStrip1.Items[1].Enabled = false;
-                contextMenuStrip1.Items[2].Enabled = false; 
+                contextMenuStrip1.Items[1].Enabled = false;
+            contextMenuStrip1.Items[2].Enabled = false;
         }
 
         private void categoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int id = ((TreeNodeViewModel)treeListView1.SelectedObject).ID;
             var designation = comboBox2.SelectedItem.ToString();
-            TreeNodeViewModel work = new TreeNodeViewModel(id, designation, null, null, null, null, new List<WorkTypeTreeDTO>(), new List<WorkSpecDTO>());
+            TreeNodeViewModel work = new TreeNodeViewModel(id, designation, null, null, null, null, new List<WorkTypeTreeDTO>(), new List<WorkSpecUpdateDTO>());
             //((TreeNodeViewModel)treeListView1.SelectedObject).WorkTypes.Add(((TreeNodeViewModel)treeListView1.SelectedObject));
             var roots = treeListView1.Roots.Cast<TreeNodeViewModel>().ToList();
 

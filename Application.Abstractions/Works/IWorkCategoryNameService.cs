@@ -1,18 +1,19 @@
-﻿using DTO.Works.WorkCategories;
-using System;
+﻿using Domain.Entities;
+using DTO.Works.WorkCategories;
+using DTO.Works.WorkCategoryDesignations;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MyApplication.Abstractions.Works
 {
-    public interface IWorkCategoryNameService
+    public interface IWorkCategoryDesignationService
     {
-        Task<WorkCategoryDTO> GetByIdAsync(int id);
-        Dictionary<int, string> GetAllAsync();
-        Task<WorkCategoryDTO> AddAsync(WorkCategoryDTO category);
-        Task UpdateAsync(WorkCategoryDTO category);
-        Task DeleteAsync(int id);
+        Task<WorkCategoryDesignationUpdateDTO> GetByIdAsync(int id);
+        //Dictionary<int, string> GetAllAsync();
+        bool isExistsByName(string designation);
+        Task<Dictionary<int, WorkCategoryDesignation>> GetAllAsync();
+        Task<int> AddAsync(WorkCategoryDesignationCreateDTO category);
+        Task <bool>UpdateAsync(WorkCategoryDesignationUpdateDTO category);
+        //Task DeleteAsync(int id);
     }
 }

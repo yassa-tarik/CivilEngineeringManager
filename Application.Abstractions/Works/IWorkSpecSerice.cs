@@ -1,18 +1,17 @@
-﻿using DTO.Works.WorkSpecs;
-using System;
+﻿using Domain.Entities;
+using DTO.Works.WorkSpecs;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MyApplication.Abstractions.Works
 {
-    public interface IWorkSpecSerice
+    public interface IWorkSpecService
     {
-        Task<WorkSpecDTO> GetByIdAsync(int id);
-        Task<IEnumerable<WorkSpecDTO>> GetAllAsync();
-        Task<WorkSpecDTO> AddAsync(WorkSpecDTO spec);
-        Task UpdateAsync(WorkSpecDTO spec);
-        Task DeleteAsync(int id);
+        Task<List<WorkSpecUpdateDTO>> GetAllSpecsForCategoriesAndTypesAsync(int projectID, List<int> categoryListIDs);
+        Task<WorkSpecUpdateDTO> GetByIdAsync(int id);
+        Task<IEnumerable<WorkSpecUpdateDTO>> GetAllAsync();
+        Task<bool> AddAsync(WorkSpecCreateDTO spec);
+        Task<bool> UpdateAsync(WorkSpecUpdateDTO spec);
+        Task<bool> DeleteAsync(int id);
     }
 }

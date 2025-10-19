@@ -1,11 +1,8 @@
 ﻿using Domain.Entities;
-using DTO.Works.WorkCategories;
+using DTO.TreeDTOs;
+using DTO.Works.WorkSpecs;
 using DTO.Works.WorkTypes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyApplication.Mappers
 {
@@ -21,6 +18,56 @@ namespace MyApplication.Mappers
                  workType.WorkCategory_ID,
                  workType.Parent_ID,
                  workType.Designation
+            );
+        }
+
+        public static WorkTypeDTO TreeDtoToDTO(WorkTypeTreeDTO typeTreeDto)
+        {
+            if (typeTreeDto == null) throw new ArgumentNullException(nameof(typeTreeDto) + "not found!");
+
+            return new WorkTypeDTO
+            (
+                 typeTreeDto.ID,
+                 typeTreeDto.WorkCategory_ID,
+                 typeTreeDto.Parent_ID,
+                 typeTreeDto.Designation
+            );
+        }
+
+        public static WorkTypeUpdateDTO TreeDtoToUpdateDTO(WorkTypeTreeDTO typeTreeDto)
+        {
+            if (typeTreeDto == null) throw new ArgumentNullException(nameof(typeTreeDto) + "not found!");
+
+            return new WorkTypeUpdateDTO
+            (
+                 typeTreeDto.ID,
+                 typeTreeDto.WorkCategory_ID,
+                 typeTreeDto.Parent_ID,
+                 typeTreeDto.Designation
+            );
+        }
+
+        public static WorkTypeCreateDTO TreeDtoToCreateDTO(WorkTypeTreeDTO typeTreeDto)
+        {
+            if (typeTreeDto == null) throw new ArgumentNullException(nameof(typeTreeDto) + "not found!");
+
+            return new WorkTypeCreateDTO
+            (
+                 typeTreeDto.WorkCategory_ID,
+                 typeTreeDto.Parent_ID,
+                 typeTreeDto.Designation
+            );
+        }
+        // Map Create DTO to Domain Entity
+        public static WorkType CreateDtoToDomain(WorkTypeCreateDTO dto)
+        {
+            if (dto == null)
+                throw new ArgumentNullException(nameof(dto));
+
+            return new WorkType(
+                workCategory_ID: dto.WorkCategory_ID,
+                parent_ID: dto.Parent_ID,
+                designation: dto.Designation
             );
         }
     }

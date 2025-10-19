@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DTO.Works.WorkCategories
+﻿namespace DTO.Works.WorkCategories
 {
     /// <summary>
     /// A data transfer object (DTO) used to create a new work category.
@@ -12,7 +6,7 @@ namespace DTO.Works.WorkCategories
     /// </summary>
     public class WorkCategoryCreateDTO : WorkCategoryBaseDTO
     {
-        public WorkCategoryCreateDTO(int projectID, int workCategoryNameID, string workCategoryName) : base(projectID, workCategoryNameID, workCategoryName)
+        public WorkCategoryCreateDTO(int project_ID, int workCategoryDesignation_ID, string workCategoryDesignation) : base(project_ID, workCategoryDesignation_ID, workCategoryDesignation)
         {
         }
     }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DTO.Addresses
+﻿namespace DTO.Addresses
 {
     public class AddressBaseDTO
     {
@@ -16,7 +10,7 @@ namespace DTO.Addresses
         public string PlaceName { get; }
         public string Landmark { get; }
 
-        public AddressBaseDTO(int ID_Country, int ID_City, string APC, string street,string postalCode, string placeName, string landmark)
+        public AddressBaseDTO(int ID_Country, int ID_City, string APC, string street, string postalCode, string placeName, string landmark)
         {
             this.ID_Country = ID_Country;
             this.ID_City = ID_City;

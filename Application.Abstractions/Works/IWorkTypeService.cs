@@ -1,8 +1,5 @@
 ﻿using DTO.Works.WorkTypes;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MyApplication.Abstractions.Works
@@ -13,9 +10,11 @@ namespace MyApplication.Abstractions.Works
     public interface IWorkTypeService
     {
         Task<WorkTypeDTO> GetByIdAsync(int id);
-        Task<ICollection<WorkTypeDTO>> GetAllAsync();
-        Task<WorkTypeDTO> AddAsync(WorkTypeDTO type);
-        Task UpdateAsync(WorkTypeDTO type);
+        Task<IEnumerable<WorkTypeDTO>> GetAllForCategoriesRootsAsync(int projectID);
+        Task<int> AddAsync(WorkTypeCreateDTO type);
+        Task<int> UpdateAsync(WorkTypeUpdateDTO type);
         Task DeleteAsync(int id);
+        // mock data
+        Task<ICollection<WorkTypeDTO>> GetAllForCategoryAsync(int categoryID);
     }
 }

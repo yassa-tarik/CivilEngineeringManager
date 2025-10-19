@@ -1,28 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
     public class Address
     {
         public int ID { get; private set; }
-        public int ID_Country { get; private set; }
-        public int ID_City { get; private set; }
-        public string APC { get; private set; }
+        public int Country_ID { get; private set; }
+        public int City_ID { get; private set; }
+        public string Municipality { get; private set; }
         public string Street { get; private set; }
         public string PostalCode { get; private set; }
         public string PlaceName { get; private set; }
         public string Landmark { get; private set; }
 
-        public Address(int id, int countryId, int cityId, string apc, string street, string codePostal, string placeName, string landmark)
+        public Address(int id, int countryId, int cityId, string municipality, string street, string codePostal, string placeName, string landmark)
         {
             // Validate mandatory fields
             if (ID <= 0)
                 throw new ArgumentException("ID must be greater than 0", nameof(ID));
-
+            
             if (countryId <= 0)
                 throw new ArgumentException("Country Id must be greater than 0.");
 
@@ -33,9 +29,9 @@ namespace Domain.Entities
                 throw new ArgumentException("Street is required.");
 
             ID = id;
-            ID_Country = countryId;
-            ID_City = cityId;
-            APC = apc?.Trim();
+            Country_ID = countryId;
+            City_ID = cityId;
+            Municipality = municipality?.Trim();
             Street = street.Trim();
             PostalCode = codePostal?.Trim();
             PlaceName = placeName?.Trim();
@@ -54,12 +50,12 @@ namespace Domain.Entities
                 throw new InvalidOperationException("Address ID must be greater than zero.");
             }
 
-            if (ID_Country <= 0)
+            if (Country_ID <= 0)
             {
                 throw new InvalidOperationException("Country ID must be greater than zero.");
             }
 
-            if (ID_City <= 0)
+            if (City_ID <= 0)
             {
                 throw new InvalidOperationException("City ID must be greater than zero.");
             }
@@ -67,7 +63,7 @@ namespace Domain.Entities
             // Check if string properties are not null or whitespace.
             // The use of string.IsNullOrWhiteSpace() is a robust way to check for null, empty,
             // or strings consisting only of whitespace characters.
-            if (string.IsNullOrWhiteSpace(APC))
+            if (string.IsNullOrWhiteSpace(Municipality))
             {
                 throw new InvalidOperationException("APC cannot be null or empty.");
             }
@@ -99,9 +95,9 @@ namespace Domain.Entities
         /// </summary>
         public void Update(int idCountry, int idCity, string apc, string street, string postalCode, string placeName, string landmark)
         {
-            ID_Country = idCountry;
-            ID_City = idCity;
-            APC = apc;
+            Country_ID = idCountry;
+            City_ID = idCity;
+            Municipality = apc;
             Street = street;
             PostalCode = postalCode;
             PlaceName = placeName;

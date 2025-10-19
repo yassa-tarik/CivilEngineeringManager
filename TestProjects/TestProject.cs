@@ -27,11 +27,11 @@ namespace CivilEngineeringManager.TestProjects
             public ParentObject Parent { get; set; }
         }
 
-        
+
         private List<ParentObject> data = new List<ParentObject>();
         private Button btnAddParent;
         private Button btnAddChild;
-    
+
         public TestProject()
         {
             InitializeComponent();
@@ -64,11 +64,13 @@ namespace CivilEngineeringManager.TestProjects
             });
 
             // Set the tree view
-            treeListView2.CanExpandGetter = delegate (object x) {
+            treeListView2.CanExpandGetter = delegate (object x)
+            {
                 return x is ParentObject;
             };
 
-            treeListView2.ChildrenGetter = delegate (object x) {
+            treeListView2.ChildrenGetter = delegate (object x)
+            {
                 if (x is ParentObject parent)
                     return parent.Children;
                 return null;

@@ -7,8 +7,8 @@
     <ProjectGuid>{3101B011-64C6-4413-881D-A9F86DC15C2E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Application</RootNamespace>
-    <AssemblyName>Application</AssemblyName>
+    <RootNamespace>MyApplication</RootNamespace>
+    <AssemblyName>MyApplication</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Mappers\AddressMapper.cs" />
     <Compile Include="Mappers\ProjectMapper.cs" />
+    <Compile Include="Mappers\WorkCategoryDesignationMapper.cs" />
     <Compile Include="Mappers\WorkCategoryMapper.cs" />
     <Compile Include="Mappers\WorkSpecMapper.cs" />
     <Compile Include="Mappers\WorkTypeMapper.cs" />
@@ -50,7 +51,7 @@
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Trees\ProjectTreeService.cs" />
-    <Compile Include="Services\Works\WorkCategoryNameService.cs" />
+    <Compile Include="Services\Works\WorkCategoryDesignationService.cs" />
     <Compile Include="Services\Works\WorkCategoryService.cs" />
     <Compile Include="Services\Works\WorkSpecService.cs" />
     <Compile Include="Services\Works\WorkTypeService.cs" />

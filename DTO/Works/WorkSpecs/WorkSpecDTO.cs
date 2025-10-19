@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DTO.Works.WorkSpecs
+﻿namespace DTO.Works.WorkSpecs
 {
     /// <summary>
     /// A data transfer object (DTO) that represents a work specification for read-only operations.
@@ -12,8 +6,8 @@ namespace DTO.Works.WorkSpecs
     public class WorkSpecDTO
     {
         public int ID { get; }
-        public int? WorkCategory_ID { get; }
-        public int? WorkType_ID { get; }
+        public int? WorkCategory_ID { get; set; }
+        public int? WorkType_ID { get; set; }
         public string Designation { get; set; }
         public string Unit { get; set; }
         public decimal UnitPrice { get; set; }
