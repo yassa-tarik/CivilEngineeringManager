@@ -67,8 +67,8 @@ namespace MyApplication.Mappers
             return new WorkCategory
             (
                 workCat.Project_ID,
-                workCat.WorkCategoryDesignation_ID                
+                workCat.WorkCategoryDesignation_ID
             );
-        }       
+        }
     }
 }

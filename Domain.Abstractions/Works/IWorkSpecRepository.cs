@@ -6,7 +6,7 @@ namespace Domain.Abstractions.Works
 {
     public interface IWorkSpecRepository
     {
-        Task<List<WorkSpec>> GetAllSpecsForCategoriesAndTypesAsync(int projectID, List<int> categoryListIDs);
+        Task<List<WorkSpec>> GetAllSpecsForCategoriesAndTypesAsync(int projectID);
         Task<WorkSpec> GetByIdAsync(int id);
         Task<bool> AddNewAsync(WorkSpec spec);
         Task<bool> UpdateAsync(WorkSpec spec);

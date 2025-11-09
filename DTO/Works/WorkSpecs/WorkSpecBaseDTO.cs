@@ -14,6 +14,8 @@
         public decimal UnitPrice { get; set; }
         public double Quantity { get; set; }
         public string VAT { get; set; }
+        // Computed property: no setter, as its value is always calculated.
+        public decimal Amount => UnitPrice * (decimal)Quantity;
 
         public WorkSpecBaseDTO(int? workCategory_ID, int? workType_ID, string designation, string unit, decimal unitPrice, double quantity, string vAT)
         {

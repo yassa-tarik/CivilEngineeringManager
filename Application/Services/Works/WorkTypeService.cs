@@ -20,7 +20,7 @@ namespace MyApplication.Services.Works
         }
 
         // Done
-        public  Task<int> AddAsync(WorkTypeCreateDTO typeDTO)
+        public Task<int> AddAsync(WorkTypeCreateDTO typeDTO)
         {
             if (typeDTO == null)
                 throw new ArgumentException("WorkType data is required");
@@ -45,7 +45,7 @@ namespace MyApplication.Services.Works
             if (typeDTO == null)
                 throw new ArgumentException("WorkType must have data!");
 
-            var existing =  await _workTypeRepo.GetByIdAsync(typeDTO.ID);
+            var existing = await _workTypeRepo.GetByIdAsync(typeDTO.ID);
 
             if (existing == null)
                 throw new ArgumentException("WorkType not found!");
@@ -62,7 +62,7 @@ namespace MyApplication.Services.Works
 
         public async Task<ICollection<WorkTypeDTO>> GetAllForCategoryAsync(int categoryID)
         {
-            var workTypes = await _workTypeRepo.GetAllForCategoryAsync(categoryID); 
+            var workTypes = await _workTypeRepo.GetAllForCategoryAsync(categoryID);
 
             var workTypesDTOs = workTypes.Select(c => WorkTypeMapper.DomainToDto(c)).ToList();
             return workTypesDTOs;

@@ -5,41 +5,97 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Works
 {
     public class WorkCategoryRepository : DBConnectionStringBaseRepo, IWorkCategoryRepository
     {
-        public Task<WorkCategory> GetByIdAsync(int id)
+        public async Task<WorkCategory> GetByIdAsync(int id)
         {
-            using (var conn = CreateConnection())
-            using (var command = CreateConnection())
+            WorkCategory category = null;
+            try
             {
+                using (var conn = await CreateConnectionAsync())
+                {
+                    using (SqlCommand cmd = new SqlCommand("SP_GetWorkCategoryById", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@ID", id);
 
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                category = new WorkCategory(
+                                    id: (int)reader["ID"],
+                                    project_ID: (int)reader["Project_ID"],
+                                    workCategoryDesignation_ID: (int)reader["WorkCategoryDesignation_ID"]
+                                    //creationDate: (DateTime)reader["CreationDate"],
+                                    //CreatedBy: (int)reader["CreatedBy"],
+                                    //ModificationDate: (DateTime)reader["ModificationDate"],
+                                    //ModifiedBy: (int)reader["ModifiedBy"]
+                                );
+                            }
+                        }
+                    }
+                }
             }
-            throw new NotImplementedException();
-            
+            catch (Exception ex)
+            {
+                // Consider logging the exception
+                throw;
+            }
+            return category;
         }
 
-        public Task<IEnumerable<WorkCategory>> GetAllForProjectAsync(int projecID)
+        // Done
+        public async Task<IEnumerable<WorkCategory>> GetAllWorkCategoriesForProjectAsync(int projecID)
         {
-            throw new NotImplementedException();
+            var workCategories = new List<WorkCategory>();
+            try
+            {
+                using (var conn = await CreateConnectionAsync())
+                {
+                    using (SqlCommand cmd = new SqlCommand("SP_GetAllWorkCategoriesForProject", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@projectID", projecID);
+
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                workCategories.Add(new WorkCategory(
+                                  id: (int)reader["ID"],
+                                  project_ID: (int)reader["Project_ID"],
+                                  workCategoryDesignation_ID: (int)reader ["WorkCategoryDesignation_ID"]
+                                ));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Consider logging the exception
+                throw;
+            }
+            return workCategories;
         }
 
-        // DONE
-        public Task<int> AddNewAsync(WorkCategory category)
+        // Done
+        public async Task<int> AddNewAsync(WorkCategory category)
         {
             int NewID = 0;
             try
             {
-                using (var conn = CreateConnection())
+                using (var conn = await CreateConnectionAsync())
                 {
                     using (SqlCommand cmd = new SqlCommand("SP_AddNewWorkCategory", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@Project_ID", category.Project_ID);
+                        cmd.Parameters.AddWithValue("@Projet_ID", category.Project_ID);
                         cmd.Parameters.AddWithValue("@WorkCategoryDesignation_ID", category.WorkCategoryDesignation_ID);
 
                         cmd.Parameters.AddWithValue("@CreationDate", category.CreationDate);
@@ -59,40 +115,41 @@ namespace Infrastructure.Persistence.Works
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return Task.FromResult(-1);                
+                throw;
             }
-            return Task.FromResult(NewID);
+            return NewID;
         }
-        // DONE
-        public Task<int> UpdateAsync(WorkCategory category)
+        // Done
+        public async Task<int> UpdateAsync(WorkCategory category)
         {
             int categoryID = 0;
             try
             {
-                using (var conn = CreateConnection())
-                using (SqlCommand cmd = new SqlCommand("SP_UpdateWorkCategory", conn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-         
-                    cmd.Parameters.AddWithValue("@ID", category.ID);
-                    cmd.Parameters.AddWithValue("@WorkCategoryDesignation_ID", category.WorkCategoryDesignation_ID);
-                    cmd.Parameters.AddWithValue("@ModificationDate", category.ModificationDate);
-                    cmd.Parameters.AddWithValue("@ModifiedBy", category.ModifiedBy);
-                   
-                    int result = cmd.ExecuteNonQuery();
-                    if (result > 0)
+                using (var conn = await CreateConnectionAsync())
+                {using (SqlCommand cmd = new SqlCommand("SP_UpdateWorkCategory", conn))
                     {
-                        categoryID = category.ID;
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@ID", category.ID);
+                        cmd.Parameters.AddWithValue("@WorkCategoryDesignation_ID", category.WorkCategoryDesignation_ID);
+                        cmd.Parameters.AddWithValue("@ModificationDate", category.ModificationDate);
+                        cmd.Parameters.AddWithValue("@ModifiedBy", category.ModifiedBy);
+
+                        int result = cmd.ExecuteNonQuery();
+                        if (result > 0)
+                        {
+                            categoryID = category.ID;
+                        }
                     }
                 }
             }
             catch (Exception)
             {
-                return Task.FromResult(-1);
+                return -1;
             }
-            return Task.FromResult(categoryID);
+            return categoryID;
 
         }
 

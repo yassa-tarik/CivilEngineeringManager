@@ -14,7 +14,6 @@ namespace MyApplication.Mappers
                 domain.Country_ID,
                 domain.City_ID,
                 domain.Municipality,
-                domain.Street,
                 domain.PostalCode,
                 domain.PlaceName,
                 domain.Landmark

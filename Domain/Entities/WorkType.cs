@@ -42,7 +42,7 @@ namespace Domain.Entities
 
         public WorkType(int? workCategory_ID, int? parent_ID, string designation)
         {
-            Validate( workCategory_ID, parent_ID, designation);
+            Validate(workCategory_ID, parent_ID, designation);
 
             WorkCategory_ID = workCategory_ID;
             Parent_ID = parent_ID;
@@ -79,11 +79,7 @@ namespace Domain.Entities
 
             // CreatedBy validation
             if (CreatedBy <= 0)
-                throw new InvalidOperationException("CreatedBy must be a valid user ID.");
-
-            // WorkCategory_ID validation (if provided)
-            if (WorkCategory_ID.HasValue && WorkCategory_ID.HasValue)
-                throw new InvalidOperationException("WorkCategory_ID must have only one Parent.");
+                throw new InvalidOperationException("CreatedBy must be a valid user ID.");          
 
             // WorkType_ID validation (if provided)
             if (WorkCategory_ID == null && Parent_ID == null)
@@ -106,7 +102,7 @@ namespace Domain.Entities
             {
                 throw new ArgumentException("Designation cannot be empty or whitespace.", nameof(designation));
             }
-            
+
             // If the method reaches this point, all parameters are considered valid based on these rules.
         }
     }

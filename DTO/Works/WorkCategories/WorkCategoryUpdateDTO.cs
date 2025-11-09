@@ -6,7 +6,7 @@
     /// </summary>
     public class WorkCategoryUpdateDTO : WorkCategoryBaseDTO
     {
-        public int ID { get;}
+        public int ID { get; }
 
         public WorkCategoryUpdateDTO(int iD, int projectID, int workCategoryDesignation_ID, string designation) : base(projectID, workCategoryDesignation_ID, designation)
         {

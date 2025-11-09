@@ -8,31 +8,26 @@ namespace Domain.Entities
         public int Country_ID { get; private set; }
         public int City_ID { get; private set; }
         public string Municipality { get; private set; }
-        public string Street { get; private set; }
         public string PostalCode { get; private set; }
         public string PlaceName { get; private set; }
         public string Landmark { get; private set; }
 
-        public Address(int id, int countryId, int cityId, string municipality, string street, string codePostal, string placeName, string landmark)
+        public Address(int id, int countryId, int cityId, string municipality, string codePostal, string placeName, string landmark)
         {
             // Validate mandatory fields
             if (ID <= 0)
                 throw new ArgumentException("ID must be greater than 0", nameof(ID));
-            
+
             if (countryId <= 0)
                 throw new ArgumentException("Country Id must be greater than 0.");
 
             if (cityId <= 0)
                 throw new ArgumentException("City Id must be greater than 0.");
 
-            if (string.IsNullOrWhiteSpace(street))
-                throw new ArgumentException("Street is required.");
-
             ID = id;
             Country_ID = countryId;
             City_ID = cityId;
             Municipality = municipality?.Trim();
-            Street = street.Trim();
             PostalCode = codePostal?.Trim();
             PlaceName = placeName?.Trim();
             Landmark = landmark?.Trim();
@@ -68,11 +63,6 @@ namespace Domain.Entities
                 throw new InvalidOperationException("APC cannot be null or empty.");
             }
 
-            if (string.IsNullOrWhiteSpace(Street))
-            {
-                throw new InvalidOperationException("Street cannot be null or empty.");
-            }
-
             if (string.IsNullOrWhiteSpace(PostalCode))
             {
                 throw new InvalidOperationException("PostalCode cannot be null or empty.");
@@ -93,12 +83,11 @@ namespace Domain.Entities
         /// <summary>
         /// Updates the address properties and validates the new state.
         /// </summary>
-        public void Update(int idCountry, int idCity, string apc, string street, string postalCode, string placeName, string landmark)
+        public void Update(int idCountry, int idCity, string municipality, string postalCode, string placeName, string landmark)
         {
             Country_ID = idCountry;
             City_ID = idCity;
-            Municipality = apc;
-            Street = street;
+            Municipality = municipality;
             PostalCode = postalCode;
             PlaceName = placeName;
             Landmark = landmark;

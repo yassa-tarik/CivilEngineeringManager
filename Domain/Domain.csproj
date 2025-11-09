@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\AssignedWork.cs" />
+    <Compile Include="Entities\City.cs" />
+    <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Project.cs" />
     <Compile Include="Entities\Subcontractor.cs" />
     <Compile Include="Entities\WorkCategory.cs" />

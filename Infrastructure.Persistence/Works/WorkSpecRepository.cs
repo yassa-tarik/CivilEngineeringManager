@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Works
 {
-    public class WorkSpecRepository : DBConnectionStringBaseRepo ,IWorkSpecRepository
+    public class WorkSpecRepository : DBConnectionStringBaseRepo, IWorkSpecRepository
     {
         //DONE
-        public Task<bool> AddNewAsync(WorkSpec workSpec)
+        public async Task<bool> AddNewAsync(WorkSpec workSpec)
         {
             bool isAdded = false;
             try
             {
-                using (var conn = CreateConnection())
+                using (var conn = await CreateConnectionAsync())
                 {
-                    using (SqlCommand cmd = new SqlCommand("[SP_AddWorkSpec]", conn))
+                    using (SqlCommand cmd = new SqlCommand("[SP_AddNewWorkSpec]", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@WorkCategory_ID", workSpec.WorkCategory_ID);
@@ -46,7 +46,7 @@ namespace Infrastructure.Persistence.Works
             {
                 isAdded = false;
             }
-            return Task.FromResult(isAdded);
+            return isAdded;
         }
         //DONE
         public Task<bool> UpdateAsync(WorkSpec workSpec)
@@ -58,7 +58,7 @@ namespace Infrastructure.Persistence.Works
                 {
                     using (SqlCommand cmd = new SqlCommand("[SP_UpdateWorkSpec]", conn))
                     {
-                        cmd.CommandType = CommandType. StoredProcedure;                       
+                        cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@ID", workSpec.ID);
                         cmd.Parameters.AddWithValue("@Designation", workSpec.Designation);
                         cmd.Parameters.AddWithValue("@Unit", workSpec.Unit);
@@ -77,7 +77,7 @@ namespace Infrastructure.Persistence.Works
             }
             catch (Exception)
             {
-                isModified = false;                
+                isModified = false;
             }
             return Task.FromResult(isModified);
         }
@@ -97,27 +97,16 @@ namespace Infrastructure.Persistence.Works
             throw new NotImplementedException();
         }
 
-        public async Task<List<WorkSpec>> GetAllSpecsForCategoriesAndTypesAsync(int projectID, List<int> categoryListIDs)
+        public async Task<List<WorkSpec>> GetAllSpecsForCategoriesAndTypesAsync(int projectID)
         {
-            List<WorkSpec> workSpecs = new List<WorkSpec>();
-            // 1. Convert List<int> to DataTable
-            DataTable tvpTable = new DataTable();
-            tvpTable.Columns.Add("ID", typeof(int));
-            foreach (int id in categoryListIDs)
-            {
-                tvpTable.Rows.Add(id);
-            }
+            List<WorkSpec> workSpecs = new List<WorkSpec>();           
             try
             {
-                using (var conn = CreateConnection())
+                using (var conn = await CreateConnectionAsync())
                 {
                     using (SqlCommand cmd = new SqlCommand("SP_GetAllWorkSpecsForCategoriesAndTypes", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        // 2. Add the TVP parameter
-                        SqlParameter tvpParam = cmd.Parameters.AddWithValue("@WorkTypeIDs", tvpTable);
-                        tvpParam.SqlDbType = SqlDbType.Structured;
-                        tvpParam.TypeName = "dbo.IntList"; // Must match the SQL type name
                         cmd.Parameters.AddWithValue("@projectID", projectID);
                         using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                         {

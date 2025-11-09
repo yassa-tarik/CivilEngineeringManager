@@ -48,6 +48,8 @@
     <Compile Include="Mappers\WorkSpecMapper.cs" />
     <Compile Include="Mappers\WorkTypeMapper.cs" />
     <Compile Include="Services\AddressService.cs" />
+    <Compile Include="Services\CityService.cs" />
+    <Compile Include="Services\CountryService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Trees\ProjectTreeService.cs" />

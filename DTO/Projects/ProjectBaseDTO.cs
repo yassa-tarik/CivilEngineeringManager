@@ -24,13 +24,10 @@ namespace DTO.Projects
         public string LandBook { get; }
         public DateTime? LandBookDate { get; }
         public string LandBookBy { get; }
-        public bool IsSpecComplete { get; }
+        public bool IsSpecCompleted { get; }
         public byte Progress { get; }
 
-        public int CreatedBy { get; }
-        public int ModifiedBy { get; }
-
-        public ProjectBaseDTO(string name, string projectCode, DateTime startDate, int duration, string projectType, string description, bool isActive, string landRegistry, string subdivisionPermitNumber, DateTime? subdivisionPermitDate, string constructionPermitNumber, DateTime constructionPermitDate, string deedVolume, string deedNumber, string deedFolio, string landBook, DateTime? landBookDate, string landBookBy, bool isSpecComplete, byte progress, int createdBy, int modifiedBy)
+        public ProjectBaseDTO(string name, string projectCode, DateTime startDate, int duration, string projectType, string description, bool isActive, string landRegistry, string subdivisionPermitNumber, DateTime? subdivisionPermitDate, string constructionPermitNumber, DateTime constructionPermitDate, string deedVolume, string deedNumber, string deedFolio, string landBook, DateTime? landBookDate, string landBookBy, bool isSpecComplete, byte progress)
         {
             Name = name;
             ProjectCode = projectCode;
@@ -51,11 +48,8 @@ namespace DTO.Projects
             LandBook = landBook;
             LandBookDate = landBookDate;
             LandBookBy = landBookBy;
-            IsSpecComplete = isSpecComplete;
+            IsSpecCompleted = isSpecComplete;
             Progress = progress;
-
-            CreatedBy = createdBy;
-            ModifiedBy = modifiedBy;
         }
     }
 }

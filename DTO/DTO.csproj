@@ -45,6 +45,8 @@
     <Compile Include="Addresses\AddressCreateDTO.cs" />
     <Compile Include="Addresses\AddressDTO.cs" />
     <Compile Include="Addresses\AddressUpdateDTO.cs" />
+    <Compile Include="Cities\CityDTO.cs" />
+    <Compile Include="Countries\CountryDTO.cs" />
     <Compile Include="Projects\ProjectBaseDTO.cs" />
     <Compile Include="Projects\ProjectCreateDTO.cs" />
     <Compile Include="Projects\ProjectDTO.cs" />

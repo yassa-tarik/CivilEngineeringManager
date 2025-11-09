@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MyApplication.Abstractions</RootNamespace>
-    <AssemblyName>Application.Abstractions</AssemblyName>
+    <AssemblyName>MyApplication.Abstractions</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -42,12 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAddressService.cs" />
+    <Compile Include="ICityService.cs" />
+    <Compile Include="ICountryService.cs" />
     <Compile Include="IProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Works\IWorkCategoryNameService.cs" />
+    <Compile Include="Works\IWorkCategoryDesignationService.cs" />
     <Compile Include="Works\IWorkCategoryService.cs" />
     <Compile Include="Works\IWorkCategoryTreeService.cs" />
-    <Compile Include="Works\IWorkSpecSerice.cs" />
+    <Compile Include="Works\IWorkSpecService.cs" />
     <Compile Include="Works\IWorkTypeService.cs" />
   </ItemGroup>
   <ItemGroup>

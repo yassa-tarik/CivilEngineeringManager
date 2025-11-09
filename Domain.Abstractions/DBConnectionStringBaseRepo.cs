@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.Abstractions
@@ -18,10 +14,17 @@ namespace Domain.Abstractions
         }
 
         //Risk race condition
-        protected SqlConnection CreateConnection()
+
+        protected  SqlConnection CreateConnection()
         {
             var connection = new SqlConnection(_connectionString);
-            connection.OpenAsync();
+            connection.Open();
+            return connection;
+        }
+        protected async Task<SqlConnection> CreateConnectionAsync()
+        {
+            var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
             return connection;
         }
         //TODO: will use this method later

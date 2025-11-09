@@ -36,7 +36,7 @@ namespace MyApplication.Mappers
                 unit: dto.Unit,
                 unitPrice: dto.UnitPrice,
                 quantity: dto.Quantity,
-                vat: dto.VAT         
+                vat: dto.VAT
             );
         }
         public static WorkSpecCreateDTO UpdateDtoToCreateDto(WorkSpecUpdateDTO dto)

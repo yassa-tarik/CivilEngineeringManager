@@ -45,13 +45,11 @@ namespace Domain.Entities
         }
         // used for Create
         private void Validate(string designation)
-        {
-            if (ID >= 0)
-                throw new InvalidOperationException("ID must be negative.");
+        {            
             //Designation validation
-            if (string.IsNullOrWhiteSpace(Designation))
+            if (string.IsNullOrWhiteSpace(designation))
                 throw new InvalidOperationException("Designation is required.");
-            else if (Designation.Length > 100)
+            else if (designation.Length > 100)
                 throw new InvalidOperationException("Designation cannot exceed 100 characters.");
         }
 

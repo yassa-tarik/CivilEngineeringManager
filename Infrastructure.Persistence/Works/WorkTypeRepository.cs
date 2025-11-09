@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Works
 {
-    public class WorkTypeRepository : DBConnectionStringBaseRepo ,IWorkTypeRepository
+    public class WorkTypeRepository : DBConnectionStringBaseRepo, IWorkTypeRepository
     {
         //DONE
-        public Task<int> AddNewAsync(WorkType workType)
+        public async Task<int> AddNewAsync(WorkType workType)
         {
             int NewID = 0;
             try
             {
-                using (var conn = CreateConnection())
+                using (var conn = await CreateConnectionAsync())
                 {
                     using (SqlCommand cmd = new SqlCommand("SP_AddNewWorkType", conn))
                     {
@@ -44,17 +44,17 @@ namespace Infrastructure.Persistence.Works
             }
             catch (Exception)
             {
-                return Task.FromResult(-1);
+                return -1;
             }
-            return Task.FromResult(NewID);
+            return NewID;
         }
         //DONE
-        public Task<int> UpdateAsync(WorkType workType)
+        public async Task<int> UpdateAsync(WorkType workType)
         {
             int typeID = 0;
             try
             {
-                using (var conn = CreateConnection())
+                using (var conn = await CreateConnectionAsync())
                 using (SqlCommand cmd = new SqlCommand("SP_UpdateWorkType", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -73,14 +73,14 @@ namespace Infrastructure.Persistence.Works
             }
             catch (Exception)
             {
-                return Task.FromResult(-1);
+                return -1;
             }
-            return Task.FromResult(typeID);
+            return typeID;
         }
         // done
         public async Task<List<WorkType>> GetAllForCategoriesRootsAsync(int projectID)
         {
-            List<WorkType> workTypes = new List<WorkType>(); 
+            List<WorkType> workTypes = new List<WorkType>();
             try
             {
                 using (var conn = CreateConnection())
@@ -94,7 +94,7 @@ namespace Infrastructure.Persistence.Works
                         {
                             while (await reader.ReadAsync())
                             {
-                                workTypes.Add( new WorkType(
+                                workTypes.Add(new WorkType(
                             id: reader.GetInt32(reader.GetOrdinal("ID")),
                             workCategory_ID: reader.IsDBNull(reader.GetOrdinal("WorkCategory_ID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("WorkCategory_ID")),
                             parent_ID: reader.IsDBNull(reader.GetOrdinal("Parent_ID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("Parent_ID")),
@@ -126,9 +126,39 @@ namespace Infrastructure.Persistence.Works
             return await Task.FromResult<IEnumerable<WorkType>>(_workTypes);
         }
 
-        public Task<WorkType> GetByIdAsync(int id)
+        public async Task<WorkType> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            WorkType workType = null;
+            try
+            {
+                using (var conn = await CreateConnectionAsync())
+                {
+                    using (SqlCommand cmd = new SqlCommand("SP_GetWorkTypeById", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@ID", id);
+
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                workType = new WorkType(
+                                    id: (int)reader["ID"],
+                                    workCategory_ID: reader.IsDBNull(reader.GetOrdinal("WorkCategory_ID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("WorkCategory_ID")),
+                                    parent_ID: reader.IsDBNull(reader.GetOrdinal("Parent_ID")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("Parent_ID")),
+                                    designation: reader.GetString(reader.GetOrdinal("Designation"))
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                throw;
+            }
+            return workType;
         }
 
         //********************* Mock data **************************

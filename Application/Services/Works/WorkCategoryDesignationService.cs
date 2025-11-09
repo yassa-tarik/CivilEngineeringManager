@@ -34,7 +34,7 @@ namespace MyApplication.Services.Works
             WorkCategoryDesignation workCatDesign = WorkCategoryDesignationMapper.CreateDtoToDomain(category);
             return await _workCategoryDesignationRepo.AddNewAsync(workCatDesign);
         }
-        
+
         //done
         public async Task<bool> UpdateAsync(WorkCategoryDesignationUpdateDTO category)
         {
@@ -49,20 +49,22 @@ namespace MyApplication.Services.Works
             throw new NotImplementedException();
         }
 
-            /// <summary>
-            /// Retrieves all WorkCategoryDesignations and converts them into a Dictionary 
-            /// where the key is the WorkCategoryDesignation.ID.
-            /// </summary>
-            /// <returns>A Dictionary<int, WorkCategoryDesignation>.</returns>
-    public async Task<Dictionary<int, WorkCategoryDesignation>> GetAllAsync()
+        // Done
+        /// <summary>
+        /// Retrieves all WorkCategoryDesignations and converts them into a Dictionary 
+        /// where the key is the WorkCategoryDesignation.ID.
+        /// </summary>
+        /// <returns>A Dictionary<int, WorkCategoryDesignation>.</returns>
+        public async Task<Dictionary<int, WorkCategoryDesignationUpdateDTO>> GetAllAsync()
         {
-            // 1. Fetch the List<WorkCategoryDesignation> asynchronously.
+            //await Task.Delay(5000); // for test purposes
+
             List<WorkCategoryDesignation> list = await _workCategoryDesignationRepo.GetAllAsync();
 
-            Dictionary<int, WorkCategoryDesignation> dictionary = list
+            Dictionary<int, WorkCategoryDesignationUpdateDTO> dictionary = list
                 .ToDictionary(
                     keySelector: wc => wc.ID,
-                    elementSelector: wc => wc
+                    elementSelector: (wc) => WorkCategoryDesignationMapper.DomainToUpdateDto(wc)
                 );
             return dictionary;
         }
@@ -79,19 +81,19 @@ namespace MyApplication.Services.Works
             throw new NotImplementedException();
         }
         //******************** Mock data ***********************
-        public Dictionary<int, string> GetAll()
-        {
-            var mockWorkCategoriesDictionary = new Dictionary<int, string>
-            {
-                { 1, "Development" },
-                { 2, "Marketing" },
-                { 3, "Design" },
-                { 4, "Sales" },
-                { 5, "Customer Support" }
-            };
-            return mockWorkCategoriesDictionary;
-        }
+        //public Dictionary<int, string> GetAll()
+        //{
+        //    var mockWorkCategoriesDictionary = new Dictionary<int, string>
+        //    {
+        //        { 1, "Development" },
+        //        { 2, "Marketing" },
+        //        { 3, "Design" },
+        //        { 4, "Sales" },
+        //        { 5, "Customer Support" }
+        //    };
+        //    return mockWorkCategoriesDictionary;
+        //}
 
-        
+
     }
 }

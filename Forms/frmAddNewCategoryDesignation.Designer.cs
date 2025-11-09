@@ -32,6 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnAddNewCatDesign = new System.Windows.Forms.Button();
             this.txtCatDesign = new System.Windows.Forms.TextBox();
+            this.btnModify = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -77,11 +78,24 @@
             this.txtCatDesign.Size = new System.Drawing.Size(563, 26);
             this.txtCatDesign.TabIndex = 4;
             // 
+            // btnModify
+            // 
+            this.btnModify.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnModify.Location = new System.Drawing.Point(600, 130);
+            this.btnModify.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnModify.Name = "btnModify";
+            this.btnModify.Size = new System.Drawing.Size(121, 32);
+            this.btnModify.TabIndex = 8;
+            this.btnModify.Text = "Modifier";
+            this.btnModify.UseVisualStyleBackColor = true;
+            this.btnModify.Click += new System.EventHandler(this.btnModify_Click);
+            // 
             // frmAddNewCategoryDesignation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 132);
+            this.ClientSize = new System.Drawing.Size(735, 176);
+            this.Controls.Add(this.btnModify);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAddNewCatDesign);
@@ -99,5 +113,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnAddNewCatDesign;
         private System.Windows.Forms.TextBox txtCatDesign;
+        private System.Windows.Forms.Button btnModify;
     }
 }

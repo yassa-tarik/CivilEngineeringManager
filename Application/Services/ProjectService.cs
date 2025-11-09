@@ -20,6 +20,12 @@ namespace MyApplication
             _projectRepo = projectRepo;
             _addressRepo = addressRepo;
         }
+
+        public Task<ProjectDTO> GetByIdAsync(int projectId)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Creates and adds a new project to the system.
         /// It maps a ProjectCreateDto to a new Project domain entity and adds it via the repository.
@@ -53,7 +59,7 @@ namespace MyApplication
             }
             catch (Exception ex)
             {
-                throw ;
+                throw;
             }
         }
         // done
@@ -70,7 +76,7 @@ namespace MyApplication
             if (existingAddress == null)
                 throw new Exception("Address for this project not found!");
             //TODO: should make a transaction here
-            existingAddress.Update(dto.AddressUpdate.ID_Country, dto.AddressUpdate.ID_City, dto.AddressUpdate.APC, dto.AddressUpdate.Street, dto.AddressUpdate.PostalCode, dto.AddressUpdate.PlaceName, dto.AddressUpdate.Landmark);
+            existingAddress.Update(dto.AddressUpdate.ID_Country, dto.AddressUpdate.ID_City, dto.AddressUpdate.Municipality, dto.AddressUpdate.PostalCode, dto.AddressUpdate.PlaceName, dto.AddressUpdate.Landmark);
             if (!(await _addressRepo.UpdateAsync(existingAddress)))
                 throw new Exception("Address Failed to update!");
             //existing.UpdateAddress(newAddress); TODO: will use this one
@@ -93,7 +99,7 @@ namespace MyApplication
                 dto.LandBook,
                 dto.LandBookDate,
                 dto.LandBookBy,
-                dto.IsSpecComplete,
+                dto.IsSpecCompleted,
                 dto.Progress,
                 existingAddress.ID // Address ID
                 );
@@ -220,5 +226,7 @@ namespace MyApplication
             new ProjectMinDTO(10, "Social Media Analytics Tool", false)
         };
         }
+
+        
     }
 }

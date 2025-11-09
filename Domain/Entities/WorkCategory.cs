@@ -18,16 +18,17 @@ namespace Domain.Entities
         public DateTime ModificationDate { get; private set; }
         public int ModifiedBy { get; private set; }
 
-        public WorkCategory(int project_ID, int workCategoryDesignation_ID/*, string designation*/)
+        // for creation new entity
+        public WorkCategory(int project_ID, int workCategoryDesignation_ID)
         {
             if (project_ID <= 0)
             {
                 throw new ArgumentException("Project_ID must be greater than zero.", nameof(project_ID));
             }
-            if (workCategoryDesignation_ID <= 0)
-            {
-                throw new ArgumentException("WorkCategoryName_ID must be greater than zero.", nameof(workCategoryDesignation_ID));
-            }
+            //if (workCategoryDesignation_ID <= 0)
+            //{
+            //    throw new ArgumentException("WorkCategoryName_ID must be greater than zero.", nameof(workCategoryDesignation_ID));
+            //}
             //if (string.IsNullOrWhiteSpace(designation))
             //{
             //    throw new ArgumentException("WorkCategoryName cannot be null or empty.", nameof(designation));
@@ -36,19 +37,18 @@ namespace Domain.Entities
             Project_ID = project_ID;
             WorkCategoryDesignation_ID = workCategoryDesignation_ID;
             //Designation = designation;
-            //CreationDate = DateTime.Now;
+            CreationDate = DateTime.Now;
             CreatedBy = 1;  //will be current user id
             ModificationDate = DateTime.Now;
             ModifiedBy = 1;  //will be current user id
         }
 
-        // for creation new entity
-        public WorkCategory(int id, int project_ID, int workCategoryDesignation_ID/*, string designation*/)
+        public WorkCategory(int id, int project_ID, int workCategoryDesignation_ID)
         {
-            //if (id >= 0)
-            //{
-            //    throw new ArgumentException("ID must be smaller than zero.", nameof(id));
-            //}
+            if (id <= 0)
+            {
+                throw new ArgumentException("ID must be greater than zero.", nameof(id));
+            }
             if (project_ID <= 0)
             {
                 throw new ArgumentException("Project_ID must be greater than zero.", nameof(project_ID));
@@ -76,7 +76,7 @@ namespace Domain.Entities
         /// Updates the WorkCategory's name and modification details.
         /// </summary>
         public void Update(int workCategoryDesignation_ID/*, string designation*/)
-        {           
+        {
             WorkCategoryDesignation_ID = workCategoryDesignation_ID;
             //Designation = designation;
             ModificationDate = DateTime.Now;
@@ -98,15 +98,15 @@ namespace Domain.Entities
             // CreatedBy validation
             if (CreatedBy <= 0)
                 throw new InvalidOperationException("CreatedBy must be a valid user ID.");
-           
+
             if (Project_ID <= 0)
                 throw new InvalidOperationException("Project_ID must be positive.");
 
         }
 
-        public void AddNew(int id, int project_ID, int workCategoryName_ID/*, string designation*/)
+        public void AddNew(int project_ID, int workCategoryName_ID/*, string designation*/)
         {
-            Validate(id, project_ID, workCategoryName_ID/*, designation*/);
+            Validate(project_ID, workCategoryName_ID/*, designation*/);
 
             WorkCategoryDesignation_ID = workCategoryName_ID;
             //Designation = designation;
@@ -115,7 +115,7 @@ namespace Domain.Entities
 
         }
         // used for Create
-        private void Validate(int id, int project_ID, int workCategoryName_ID/*, string designation*/)
+        private void Validate(int project_ID, int workCategoryName_ID/*, string designation*/)
         {
             if (ID >= 0)
                 throw new InvalidOperationException("ID must be negative.");

@@ -3,7 +3,6 @@ using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.MockData
@@ -68,7 +67,7 @@ namespace Infrastructure.Persistence.MockData
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<WorkCategory>> GetAllForProjectAsync(int projectID)
+        public Task<IEnumerable<WorkCategory>> GetAllWorkCategoriesForProjectAsync(int projectID)
         {
             throw new NotImplementedException();
         }
@@ -78,12 +77,12 @@ namespace Infrastructure.Persistence.MockData
         private readonly List<WorkCategory> _categories;
         public MockWorkCategoryRepo()
         {
-            _categories = new List<WorkCategory>
+            /*_categories = new List<WorkCategory>
             {
-                new WorkCategory(id: 1, project_ID: 101, workCategoryDesignation_ID: 1 ),   
-                new WorkCategory(id: 2, project_ID: 101, workCategoryDesignation_ID: 2), 
+                new WorkCategory(id: 1, project_ID: 101, workCategoryDesignation_ID: 1 ),
+                new WorkCategory(id: 2, project_ID: 101, workCategoryDesignation_ID: 2),
                 new WorkCategory(id: 3, project_ID: 102, workCategoryDesignation_ID: 3 )
-            };
+            }; */
         }
     }
 }

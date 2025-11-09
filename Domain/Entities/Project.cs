@@ -27,7 +27,7 @@ namespace Domain.Entities
         public bool IsSpecCompleted { get; private set; }
         public bool IsActive { get; private set; }
         public bool IsDeleted { get; private set; }
-        
+
         // audit
         public DateTime CreationDate { get; private set; }
         public int CreatedBy { get; private set; }
@@ -250,7 +250,7 @@ namespace Domain.Entities
             Progress = progress;
             Address_ID = address_ID;
 
-            ModificationDate = DateTime.Now;            
+            ModificationDate = DateTime.Now;
             ModifiedBy = 1;  //will be the current userID
 
             Validate(); // Validate the updated state

@@ -42,21 +42,21 @@ namespace MyApplication.Services.Works
         public async Task<bool> UpdateAsync(WorkSpecUpdateDTO specDTO)
         {
             if (specDTO == null)
-                throw new ArgumentException("WorkSpec should hav data!" );
-            
+                throw new ArgumentException("WorkSpec should hav data!");
+
             var existing = await _workSpecRepo.GetByIdAsync(specDTO.ID);
 
-            if (existing == null)            
+            if (existing == null)
                 throw new ArgumentException("WorkSpec not found!");
-            
+
             existing.Update(specDTO.WorkCategory_ID, specDTO.WorkType_ID, specDTO.Designation, specDTO.Unit, specDTO.UnitPrice, specDTO.Quantity, specDTO.VAT);
 
             return await _workSpecRepo.UpdateAsync(existing);
         }
 
-        public async Task<List<WorkSpecUpdateDTO>> GetAllSpecsForCategoriesAndTypesAsync(int projectID, List<int> categoryListIDs)
+        public async Task<List<WorkSpecUpdateDTO>> GetAllSpecsForCategoriesAndTypesAsync(int projectID)
         {
-            var workSpecs = await _workSpecRepo.GetAllSpecsForCategoriesAndTypesAsync(projectID, categoryListIDs);
+            var workSpecs = await _workSpecRepo.GetAllSpecsForCategoriesAndTypesAsync(projectID);
             var workSpecsDTO = workSpecs.Select(ws => WorkSpecMapper.DomainToDto(ws)).ToList();
             return workSpecsDTO;
         }
@@ -85,6 +85,6 @@ namespace MyApplication.Services.Works
             throw new NotImplementedException();
         }
 
-        
+
     }
 }

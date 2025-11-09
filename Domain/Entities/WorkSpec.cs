@@ -119,7 +119,7 @@ namespace Domain.Entities
         /// Updates the WorkSpec's properties and modification details.
         /// </summary>
         public void Update(int? workCategory_ID, int? workType_ID, string designation, string unit, decimal unitPrice, double quantity, string vat)
-        {            
+        {
             WorkCategory_ID = WorkCategory_ID;
             WorkType_ID = workType_ID;
             Designation = designation;

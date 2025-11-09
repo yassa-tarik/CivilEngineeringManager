@@ -1,64 +1,93 @@
 ﻿using BrightIdeasSoftware;
 using Composition;
 using DTO.TreeDTOs;
+using DTO.Works.WorkCategoryDesignations;
 using DTO.Works.WorkSpecs;
 using MyApplication.Abstractions;
 using MyApplication.Abstractions.Works;
-using MyApplication.Services.Works;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CivilEngineeringManager.Forms
 {
     public partial class AddEditProjectSpecifications : Form
-    {
-        bool flagContextMenuStrip = false;
-        private ProjectTreeDTO _projectTreeDTO;
-        ProjectBuilder _projectBuilder;
+    {        
         private readonly IProjectService _projectService;
         private readonly IProjectTreeService _projectTreeService;
-        public AddEditProjectSpecifications()
+        private readonly IWorkCategoryDesignationService _workCategoryDesignationService;
+
+        int categoryIDs = -10;
+        int typeIDs = -10;
+        int specIDs = -10;
+
+        bool flagContextMenuStrip = false;
+        private ProjectTreeDTO _projectTreeDTO;
+        private Dictionary<int, WorkCategoryDesignationUpdateDTO> _categories; 
+
+        public AddEditProjectSpecifications(IProjectService projectService, IProjectTreeService projectTreeService, IWorkCategoryDesignationService workCategoryDesignationService)
         {
             InitializeComponent();
-            _projectBuilder = new ProjectBuilder();
-            _projectService = _projectBuilder.BuildProjectService();
-            _projectTreeService = _projectBuilder.ProjectTreeService();
+            _projectService = projectService;
+            _projectTreeService = projectTreeService;
+            _workCategoryDesignationService = workCategoryDesignationService;
         }
 
         private async void AddEditProjectSpecifications_Load(object sender, EventArgs e)
         {
+            
             try
             {
-                btnFind.Enabled = false;
-                comboBox1.DataSource = _projectService.GetMockProjects();
-                //comboBox1.DataSource = await _projectService.GetAllMinAsync();
-                comboBox1.DisplayMember = "Name";
-                comboBox1.ValueMember = "ID";
+                Task<Dictionary<int, WorkCategoryDesignationUpdateDTO>> categoriesTask = Task.Run(() => _workCategoryDesignationService.GetAllAsync());
 
-                _projectTreeDTO = await _projectTreeService.GetProjectTreeAsync((int)comboBox1.SelectedValue);
+                btnFind.Enabled = false;
+                //_categories = await _workCategoryDesignationService.GetAllAsync();
+
+                comboCategories.Enabled = false;
+                btnAddNewCat.Enabled = false;
+                comboProjects.DataSource =  _projectService.GetMockProjects();
+                //comboBox1.DataSource = await _projectService.GetAllMinAsync();
+                comboProjects.DisplayMember = "Name";
+                comboProjects.ValueMember = "ID";
+                _categories = await categoriesTask;
+              
                 // test empty data
                 //_projectTreeDTO = await _projectTreeService.GetProjectTreeAsync(0);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 _projectTreeDTO = new ProjectTreeDTO();
-                MessageBox.Show("Unable to load projects specifications!");
+                //MessageBox.Show("Unable to load projects specifications!", ex.Message);
             }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnFind.Enabled = comboBox1.SelectedIndex > -1;
+            btnFind.Enabled = comboProjects.Items.Count > 0;
         }
 
-        private void btnFind_Click(object sender, EventArgs e)
+        private async void btnFind_Click(object sender, EventArgs e)
         {
             flagContextMenuStrip = true;
+
+            _projectTreeDTO = await _projectTreeService.GetProjectTreeAsync((int)comboProjects.SelectedValue);
+
+            _categories = await _workCategoryDesignationService.GetAllAsync();
+            
+            comboBoxCategoriesDesignationDataSource(_categories);
+
             treeListView1.Roots = null;
             LoadTheTreeView();
             treeListView1.ExpandAll();
+            btnFind.Enabled = false;
+        }
+
+        void LoadCategories()
+        {
+            //_categories = _projectBuilder.ProjectTreeService();
         }
 
         private void LoadTheTreeView()
@@ -122,27 +151,27 @@ namespace CivilEngineeringManager.Forms
             {
                 if (rowObject is WorkCategoryTreeDTO obj)
                 {
-                    obj.Designation = newValue?.ToString();
+                    //obj.Designation = newValue?.ToString();
                 }
                 else if (rowObject is WorkTypeTreeDTO type)
                 {
                     type.Designation = newValue?.ToString();
                 }
-                else if (rowObject is WorkSpecDTO spec)
+                else if (rowObject is WorkSpecUpdateDTO spec)
                 {
                     spec.Designation = newValue?.ToString();
                 }
             };
             olvUnit.AspectPutter = (rowObject3, newValue3) =>
             {
-                if (rowObject3 is WorkSpecDTO spec)
+                if (rowObject3 is WorkSpecUpdateDTO spec)
                 {
                     spec.Unit = newValue3?.ToString();
                 }
             };
             olvUnitPrice.AspectPutter = (rowObject4, newValue4) =>
             {
-                if (rowObject4 is WorkSpecDTO spec)
+                if (rowObject4 is WorkSpecUpdateDTO spec)
                 {
                     decimal newDecimalValue = spec.UnitPrice; // Keep old value as fallback
 
@@ -177,9 +206,21 @@ namespace CivilEngineeringManager.Forms
             var selectedParent = treeListView1.SelectedObject;
             if (selectedParent == null)
             {
-                var newChild = new WorkCategoryTreeDTO { ID = -10, Designation = "New WorkCategory" };
+                var newChild = new WorkCategoryTreeDTO
+                {
+                    ID = categoryIDs,
+                    Project_ID = Convert.ToInt32(comboProjects.SelectedValue),
+                    WorkCategoryDesignation_ID = ((WorkCategoryDesignationUpdateDTO) comboCategories.SelectedItem).ID, //TODO: use tryparse()
+                    Designation = ((WorkCategoryDesignationUpdateDTO)comboCategories.SelectedItem).Designation
+                };                
+                //remove the categortDesignation from the list
+                _categories.Remove(newChild.WorkCategoryDesignation_ID);
+                
+                comboBoxCategoriesDesignationDataSource(_categories);
+
                 // Add to parent's children collection
                 _projectTreeDTO.WorkCategories.Add(newChild);
+                categoryIDs--;
 
                 LoadTheTreeView();
                 treeListView1.Expand(_projectTreeDTO.WorkCategories);
@@ -189,21 +230,24 @@ namespace CivilEngineeringManager.Forms
             {
                 return;
             }
-            //if (selectedParent is WorkCategoryTreeDTO workCategory)
-            //{
-            //    return;
-            //}
-            //else if (selectedParent is WorkTypeTreeDTO workType)
-            //{
-            //    return;
-            //}
-
+            return;
         }
 
-        private void specToolStripMenuItem_Click(object sender, EventArgs e)
+        void comboBoxCategoriesDesignationDataSource(Dictionary<int,WorkCategoryDesignationUpdateDTO> categoriesDesignation)
         {
-            AddNewWorkSpecRowModel();
-        }
+            // select WorkCategoryDesignation_ID only
+            HashSet<int> excludedSet = new HashSet<int>(_projectTreeDTO.WorkCategories.Select((c) => c.WorkCategoryDesignation_ID).ToList());
+
+            // remove existing WorkCategoryDesignation_IDs from main list (_categories)
+            _categories = _categories.Where((wc => !excludedSet.Contains(wc.Key))).ToDictionary(kv => kv.Key, kv => kv.Value);
+            var list = _categories.Select(wc => wc.Value).ToList();
+            BindingList<WorkCategoryDesignationUpdateDTO> bindingList = new BindingList<WorkCategoryDesignationUpdateDTO>(list);
+            //bindingList.Remove((WorkCategoryDesignationUpdateDTO)comboCategories.SelectedItem);
+            comboCategories.DataSource = bindingList;
+            comboCategories.DisplayMember = "Designation";
+            comboCategories.ValueMember = "ID";
+            comboCategories.Enabled = comboProjects.SelectedIndex > -1;
+        }       
 
         private void AddNewWorkSpecRowModel()
         {
@@ -211,9 +255,10 @@ namespace CivilEngineeringManager.Forms
 
             if (selectedParent is WorkCategoryTreeDTO workCategory)
             {
-                var newChild = new WorkSpecDTO(-1, workCategory.ID, null, "Enter New Specification", "unit", 00, 00, "vat");
+                var newChild = new WorkSpecUpdateDTO(specIDs, workCategory.ID, null, "Enter New Specification", "unit", 00, 00, "vat");
                 // Add to parent's children collection
-                //workCategory.WorkSpecs.Add(newChild);
+                workCategory.WorkSpecs.Add(newChild);
+                specIDs--;
                 // Refresh the tree view
                 treeListView1.RefreshObject(workCategory);
                 treeListView1.Expand(selectedParent);
@@ -221,9 +266,10 @@ namespace CivilEngineeringManager.Forms
             }
             else if (selectedParent is WorkTypeTreeDTO workType)
             {
-                var newChild = new WorkSpecDTO(-1, null, workType.ID, "Enter New Specification", "unit", 00, 00, "vat");
+                var newChild = new WorkSpecUpdateDTO(typeIDs, null, workType.ID, "Enter New Specification", "unit", 00, 00, "vat");
                 // Add to parent's children collection
-                //workType.WorkSpecs.Add(newChild);
+                workType.WorkSpecs.Add(newChild);
+                typeIDs--;
                 // Refresh the tree view
                 treeListView1.RefreshObject(workType);
                 treeListView1.Expand(selectedParent);
@@ -284,15 +330,23 @@ namespace CivilEngineeringManager.Forms
             AddNewWorkTypeRowModel();
         }
 
+        // TODO: will handle its logic details later
         private void ContextMenuItemsEnableDisable()
         {
             contextMenuStrip1.Enabled = true;
             var selectedParent = treeListView1.SelectedObject;
-
+            if (comboCategories.Items.Count <= 0)
+            {
+                //MessageBox.Show("ContextMenuItemsEnableDisable is running!", "Execution Test");
+                contextMenuStrip1.Items[0].Enabled = false;
+            }
             switch (selectedParent)
             {
                 case WorkCategoryTreeDTO workCategory:
-                    contextMenuStrip1.Items[0].Enabled = false;
+                    if (comboCategories.SelectedIndex <= 0)
+                    {
+                        contextMenuStrip1.Items[0].Enabled = false; 
+                    }
                     break;
 
                 case WorkTypeTreeDTO workType:
@@ -302,7 +356,7 @@ namespace CivilEngineeringManager.Forms
                     contextMenuStrip1.Enabled = false;
                     break;
                 case null:
-                    MessageBox.Show("hello");
+                    //MessageBox.Show("hello");
                     contextMenuStrip1.Items[1].Enabled = false;
                     contextMenuStrip1.Items[2].Enabled = false;
                     break;
@@ -321,8 +375,8 @@ namespace CivilEngineeringManager.Forms
                 if (hitTest.Item != null)
                 {
                     ContextMenuItemsEnableDisable();
-                    //treeListView.SelectedObject = hitTest.Item.RowObject;
-                    //contextMenuStrip1.Show(treeListView, e.Location);
+                    //treeListView1.SelectedObject = hitTest.Item[];
+                    //contextMenuStrip1.Show(treeListView1, e.Location);
                 }
             }
         }
@@ -330,6 +384,8 @@ namespace CivilEngineeringManager.Forms
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
             contextMenuStrip1.Enabled = flagContextMenuStrip ? true : false;
+            contextMenuStrip1.Items[0].Enabled = comboCategories.Items.Count > 0;
+            //ContextMenuItemsEnableDisable();
         }
 
         private void treeListView1_CellEditFinished(object sender, CellEditEventArgs e)
@@ -350,11 +406,42 @@ namespace CivilEngineeringManager.Forms
 
         private void btnAddNewCat_Click(object sender, EventArgs e)
         {
-            ////for testing purposes
-            //WorkCategoryDesignationRepository
-            //IWorkCategoryDesignationService repo = new WorkCategoryDesignationService WorkCategoryDesignation
-            //frmAddNewCategoryDesignation frm = new frmAddNewCategoryDesignation();
-            //frm.ShowDialog();
+            //for testing purposes
+            WorkCategoryDesignationBuilder builder = new WorkCategoryDesignationBuilder();
+            IWorkCategoryDesignationService service = builder.BuildService();
+            frmAddNewCategoryDesignation frm = new frmAddNewCategoryDesignation(service);
+            frm.ShowDialog();
+
+            btnFind_Click(null, null); // to refresh the categories List after adding
+        }
+
+        private void comboCategories_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnAddNewCat.Enabled = comboCategories.SelectedIndex > -1;
+        }
+
+        private void treeListView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            //if (e.Button == MouseButtons.Right)
+            //{
+            //    var hitTest = treeListView1.HitTest(e.X, e.Y);
+            //    //if (hitTest.Item != null)
+            //    //{
+            //        ContextMenuItemsEnableDisable();
+            //        //treeListView1.SelectedObject = hitTest.Item[];
+            //        contextMenuStrip1.Show(treeListView1, e.Location);
+                
+            //}
+        }
+
+        private void addNewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddNewWorkSpecRowModel();
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //TODO: implement WorkSpec seletion 
         }
     }
 }

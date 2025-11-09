@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Works
@@ -44,7 +42,7 @@ namespace Infrastructure.Persistence.Works
             }
             catch (Exception)
             {
-                return Task.FromResult(-1);
+                return Task.FromResult(NewID);
             }
             return Task.FromResult(NewID);
         }
@@ -54,7 +52,7 @@ namespace Infrastructure.Persistence.Works
             WorkCategoryDesignation workCatDesign = default;
             try
             {
-                using (var conn = CreateConnection())
+                using (var conn = await CreateConnectionAsync())
                 {
                     using (SqlCommand cmd = new SqlCommand("SELECT * FROM WorkCategoryDesignations WHERE ID = @ID;", conn))
                     {
@@ -65,9 +63,9 @@ namespace Infrastructure.Persistence.Works
                         {
                             if (await reader.ReadAsync())
                             {
-                                workCatDesign =new WorkCategoryDesignation(
+                                workCatDesign = new WorkCategoryDesignation(
                             id: reader.GetInt32(reader.GetOrdinal("ID")),
-                           
+
                             designation: reader.GetString(reader.GetOrdinal("Designation"))
                                 );
                             }
@@ -85,14 +83,14 @@ namespace Infrastructure.Persistence.Works
             return workCatDesign;
         }
 
-        public bool isDesignationExists(string designation)
+        public  bool isDesignationExists(string designation)
         {
-            int  returnedNum = default;
+            int returnedNum = default;
             try
             {
                 using (var conn = CreateConnection())
                 {
-                    using (SqlCommand cmd = new SqlCommand("SELECT CASE  WHEN EXISTS(SELECT 1 from WorkCategoryDesignations where Name = @designation )  THEN 1   ELSE 0 END AS record_exists;", conn))
+                    using (SqlCommand cmd = new SqlCommand("SELECT CASE  WHEN EXISTS(SELECT 1 from WorkCategoryDesignations where Designation = @designation )  THEN 1   ELSE 0 END AS record_exists;", conn))
                     {
                         //cmd.CommandType = CommandType.StoredProcedure;
 
@@ -101,7 +99,7 @@ namespace Infrastructure.Persistence.Works
                         if (int.TryParse(result.ToString(), out int returnedInt))
                         {
                             returnedNum = returnedInt;
-                        }                         
+                        }
                     }
                 }
             }

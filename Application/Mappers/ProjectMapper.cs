@@ -63,7 +63,7 @@ namespace MyApplication.Mappers
             );
         }
 
-        public static (Project project, Address address) CreateDtoToDomain( ProjectCreateDTO dto)
+        public static (Project project, Address address) CreateDtoToDomain(ProjectCreateDTO dto)
         {
             if (dto == null)
                 throw new ArgumentNullException(nameof(dto));
@@ -71,8 +71,7 @@ namespace MyApplication.Mappers
                 -1,
                 dto.AddressCreate.ID_Country,
                 dto.AddressCreate.ID_City,
-                dto.AddressCreate.APC,
-                dto.AddressCreate.Street,
+                dto.AddressCreate.Municipality,
                 dto.AddressCreate.PostalCode,
                 dto.AddressCreate.PlaceName,
                 dto.AddressCreate.Landmark);
@@ -95,8 +94,8 @@ namespace MyApplication.Mappers
                 dto.LandBook,
                 dto.LandBookDate,
                 dto.LandBookBy,
-                dto.IsSpecComplete,
-                dto.Progress );
+                dto.IsSpecCompleted,
+                dto.Progress);
 
             return (project, address);
         }

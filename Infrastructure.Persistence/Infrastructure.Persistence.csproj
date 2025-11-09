@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressRepository.cs" />
+    <Compile Include="CityRepository.cs" />
+    <Compile Include="CountryRepository.cs" />
     <Compile Include="MockData\MockWorkCategoryRepo.cs" />
     <Compile Include="ProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

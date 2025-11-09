@@ -1,11 +1,6 @@
 ﻿using Domain.Entities;
-using DTO.Works.WorkCategories;
 using DTO.Works.WorkCategoryDesignations;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Mappers
 {
@@ -17,6 +12,17 @@ namespace Application.Mappers
 
             return new WorkCategoryDesignation
             (
+                workCat.Designation
+            );
+        }
+
+        public static WorkCategoryDesignation UpdateDtoToDomain(WorkCategoryDesignationUpdateDTO workCat)
+        {
+            if (workCat == null) throw new ArgumentNullException(nameof(workCat) + "not found!");
+
+            return new WorkCategoryDesignation
+            (
+                workCat.ID,
                 workCat.Designation
             );
         }
