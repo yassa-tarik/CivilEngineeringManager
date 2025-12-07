@@ -41,18 +41,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddressRepository.cs" />
     <Compile Include="CityRepository.cs" />
     <Compile Include="CountryRepository.cs" />
     <Compile Include="MockData\MockWorkCategoryRepo.cs" />
     <Compile Include="ProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubcontractorRepository.cs" />
+    <Compile Include="UnitOfWork.cs" />
+    <Compile Include="Works\AssignedWorkRepository.cs" />
     <Compile Include="Works\WorkCategoryDesignationRepository.cs" />
     <Compile Include="Works\WorkCategoryRepository.cs" />
     <Compile Include="Works\WorkSpecRepository.cs" />
     <Compile Include="Works\WorkTypeRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{0a323c2a-b1c3-4261-bf27-d6dc3fdead43}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain.Abstractions\Domain.Abstractions.csproj">
       <Project>{c43021f6-afa5-45ed-a148-71fe0d5124f7}</Project>
       <Name>Domain.Abstractions</Name>

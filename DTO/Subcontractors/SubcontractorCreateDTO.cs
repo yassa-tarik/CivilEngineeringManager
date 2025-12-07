@@ -1,4 +1,6 @@
-﻿namespace DTO.Subcontractors
+﻿using DTO.Contacts;
+
+namespace DTO.Subcontractors
 {
     /// <summary>
     /// A data transfer object (DTO) used to create a new subcontractor.
@@ -10,8 +12,8 @@
         /// Initializes a new instance of the SubcontractorCreateDto class.
         /// It calls the base class constructor to initialize common properties.
         /// </summary>
-        public SubcontractorCreateDTO(string companyName, string representative, string bankAccountNumber, bool isActive)
-            : base(companyName, representative, bankAccountNumber, isActive)
+        public SubcontractorCreateDTO(string companyName, string representative, string bankAccountNumber, bool isActive, bool isDeleted, ContactDTO contactDTO)
+            : base(companyName, representative, bankAccountNumber, isActive, isDeleted, contactDTO)
         {
         }
     }

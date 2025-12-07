@@ -46,7 +46,6 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.tabAdresse = new System.Windows.Forms.TabPage();
-            this.ctrlAddress1 = new CivilEngineeringManager.Controls.ctrlAddress();
             this.tabAdministration = new System.Windows.Forms.TabPage();
             this.dtpConstPermitDate = new System.Windows.Forms.DateTimePicker();
             this.dtpLandBookDate = new System.Windows.Forms.DateTimePicker();
@@ -86,6 +85,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.chxIsActive = new System.Windows.Forms.CheckBox();
+            this.ctrlAddress1 = new CivilEngineeringManager.Controls.ctrlAddress();
             this.tabControl1.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.tabAdresse.SuspendLayout();
@@ -104,7 +104,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 51);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1004, 349);
+            this.tabControl1.Size = new System.Drawing.Size(1025, 448);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 3;
             // 
@@ -131,7 +131,7 @@
             this.tabGeneral.Location = new System.Drawing.Point(4, 44);
             this.tabGeneral.Name = "tabGeneral";
             this.tabGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGeneral.Size = new System.Drawing.Size(996, 301);
+            this.tabGeneral.Size = new System.Drawing.Size(1017, 400);
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General";
             // 
@@ -278,19 +278,9 @@
             this.tabAdresse.Location = new System.Drawing.Point(4, 44);
             this.tabAdresse.Name = "tabAdresse";
             this.tabAdresse.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAdresse.Size = new System.Drawing.Size(996, 301);
+            this.tabAdresse.Size = new System.Drawing.Size(1018, 446);
             this.tabAdresse.TabIndex = 1;
             this.tabAdresse.Text = "Adresse";
-            // 
-            // ctrlAddress1
-            // 
-            this.ctrlAddress1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrlAddress1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ctrlAddress1.Location = new System.Drawing.Point(3, 3);
-            this.ctrlAddress1.Margin = new System.Windows.Forms.Padding(6);
-            this.ctrlAddress1.Name = "ctrlAddress1";
-            this.ctrlAddress1.Size = new System.Drawing.Size(988, 293);
-            this.ctrlAddress1.TabIndex = 0;
             // 
             // tabAdministration
             // 
@@ -320,7 +310,7 @@
             this.tabAdministration.Location = new System.Drawing.Point(4, 44);
             this.tabAdministration.Name = "tabAdministration";
             this.tabAdministration.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAdministration.Size = new System.Drawing.Size(996, 301);
+            this.tabAdministration.Size = new System.Drawing.Size(1018, 446);
             this.tabAdministration.TabIndex = 2;
             this.tabAdministration.Text = "Administration";
             // 
@@ -557,7 +547,7 @@
             this.tabBloc.Location = new System.Drawing.Point(4, 44);
             this.tabBloc.Name = "tabBloc";
             this.tabBloc.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBloc.Size = new System.Drawing.Size(996, 301);
+            this.tabBloc.Size = new System.Drawing.Size(1018, 446);
             this.tabBloc.TabIndex = 3;
             this.tabBloc.Text = "Bloc";
             // 
@@ -682,25 +672,40 @@
             // 
             // chxIsActive
             // 
+            this.chxIsActive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chxIsActive.AutoSize = true;
             this.chxIsActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chxIsActive.Location = new System.Drawing.Point(919, 31);
+            this.chxIsActive.Location = new System.Drawing.Point(947, 12);
             this.chxIsActive.Name = "chxIsActive";
             this.chxIsActive.Size = new System.Drawing.Size(93, 28);
             this.chxIsActive.TabIndex = 45;
             this.chxIsActive.Text = "IsActive";
             this.chxIsActive.UseVisualStyleBackColor = true;
             // 
+            // ctrlAddress1
+            // 
+            this.ctrlAddress1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlAddress1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ctrlAddress1.Location = new System.Drawing.Point(3, 3);
+            this.ctrlAddress1.Margin = new System.Windows.Forms.Padding(6);
+            this.ctrlAddress1.Name = "ctrlAddress1";
+            this.ctrlAddress1.Size = new System.Drawing.Size(1010, 438);
+            this.ctrlAddress1.TabIndex = 0;
+            // 
             // frmAddEditReadProject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1026, 494);
+            this.ClientSize = new System.Drawing.Size(1042, 502);
             this.Controls.Add(this.chxIsActive);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.tabControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmAddEditReadProject";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAddEditReadProject";
             this.Load += new System.EventHandler(this.frmAddEditReadProject_Load);
             this.tabControl1.ResumeLayout(false);

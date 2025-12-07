@@ -19,7 +19,8 @@ namespace MyApplication.Mappers
                  workSpec.Unit,
                  workSpec.UnitPrice,
                  workSpec.Quantity,
-                 workSpec.VAT
+                 workSpec.VAT,
+                 workSpec.IsAssigned
             );
         }
 
@@ -29,15 +30,24 @@ namespace MyApplication.Mappers
             if (dto == null)
                 throw new ArgumentNullException(nameof(dto));
 
-            return new WorkSpec(
-                workCategory_ID: dto.WorkCategory_ID,
-                workType_ID: dto.WorkType_ID,
-                designation: dto.Designation,
-                unit: dto.Unit,
-                unitPrice: dto.UnitPrice,
-                quantity: dto.Quantity,
-                vat: dto.VAT
-            );
+            try
+            {
+                return new WorkSpec(
+                        workCategory_ID: dto.WorkCategory_ID,
+                        workType_ID: dto.WorkType_ID,
+                        designation: dto.Designation,
+                        unit: dto.Unit,
+                        unitPrice: dto.UnitPrice,
+                        quantity: dto.Quantity,
+                        vat: dto.VAT,
+                        isAssigned: dto.IsAssigned
+                    );
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         public static WorkSpecCreateDTO UpdateDtoToCreateDto(WorkSpecUpdateDTO dto)
         {
@@ -51,7 +61,8 @@ namespace MyApplication.Mappers
                 unit: dto.Unit,
                 unitPrice: dto.UnitPrice,
                 quantity: dto.Quantity,
-                vAT: dto.VAT
+                vAT: dto.VAT,
+                isAssigned: dto.IsAssigned
             );
         }
     }

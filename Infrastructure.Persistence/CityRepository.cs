@@ -3,9 +3,6 @@ using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence
 {
@@ -16,7 +13,7 @@ namespace Infrastructure.Persistence
             var result = new List<City>();
             try
             {
-                using (var con = CreateConnection())
+                using (var con = OpenConnection())
                 {
                     using (var cmd = new SqlCommand("SELECT ID, Name, Country_ID FROM Cities", con))
                     {
@@ -48,7 +45,7 @@ namespace Infrastructure.Persistence
             var result = new List<City>();
             try
             {
-                using (var con = CreateConnection())
+                using (var con = OpenConnection())
                 {
                     using (var cmd = new SqlCommand("SELECT Id, Name, Country_ID FROM Cities WHERE Country_ID = @countryId", con))
                     {

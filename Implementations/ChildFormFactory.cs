@@ -1,16 +1,11 @@
 ﻿using CivilEngineeringManager.Abstractions;
-using CivilEngineeringManager.UI.Enums;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CivilEngineeringManager.Implementations
 {
-    internal class ChildFormFactory: IChildFormFactory
+    internal class ChildFormFactory : IChildFormFactory
     {
         private readonly IServiceProvider _serviceProvider;
 

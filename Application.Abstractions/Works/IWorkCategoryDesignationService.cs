@@ -1,5 +1,4 @@
-﻿using Domain.Entities;
-using DTO.Works.WorkCategoryDesignations;
+﻿using DTO.Works.WorkCategoryDesignations;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

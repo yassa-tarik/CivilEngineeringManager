@@ -46,6 +46,7 @@
     <Compile Include="Addresses\AddressDTO.cs" />
     <Compile Include="Addresses\AddressUpdateDTO.cs" />
     <Compile Include="Cities\CityDTO.cs" />
+    <Compile Include="Contacts\ContactDTO.cs" />
     <Compile Include="Countries\CountryDTO.cs" />
     <Compile Include="Projects\ProjectBaseDTO.cs" />
     <Compile Include="Projects\ProjectCreateDTO.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Subcontractors\SubcontractorCreateDTO.cs" />
     <Compile Include="Subcontractors\SubcontractorDTO.cs" />
     <Compile Include="Subcontractors\SubcontractorUpdateDTO.cs" />
+    <Compile Include="TreeDTOs\AssignedWorkSpecDTO.cs" />
     <Compile Include="TreeDTOs\ProjectTreeDTO.cs" />
     <Compile Include="TreeDTOs\WorkCategoryTreeDTO.cs" />
     <Compile Include="TreeDTOs\WorkTypeTreeDTO.cs" />
@@ -86,6 +88,9 @@
       <Project>{0a323c2a-b1c3-4261-bf27-d6dc3fdead43}</Project>
       <Name>Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

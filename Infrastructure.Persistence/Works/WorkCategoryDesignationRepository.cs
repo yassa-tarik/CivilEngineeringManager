@@ -17,7 +17,7 @@ namespace Infrastructure.Persistence.Works
             int NewID = 0;
             try
             {
-                using (var conn = CreateConnection())
+                using (var conn = OpenConnection())
                 {
                     using (SqlCommand cmd = new SqlCommand("[SP_AddNewWorkCategoryDesignation]", conn))
                     {
@@ -52,7 +52,7 @@ namespace Infrastructure.Persistence.Works
             WorkCategoryDesignation workCatDesign = default;
             try
             {
-                using (var conn = await CreateConnectionAsync())
+                using (var conn = await OpenConnectionAsync())
                 {
                     using (SqlCommand cmd = new SqlCommand("SELECT * FROM WorkCategoryDesignations WHERE ID = @ID;", conn))
                     {
@@ -83,12 +83,12 @@ namespace Infrastructure.Persistence.Works
             return workCatDesign;
         }
 
-        public  bool isDesignationExists(string designation)
+        public bool isDesignationExists(string designation)
         {
             int returnedNum = default;
             try
             {
-                using (var conn = CreateConnection())
+                using (var conn = OpenConnection())
                 {
                     using (SqlCommand cmd = new SqlCommand("SELECT CASE  WHEN EXISTS(SELECT 1 from WorkCategoryDesignations where Designation = @designation )  THEN 1   ELSE 0 END AS record_exists;", conn))
                     {
@@ -119,7 +119,7 @@ namespace Infrastructure.Persistence.Works
             int categoryID = 0;
             try
             {
-                using (var conn = CreateConnection())
+                using (var conn = OpenConnection())
                 {
                     using (SqlCommand cmd = new SqlCommand("SP_UpdateWorkCategoryDesignation", conn))
                     {
@@ -150,7 +150,7 @@ namespace Infrastructure.Persistence.Works
             List<WorkCategoryDesignation> workCategoryDesignations = new List<WorkCategoryDesignation>();
             try
             {
-                using (SqlConnection conn = CreateConnection())
+                using (SqlConnection conn = OpenConnection())
                 {
                     using (SqlCommand cmd = new SqlCommand("[SP_GetAll_WorkCategoryDesignation]", conn))
                     {

@@ -12,8 +12,8 @@
         /// Initializes a new instance of the WorkSpecUpdateDTO with all properties,
         /// including a call to the base constructor.
         /// </summary>
-        public WorkSpecUpdateDTO(int id, int? workCategory_ID, int? workType_ID, string designation, string unit, decimal unitPrice, double quantity, string vAT)
-            : base(workCategory_ID, workType_ID, designation, unit, unitPrice, quantity, vAT)
+        public WorkSpecUpdateDTO(int id, int? workCategory_ID, int? workType_ID, string designation, string unit, decimal unitPrice, double quantity, string vAT, bool isAssigned)
+            : base(workCategory_ID, workType_ID, designation, unit, unitPrice, quantity, vAT, isAssigned)
         {
             ID = id;
         }

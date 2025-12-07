@@ -9,28 +9,31 @@ namespace Domain.Entities
     /// </summary>
     public class AssignedWork
     {
-        internal int ID { get; private set; }
-        internal int WorkSpec_ID { get; private set; }
-        internal int Subcontractor_ID { get; private set; }
-        internal double AssignedQuantity { get; private set; }
-        internal DateTime AssignedDate { get; private set; }
-        internal decimal NegotiatedUnitPrice { get; private set; }
-        internal byte Progress { get; private set; }
-        internal AssignedWorkStatus Status { get; private set; }
-        internal bool IsActive { get; private set; }
-        internal bool IsDeleted { get; private set; }
+        public int ID { get; private set; }
+        public int WorkSpec_ID { get; private set; }
+        public int Subcontractor_ID { get; private set; }
+        public decimal NegotiatedUnitPrice { get; private set; }
+        public double AssignedQuantity { get; private set; } = 0;
+        public DateTime AssignedDate { get; private set; }
+        public double ProducedQuantity { get; private set; } = 0;
+
+        public byte Progress => AssignedQuantity == 0 ? (byte)0 : (byte)((ProducedQuantity * 100.0) / AssignedQuantity);
+        public AssignedWorkStatus Status { get; private set; }
+        public DateTime EndDate { get; private set; }
+        public bool IsActive { get; private set; }
+        public bool IsDeleted { get; private set; }
 
         // Audit
-        internal DateTime CreationDate { get; private set; }
-        internal int CreatedBy { get; private set; }
-        internal DateTime ModificationDate { get; private set; }
-        internal int ModifiedBy { get; private set; }
+        public DateTime CreationDate { get; private set; }
+        public int CreatedBy { get; private set; }
+        public DateTime ModificationDate { get; private set; }
+        public int ModifiedBy { get; private set; }
 
-        public AssignedWork(int id, int workSpec_ID, int subcontractor_ID, double assignedQuantity, DateTime assignedDate, decimal negotiatedUnitPrice, byte progress, AssignedWorkStatus status, int createdBy)
+        public AssignedWork(int iD, int workSpec_ID, int subcontractor_ID, decimal negotiatedUnitPrice, double assignedQuantity, DateTime assignedDate, double producedQuantity, AssignedWorkStatus status, DateTime endDate, bool isActive, bool isDeleted)
         {
-            if (id <= 0)
+            if (iD <= 0)
             {
-                throw new ArgumentException("ID must be greater than zero.", nameof(id));
+                throw new ArgumentException("ID must be greater than zero.", nameof(iD));
             }
             if (workSpec_ID <= 0)
             {
@@ -40,43 +43,116 @@ namespace Domain.Entities
             {
                 throw new ArgumentException("Subcontractor_ID must be greater than zero.", nameof(subcontractor_ID));
             }
-            if (progress > 100)
-            {
-                throw new ArgumentException("Progress cannot exceed 100%.", nameof(progress));
-            }
-
-            ID = id;
+            ID = iD;
             WorkSpec_ID = workSpec_ID;
             Subcontractor_ID = subcontractor_ID;
+            NegotiatedUnitPrice = negotiatedUnitPrice;
             AssignedQuantity = assignedQuantity;
             AssignedDate = assignedDate;
-            NegotiatedUnitPrice = negotiatedUnitPrice;
-            Progress = progress;
+            ProducedQuantity = producedQuantity;
+            //Progress = progress;
             Status = status;
-            CreationDate = DateTime.Now;
-            CreatedBy = createdBy;
-            ModificationDate = DateTime.Now;
-            ModifiedBy = createdBy;
+            EndDate = endDate;
+            IsActive = isActive;
+            IsDeleted = isDeleted;
         }
+
+        // Constructor for creating a new AssignedWork entity
+        public AssignedWork(int workSpec_ID, int subcontractor_ID, decimal negotiatedUnitPrice, double assignedQuantity, DateTime assignedDate, double producedQuantity, AssignedWorkStatus status, DateTime endDate, bool isActive, bool isDeleted)
+        {
+            Validate(workSpec_ID, subcontractor_ID, negotiatedUnitPrice, assignedQuantity, assignedDate, producedQuantity, status, endDate, isActive, isDeleted);
+
+            WorkSpec_ID = workSpec_ID;
+            Subcontractor_ID = subcontractor_ID;
+            NegotiatedUnitPrice = negotiatedUnitPrice;
+            AssignedQuantity = assignedQuantity;
+            AssignedDate = assignedDate;
+            ProducedQuantity = producedQuantity;
+            //Progress = progress;
+            Status = status;
+            EndDate = endDate;
+            IsActive = isActive;
+            IsDeleted = isDeleted;
+        }
+
 
         /// <summary>
         /// Updates the AssignedWork's properties and modification details.
         /// </summary>
-        public void Update(double assignedQuantity, DateTime assignedDate, decimal negotiatedUnitPrice, byte progress, AssignedWorkStatus status, int modifiedBy)
+        public void Update(int workSpec_ID, int subcontractor_ID, decimal negotiatedUnitPrice, double assignedQuantity, DateTime assignedDate, double producedQuantity, byte progress, AssignedWorkStatus status, DateTime endDate, bool isActive, bool isDeleted)
         {
             if (progress > 100)
             {
                 throw new ArgumentException("Progress cannot exceed 100%.", nameof(progress));
             }
 
+            WorkSpec_ID = WorkSpec_ID;
+            Subcontractor_ID = subcontractor_ID;
+            NegotiatedUnitPrice = negotiatedUnitPrice;
             AssignedQuantity = assignedQuantity;
             AssignedDate = assignedDate;
-            NegotiatedUnitPrice = negotiatedUnitPrice;
-            Progress = progress;
+            ProducedQuantity = producedQuantity;
             Status = status;
+            EndDate = endDate;
+            IsActive = isActive;
+            IsDeleted = isDeleted;
+
             ModificationDate = DateTime.Now;
-            ModifiedBy = modifiedBy;
+            ModifiedBy = 1;
+            Validate();
+        }
+
+        // used for Update
+        private void Validate()
+        {
+            //TODO: will implement later
+        }
+
+        // for create new
+        private void Validate(int workSpec_ID, int subcontractor_ID, decimal negotiatedUnitPrice, double assignedQuantity, DateTime assignedDate, double producedQuantity, AssignedWorkStatus status, DateTime endDate, bool isActive, bool isDeleted)
+        { //TODO: will implement later
+            try
+            {/*
+                // 1. Validate ID parameters 
+                if (workCategory_ID == null && workType_ID == null)
+                {
+                    throw new ArgumentException("WorkSpec must have a Parent!.", nameof(workCategory_ID));
+                }
+
+                // 2. Validate String parameters (must not be null, empty, or whitespace)
+                if (string.IsNullOrWhiteSpace(designation))
+                {
+                    throw new ArgumentException("Designation cannot be empty or whitespace.", nameof(designation));
+                }
+
+                if (string.IsNullOrWhiteSpace(unit))
+                {
+                    throw new ArgumentException("Unit cannot be empty or whitespace.", nameof(unit));
+                }
+
+                // Optional: Validate VAT format/content if you have specific allowed values (e.g., "0%", "5%", "20%")
+                // if (string.IsNullOrWhiteSpace(vat))
+                // {
+                //     throw new ArgumentException("VAT field cannot be empty or whitespace.", nameof(vat));
+                // }
+
+                // 3. Validate Numeric parameters (must be non-negative)
+                if (unitPrice < 0)
+                {
+                    throw new ArgumentException("Unit Price cannot be negative.", nameof(unitPrice));
+                }
+
+                if (quantity <= 0) // Quantity usually must be positive, not just non-negative
+                {
+                    throw new ArgumentException("Quantity must be greater than zero.", nameof(quantity));
+                }
+                */
+                // If the method reaches this point, all parameters are considered valid based on these rules.
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
-
 }

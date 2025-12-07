@@ -10,12 +10,17 @@ namespace CivilEngineeringManager.Controls
             InitializeComponent();
         }
 
-        public int ProjectId {get ; set; }
-        
+        public int ProjectId { get; set; }
+
         public string ProjectName
         {
             get { return lblProjectName.Text; }
             set { lblProjectName.Text = value; }
+        }
+        public string ProjectType
+        {
+            get { return lblProjectType.Text; }
+            set { lblProjectType.Text = value; }
         }
 
         public int ProjectProgress
@@ -26,12 +31,18 @@ namespace CivilEngineeringManager.Controls
                 if (value >= 0 && value <= 100)
                 {
                     pbProjectProgress.Value = value;
+                    //circularProgressBar1.Value= value;
+                    lblProgress.Text = string.Concat(value, "%");
+                    lblProgress.Anchor = AnchorStyles.Right;
                 }
             }
         }
 
         // You might want an event for when the card is clicked
         public event EventHandler CardClick;
+
+        // You might want an event for when the card is clicked
+        public event EventHandler EditClick;
 
         private void ProjectCardControl_Click(object sender, EventArgs e)
         {
@@ -44,14 +55,14 @@ namespace CivilEngineeringManager.Controls
             //ProjectCardControl_Click(sender, e);
         }
 
-        private void ctrlProjectCard_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void ctrlProjectCard_MouseClick(object sender, MouseEventArgs e)
         {
             ProjectCardControl_Click(sender, e);
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            EditClick?.Invoke(this, EventArgs.Empty);
         }
 
         // In your designer for ProjectCardControl, select all child controls (labels, progress bar)

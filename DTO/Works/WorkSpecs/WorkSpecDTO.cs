@@ -1,4 +1,6 @@
-﻿namespace DTO.Works.WorkSpecs
+﻿using Common.Enums;
+
+namespace DTO.Works.WorkSpecs
 {
     /// <summary>
     /// A data transfer object (DTO) that represents a work specification for read-only operations.
@@ -13,11 +15,12 @@
         public decimal UnitPrice { get; set; }
         public double Quantity { get; set; }
         public string VAT { get; }
-
+        public AssignedWorkStatus Status { get; set; }
         // Computed property: no setter, as its value is always calculated.
-        public decimal Amount => UnitPrice * (decimal)Quantity;
+        //public decimal Amount => UnitPrice * (decimal)Quantity;
+        public decimal Amount { get; set; }
 
-        public WorkSpecDTO(int id, int? workCategoryID, int? workTypeID, string designation, string unit, decimal unitPrice, double quantity, string vAT)
+        public WorkSpecDTO(int id, int? workCategoryID, int? workTypeID, string designation, string unit, decimal unitPrice, double quantity, string vAT, AssignedWorkStatus status)
         {
             ID = id;
             WorkCategory_ID = workCategoryID;
@@ -27,6 +30,7 @@
             UnitPrice = unitPrice;
             Quantity = quantity;
             VAT = vAT;
+            Status = status;
         }
     }
 }

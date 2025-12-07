@@ -6,7 +6,6 @@
     public enum AssignedWorkStatus
     {
         NotAssigned,
-        Assigned,
         InProgress,
         Completed,
         Archived

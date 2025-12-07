@@ -42,7 +42,7 @@ namespace CivilEngineeringManager.Forms
             catch (Exception)
             {
                 //TODO: logging here
-                MessageBox.Show("Category Design, Already exists!", "Erreur");                
+                MessageBox.Show("Category Design, Already exists!", "Erreur");
             }
         }
 
@@ -53,7 +53,7 @@ namespace CivilEngineeringManager.Forms
                 MessageBox.Show("Veuillez entre un nom valide!", "Ajout nom");
                 return;
             }
-            
+
             if (_workCategoryDesignationService.isExistsByName(txtCatDesign.Text))
             {
                 MessageBox.Show("Ce nom est très similaire à un nom existant. Veuillez reverifier!", "Ajout nom", MessageBoxButtons.OK, MessageBoxIcon.Warning);

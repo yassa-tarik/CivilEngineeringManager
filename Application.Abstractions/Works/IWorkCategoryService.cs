@@ -1,4 +1,5 @@
-﻿using DTO.Works.WorkCategories;
+﻿using Domain.Abstractions;
+using DTO.Works.WorkCategories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,7 +13,9 @@ namespace MyApplication.Abstractions.Works
         Task<WorkCategoryDTO> GetByIdAsync(int id);
         Task<ICollection<WorkCategoryDTO>> GetAllForProjectAsync(int projectID);
         Task<int> AddAsync(WorkCategoryCreateDTO category);
+        Task<int> UpdateAsyncInTransaction(WorkCategoryUpdateDTO category, IUnitOfWork unitOfWork);
         Task<int> UpdateAsync(WorkCategoryUpdateDTO category);
         Task DeleteAsync(int id);
+        Task<int> AddAsyncInTransaction(WorkCategoryCreateDTO newCategory, IUnitOfWork unitOfWork);
     }
 }

@@ -45,7 +45,7 @@ namespace Domain.Entities
         }
         // used for Create
         private void Validate(string designation)
-        {            
+        {
             //Designation validation
             if (string.IsNullOrWhiteSpace(designation))
                 throw new InvalidOperationException("Designation is required.");

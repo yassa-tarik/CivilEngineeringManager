@@ -8,13 +8,12 @@ namespace MyApplication.Mappers
 {
     internal static class ProjectMapper
     {
-        public static ProjectDTO DomainToDtoWithAddress(Project project, Address address)
+        public static ProjectDTO DomainToDto(Project project)
         {
-            if (project == null) throw new ArgumentNullException(nameof(project) + "not found!");
-            if (address == null)
-                throw new ArgumentNullException(nameof(address) + "not found");
+            if (project == null)
+                return null;
 
-            var addressDTO = AddressMapper.DomainToDTO(address);
+            var addressDTO = AddressMapper.DomainToDTO(project.Address);
             return new ProjectDTO
             (
                 project.ID,
@@ -39,42 +38,41 @@ namespace MyApplication.Mappers
                 project.IsSpecCompleted,
                 project.Progress,
                 addressDTO,
-                project.CreationDate,
-                project.CreatedBy,
-                project.ModificationDate,
-                project.ModifiedBy,
                 project.IsDeleted
             );
         }
-        public static IEnumerable<ProjectDTO> DomainsToDtoList(IEnumerable<Project> projects, IEnumerable<Address> addresses)
+        public static IEnumerable<ProjectDTO> DomainsToDtoList(IEnumerable<Project> projects)
         {
-            var addressMap = addresses.ToDictionary(a => a.ID);
-            return projects.Select(p => DomainToDtoWithAddress(p, addressMap.FirstOrDefault(a => (a.Key == p.Address_ID)).Value));
+            //var addressMap = addresses.ToDictionary(a => a.ID);
+            //return projects.Select(p => DomainToDtoWithAddress(p, addressMap.FirstOrDefault(a => (a.Key == p.Address_ID)).Value));
+            return projects.Select(p => DomainToDto(p));
         }
 
         public static ProjectMinDTO DomainsToMinDto(Project project)
         {
-            if (project == null) throw new ArgumentNullException(nameof(project) + "not found!");
+            if (project == null) return null;
             return new ProjectMinDTO
             (
                 project.ID,
                 project.Name,
-                project.IsSpecCompleted
+                project.IsSpecCompleted,
+                project.Progress,
+                project.ProjectType
             );
         }
 
-        public static (Project project, Address address) CreateDtoToDomain(ProjectCreateDTO dto)
+        public static Project CreateDtoToDomain(ProjectCreateDTO dto)
         {
             if (dto == null)
                 throw new ArgumentNullException(nameof(dto));
             var address = new Address(
-                -1,
-                dto.AddressCreate.ID_Country,
-                dto.AddressCreate.ID_City,
-                dto.AddressCreate.Municipality,
-                dto.AddressCreate.PostalCode,
-                dto.AddressCreate.PlaceName,
-                dto.AddressCreate.Landmark);
+
+                dto.AddressDto.Country_ID,
+                dto.AddressDto.City_ID,
+                dto.AddressDto.Municipality,
+                dto.AddressDto.PostalCode,
+                dto.AddressDto.PlaceName,
+                dto.AddressDto.Landmark);
 
             var project = new Project(
                 dto.Name,
@@ -95,9 +93,10 @@ namespace MyApplication.Mappers
                 dto.LandBookDate,
                 dto.LandBookBy,
                 dto.IsSpecCompleted,
-                dto.Progress);
+                dto.Progress,
+                address);
 
-            return (project, address);
+            return project;
         }
     }
 }

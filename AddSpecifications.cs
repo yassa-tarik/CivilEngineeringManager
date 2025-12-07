@@ -4,6 +4,7 @@ using Composition;
 using DTO.TreeDTOs;
 using DTO.Works.WorkSpecs;
 using MyApplication.Abstractions;
+using MyApplication.Abstractions.Trees;
 using MyApplication.Abstractions.Works;
 using System;
 using System.Collections.Generic;
@@ -18,15 +19,15 @@ namespace CivilEngineeringManager
         int nextId = 1;  // for simple ID generation
         ProjectBuilder _projectBuilder;
         private readonly IProjectService _projectService;
-        private readonly IProjectTreeService _projectTreeService;
+        private readonly IProjectWorkSpecsTreeService _projectTreeService;
 
         IEnumerable<WorkCategoryTreeDTO> _treeDTO;
         public AddSpecifications(IEnumerable<WorkCategoryTreeDTO> treeDTO)
         {
             InitializeComponent();
             _projectBuilder = new ProjectBuilder();
-            _projectService = _projectBuilder.BuildProjectService();
-            _projectTreeService = _projectBuilder.ProjectTreeService();
+            //_projectService = _projectBuilder.BuildProjectService();
+            //_projectTreeService = _projectBuilder.ProjectTreeService();
             _treeDTO = treeDTO;
         }
         private async void AddSpecifications_Load(object sender, EventArgs e)

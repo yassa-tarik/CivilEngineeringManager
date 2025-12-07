@@ -3,20 +3,17 @@ using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence
 {
-    public class CountryRepository : DBConnectionStringBaseRepo,  ICountryRepository
+    public class CountryRepository : DBConnectionStringBaseRepo, ICountryRepository
     {
         public List<Country> GetAll()
         {
             var result = new List<Country>();
             try
             {
-                using (var con = CreateConnection())
+                using (var con = OpenConnection())
                 {
                     using (var cmd = new SqlCommand("SELECT ID, Name FROM Countries", con))
                     {

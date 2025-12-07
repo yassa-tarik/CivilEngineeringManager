@@ -6,8 +6,8 @@
     /// </summary>
     public class WorkSpecCreateDTO : WorkSpecBaseDTO
     {
-        public WorkSpecCreateDTO(int? workCategory_ID, int? workType_ID, string designation, string unit, decimal unitPrice, double quantity, string vAT)
-            : base(workCategory_ID, workType_ID, designation, unit, unitPrice, quantity, vAT)
+        public WorkSpecCreateDTO(int? workCategory_ID, int? workType_ID, string designation, string unit, decimal unitPrice, double quantity, string vAT, bool isAssigned)
+            : base(workCategory_ID, workType_ID, designation, unit, unitPrice, quantity, vAT, isAssigned)
         {
         }
     }

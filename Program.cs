@@ -19,7 +19,7 @@ namespace CivilEngineeringManager
             // 1. Create the container builder
             var services = new ServiceCollection();
             //IServiceProvider service = services.BuildServiceProvider();
-            
+
 
             // 2. Register all components using the extension method
             services.RegisterCoreServices();
@@ -27,11 +27,14 @@ namespace CivilEngineeringManager
             // 3. Register the Main Form itself (must be Transient)
             services.AddSingleton<IChildFormFactory, ChildFormFactory>();
             services.AddTransient<frmAddNewCategoryDesignation>();
-            services.AddSingleton<frmProjects>();
-            services.AddScoped<AddEditProjectSpecifications>();
-            services.AddTransient<frmAddEditReadProject>();
+            services.AddTransient<frmProjects>();
+            services.AddTransient<AddEditProjectSpecifications>();
+            services.AddScoped<frmAddEditReadProject>();
             services.AddSingleton<frmMain>();
-            
+            services.AddTransient<frmSubcontractors>();
+            services.AddScoped<frmAddEditViewSubcontractor>();
+            services.AddTransient<frmAssignWorkToSubcontractor>();
+
 
             // 4. Build the provider
             var serviceProvider = services.BuildServiceProvider();
@@ -40,18 +43,7 @@ namespace CivilEngineeringManager
             // This resolves the MainForm, and the container automatically injects 
             // IProjectService (and all its dependencies) into it.
             Application.Run(serviceProvider.GetRequiredService<frmMain>());
-            //Application.Run(serviceProvider.GetRequiredService<AddEditProjectSpecifications>());
-            //**************************************************************
 
-
-
-            //System.Windows.Forms.Application.Run(serviceProvider.GetRequiredService<frmAddNewCategoryDesignation>());
-            //System.Windows.Forms.Application.Run(new AddEditProjectSpecifications());
-            //Application.Run(new FormTreeWithDTOs());
-            //Application.Run(new Form1());
-            //Application.Run(new AddSpecifications());
-            //Application.Run(new TestProject());
-            //Application.Run(new frmMain());
         }
     }
 }

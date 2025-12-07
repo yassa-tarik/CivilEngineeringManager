@@ -16,7 +16,7 @@ namespace Infrastructure.Persistence.Works
             WorkCategory category = null;
             try
             {
-                using (var conn = await CreateConnectionAsync())
+                using (var conn = await OpenConnectionAsync())
                 {
                     using (SqlCommand cmd = new SqlCommand("SP_GetWorkCategoryById", conn))
                     {
@@ -31,10 +31,10 @@ namespace Infrastructure.Persistence.Works
                                     id: (int)reader["ID"],
                                     project_ID: (int)reader["Project_ID"],
                                     workCategoryDesignation_ID: (int)reader["WorkCategoryDesignation_ID"]
-                                    //creationDate: (DateTime)reader["CreationDate"],
-                                    //CreatedBy: (int)reader["CreatedBy"],
-                                    //ModificationDate: (DateTime)reader["ModificationDate"],
-                                    //ModifiedBy: (int)reader["ModifiedBy"]
+                                //creationDate: (DateTime)reader["CreationDate"],
+                                //CreatedBy: (int)reader["CreatedBy"],
+                                //ModificationDate: (DateTime)reader["ModificationDate"],
+                                //ModifiedBy: (int)reader["ModifiedBy"]
                                 );
                             }
                         }
@@ -55,7 +55,7 @@ namespace Infrastructure.Persistence.Works
             var workCategories = new List<WorkCategory>();
             try
             {
-                using (var conn = await CreateConnectionAsync())
+                using (var conn = await OpenConnectionAsync())
                 {
                     using (SqlCommand cmd = new SqlCommand("SP_GetAllWorkCategoriesForProject", conn))
                     {
@@ -69,7 +69,7 @@ namespace Infrastructure.Persistence.Works
                                 workCategories.Add(new WorkCategory(
                                   id: (int)reader["ID"],
                                   project_ID: (int)reader["Project_ID"],
-                                  workCategoryDesignation_ID: (int)reader ["WorkCategoryDesignation_ID"]
+                                  workCategoryDesignation_ID: (int)reader["WorkCategoryDesignation_ID"]
                                 ));
                             }
                         }
@@ -90,7 +90,7 @@ namespace Infrastructure.Persistence.Works
             int NewID = 0;
             try
             {
-                using (var conn = await CreateConnectionAsync())
+                using (var conn = await OpenConnectionAsync())
                 {
                     using (SqlCommand cmd = new SqlCommand("SP_AddNewWorkCategory", conn))
                     {
@@ -121,14 +121,52 @@ namespace Infrastructure.Persistence.Works
             }
             return NewID;
         }
+        public async Task<int> AddNewAsyncInTransaction(WorkCategory category, IUnitOfWork uow)
+        {
+            int NewID = 0;
+            try
+            {
+                if (uow == null) throw new ArgumentNullException(nameof(uow));
+
+                var conn = uow.Connection;
+
+                using (SqlCommand cmd = new SqlCommand("SP_AddNewWorkCategory", conn, uow.Transaction))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Projet_ID", category.Project_ID);
+                    cmd.Parameters.AddWithValue("@WorkCategoryDesignation_ID", category.WorkCategoryDesignation_ID);
+
+                    cmd.Parameters.AddWithValue("@CreationDate", category.CreationDate);
+                    cmd.Parameters.AddWithValue("@CreatedBy", category.CreatedBy);
+                    cmd.Parameters.AddWithValue("@ModificationDate", category.ModificationDate);
+                    cmd.Parameters.AddWithValue("@ModifiedBy", category.ModifiedBy);
+                    SqlParameter returnedNewID = new SqlParameter("@NewID", SqlDbType.Int)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(returnedNewID);
+                    int result = await cmd.ExecuteNonQueryAsync();
+                    if (result > 0)
+                    {
+                        NewID = Convert.ToInt32(returnedNewID.Value);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return NewID;
+        }
         // Done
         public async Task<int> UpdateAsync(WorkCategory category)
         {
             int categoryID = 0;
             try
             {
-                using (var conn = await CreateConnectionAsync())
-                {using (SqlCommand cmd = new SqlCommand("SP_UpdateWorkCategory", conn))
+                using (var conn = await OpenConnectionAsync())
+                {
+                    using (SqlCommand cmd = new SqlCommand("SP_UpdateWorkCategory", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -152,7 +190,36 @@ namespace Infrastructure.Persistence.Works
             return categoryID;
 
         }
+        // Done
+        public async Task<int> UpdateAsyncInTransaction(WorkCategory category, IUnitOfWork uow)
+        {
+            int categoryID = 0;
+            try
+            {
+                var conn = uow.Connection;
 
+                using (SqlCommand cmd = new SqlCommand("SP_UpdateWorkCategory", conn, uow.Transaction))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@ID", category.ID);
+                    cmd.Parameters.AddWithValue("@WorkCategoryDesignation_ID", category.WorkCategoryDesignation_ID);
+                    cmd.Parameters.AddWithValue("@ModificationDate", category.ModificationDate);
+                    cmd.Parameters.AddWithValue("@ModifiedBy", category.ModifiedBy);
+
+                    int result = await cmd.ExecuteNonQueryAsync();
+                    if (result > 0)
+                    {
+                        categoryID = category.ID;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return categoryID;
+        }
         public Task DeleteAsync(int id)
         {
             throw new NotImplementedException();

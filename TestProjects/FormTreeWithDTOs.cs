@@ -1,7 +1,9 @@
-﻿using Composition;
+﻿using Common.Enums;
+using Composition;
 using DTO.TreeDTOs;
 using DTO.Works.WorkSpecs;
 using MyApplication.Abstractions;
+using MyApplication.Abstractions.Trees;
 using MyApplication.Abstractions.Works;
 using System;
 using System.Collections.Generic;
@@ -15,20 +17,20 @@ namespace CivilEngineeringManager.TestProjects
     {
         ProjectBuilder _projectBuilder;
         private readonly IProjectService _projectService;
-        private readonly IProjectTreeService _projectTreeService;
+        private readonly IProjectWorkSpecsTreeService _projectTreeService;
         public FormTreeWithDTOs()
         {
             InitializeComponent();
             _projectBuilder = new ProjectBuilder();
-            _projectService = _projectBuilder.BuildProjectService();
-            _projectTreeService = _projectBuilder.ProjectTreeService();
+            //_projectService = _projectBuilder.BuildProjectService();
+            //_projectTreeService = _projectBuilder.ProjectTreeService();
         }
 
         private async void TreeWithDTOs_Load(object sender, EventArgs e)
         {
             treeListView1.UseNotifyPropertyChanged = true;
             SetupColumnsMappingPutter();
-            var roots = await _projectTreeService.GetProjectTreeAsync(2);
+            var roots = await _projectTreeService.GetProjectTreeForSpecificationsAsync(2);
             treeListView1.Roots = roots.WorkCategories;
             /*olvColumn1.AspectGetter = a =>
             {
@@ -114,7 +116,7 @@ namespace CivilEngineeringManager.TestProjects
                 MessageBox.Show("Please select a parent node first.");
                 return;
             }
-            var newChild = new WorkSpecDTO(-1, selectedParent.ID, null, "new Spec", "m", 120, 20, "9%");
+            var newChild = new WorkSpecDTO(-1, selectedParent.ID, null, "new Spec", "m", 120, 20, "9%", AssignedWorkStatus.NotAssigned);
             // Add to parent's children collection
             //selectedParent.WorkSpecs.Add(newChild);
             // Refresh the tree view

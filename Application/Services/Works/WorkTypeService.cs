@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions.Works;
+﻿using Domain.Abstractions;
+using Domain.Abstractions.Works;
 using Domain.Entities;
 using DTO.Works.WorkTypes;
 using MyApplication.Abstractions.Works;
@@ -38,8 +39,41 @@ namespace MyApplication.Services.Works
                 throw;
             }
         }
+        // Done
+        public Task<int> AddAsyncInTransaction(WorkTypeCreateDTO typeDTO, IUnitOfWork uow)
+        {
+            if (typeDTO == null)
+                throw new ArgumentException("WorkType data is required");
 
+            try
+            {
+                // 1- check uniqueness
+                WorkType workType = WorkTypeMapper.CreateDtoToDomain(typeDTO);
+
+                return _workTypeRepo.AddNewAsyncInTransaction(workType, uow);
+            }
+            catch (Exception)
+            {
+                // TODO: logging
+                throw;
+            }
+        }
         public async Task<int> UpdateAsync(WorkTypeUpdateDTO typeDTO)
+        {
+            //TODO: should check the returned int if -1, 0 or >0
+            if (typeDTO == null)
+                throw new ArgumentException("WorkType must have data!");
+
+            var existing = await _workTypeRepo.GetByIdAsync(typeDTO.ID);
+
+            if (existing == null)
+                throw new ArgumentException("WorkType not found!");
+
+            existing.Update(typeDTO.WorkCategory_ID, typeDTO.Parent_ID, typeDTO.Designation);
+
+            return await _workTypeRepo.UpdateAsync(existing);
+        }
+        public async Task<int> UpdateAsyncInTransaction(WorkTypeUpdateDTO typeDTO, IUnitOfWork uow)
         {
             //TODO: should check the returned int if -1, 0 or >0
             if (typeDTO == null)

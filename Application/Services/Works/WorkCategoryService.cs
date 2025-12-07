@@ -1,4 +1,5 @@
 ﻿using Application.Mappers;
+using Domain.Abstractions;
 using Domain.Abstractions.Works;
 using Domain.Entities;
 using DTO.Works.WorkCategories;
@@ -48,8 +49,25 @@ namespace MyApplication.Services.Works
                 throw;
             }
         }
-
         // Done
+        public async Task<int> AddAsyncInTransaction(WorkCategoryCreateDTO category, IUnitOfWork uow)
+        {
+            if (category == null)
+                throw new ArgumentException("category must have data!");
+            //TODO: will create 'isExistsByID' method
+            //WorkCategoryDesignationUpdateDTO catDesignExist = await _categoryDesignationService.GetByIdAsync(category.WorkCategoryDesignation_ID);
+            //if (catDesignExist == null)
+            //    throw new ArgumentException("WorkCategoryDesignation Not exists!");
+            try
+            {
+                var newCategory = WorkCategoryMapper.CreateDtoToDomain(category);
+                return await _workCatRepo.AddNewAsyncInTransaction(newCategory, uow);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public async Task<int> UpdateAsync(WorkCategoryUpdateDTO catDTO)
         {
             if (catDTO == null)
@@ -59,6 +77,22 @@ namespace MyApplication.Services.Works
                 WorkCategory category = await _workCatRepo.GetByIdAsync(catDTO.ID) ?? throw new ArgumentNullException("category not found!");
                 category.Update(catDTO.WorkCategoryDesignation_ID);
                 return await _workCatRepo.UpdateAsync(category);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        // Done
+        public async Task<int> UpdateAsyncInTransaction(WorkCategoryUpdateDTO catDTO, IUnitOfWork uow)
+        {
+            if (catDTO == null)
+                throw new ArgumentNullException("category must have data!");
+            try
+            {
+                WorkCategory category = await _workCatRepo.GetByIdAsync(catDTO.ID) ?? throw new ArgumentNullException("category not found!");
+                category.Update(catDTO.WorkCategoryDesignation_ID);
+                return await _workCatRepo.UpdateAsyncInTransaction(category, uow);
             }
             catch (Exception)
             {
@@ -80,14 +114,14 @@ namespace MyApplication.Services.Works
         {
             // Await all necessary data retrievals
             IEnumerable<WorkCategory> allCategories = await _workCatRepo.GetAllWorkCategoriesForProjectAsync(projectID);
-            
+
             Dictionary<int, WorkCategoryDesignationUpdateDTO> categoryDesignationMap = await _categoryDesignationService.GetAllAsync();
 
             // Use LINQ Select to iterate and perform the lookup
             var categoryDTOs = allCategories.Select(category =>
             {
                 // 1. Map the WorkCategory model to the DTO (e.g., using AutoMapper or a static method)
-                var dto = WorkCategoryMapper.DomainToGeneralDto(category, WorkCategoryDesignationMapper.UpdateDtoToDomain (categoryDesignationMap[category.WorkCategoryDesignation_ID]));
+                var dto = WorkCategoryMapper.DomainToGeneralDto(category, WorkCategoryDesignationMapper.UpdateDtoToDomain(categoryDesignationMap[category.WorkCategoryDesignation_ID]));
 
                 return dto;
             }).ToList();

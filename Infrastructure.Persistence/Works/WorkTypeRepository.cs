@@ -17,7 +17,7 @@ namespace Infrastructure.Persistence.Works
             int NewID = 0;
             try
             {
-                using (var conn = await CreateConnectionAsync())
+                using (var conn = await OpenConnectionAsync())
                 {
                     using (SqlCommand cmd = new SqlCommand("SP_AddNewWorkType", conn))
                     {
@@ -49,12 +49,48 @@ namespace Infrastructure.Persistence.Works
             return NewID;
         }
         //DONE
+        public async Task<int> AddNewAsyncInTransaction(WorkType workType, IUnitOfWork uow)
+        {
+            int NewID = 0;
+            try
+            {
+                var conn = uow.Connection;
+
+                using (SqlCommand cmd = new SqlCommand("SP_AddNewWorkType", conn, uow.Transaction))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@WorkCategory_ID", workType.WorkCategory_ID);
+                    cmd.Parameters.AddWithValue("@Parent_ID", workType.Parent_ID);
+                    cmd.Parameters.AddWithValue("@Designation", workType.Designation);
+                    cmd.Parameters.AddWithValue("@CreationDate", workType.CreationDate);
+                    cmd.Parameters.AddWithValue("@CreatedBy", workType.CreatedBy);
+                    cmd.Parameters.AddWithValue("@ModificationDate", workType.ModificationDate);
+                    cmd.Parameters.AddWithValue("@ModifiedBy", workType.ModifiedBy);
+                    SqlParameter returnedNewID = new SqlParameter("@NewID", SqlDbType.Int)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(returnedNewID);
+                    int result = await cmd.ExecuteNonQueryAsync();
+                    if (result > 0)
+                    {
+                        NewID = Convert.ToInt32(returnedNewID.Value);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return NewID;
+        }
+        //DONE
         public async Task<int> UpdateAsync(WorkType workType)
         {
             int typeID = 0;
             try
             {
-                using (var conn = await CreateConnectionAsync())
+                using (var conn = await OpenConnectionAsync())
                 using (SqlCommand cmd = new SqlCommand("SP_UpdateWorkType", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -77,15 +113,44 @@ namespace Infrastructure.Persistence.Works
             }
             return typeID;
         }
+        //DONE
+        public async Task<int> UpdateAsync(WorkType workType, IUnitOfWork uow)
+        {
+            int typeID = 0;
+            try
+            {
+                var conn = uow.Connection;
+                using (SqlCommand cmd = new SqlCommand("SP_UpdateWorkType", conn, uow.Transaction))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@ID", workType.ID);
+                    cmd.Parameters.AddWithValue("@Designation", workType.Designation);
+                    cmd.Parameters.AddWithValue("@ModificationDate", workType.ModificationDate);
+                    cmd.Parameters.AddWithValue("@ModifiedBy", workType.ModifiedBy);
+
+                    int result = await cmd.ExecuteNonQueryAsync();
+                    if (result > 0)
+                    {
+                        typeID = workType.ID;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return typeID;
+        }
         // done
         public async Task<List<WorkType>> GetAllForCategoriesRootsAsync(int projectID)
         {
             List<WorkType> workTypes = new List<WorkType>();
             try
             {
-                using (var conn = CreateConnection())
+                using (var conn = OpenConnection())
                 {
-                    using (SqlCommand cmd = new SqlCommand("SP_GetAllWorkTypesForWorkCategoriesRoots", conn))
+                    using (SqlCommand cmd = new SqlCommand("SP_GetAllWorkTypesForProject", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -131,7 +196,7 @@ namespace Infrastructure.Persistence.Works
             WorkType workType = null;
             try
             {
-                using (var conn = await CreateConnectionAsync())
+                using (var conn = await OpenConnectionAsync())
                 {
                     using (SqlCommand cmd = new SqlCommand("SP_GetWorkTypeById", conn))
                     {

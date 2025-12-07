@@ -1,5 +1,4 @@
-﻿using Domain.Abstractions.Works;
-using Domain.Entities;
+﻿using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.MockData
 {
-    internal class MockWorkCategoryRepo : IWorkCategoryRepository
+    internal class MockWorkCategoryRepo //: IWorkCategoryRepository
     {
         // This in-memory list simulates a database table.
         // In a real application, this would be replaced with a database context (e.g., DbContext in Entity Framework).
@@ -60,11 +59,6 @@ namespace Infrastructure.Persistence.MockData
                 _workCategories.Remove(categoryToRemove);
             }
             return Task.CompletedTask;
-        }
-
-        Task<int> IWorkCategoryRepository.UpdateAsync(WorkCategory category)
-        {
-            throw new NotImplementedException();
         }
 
         public Task<IEnumerable<WorkCategory>> GetAllWorkCategoriesForProjectAsync(int projectID)

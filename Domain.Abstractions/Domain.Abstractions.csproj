@@ -43,11 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBConnectionStringBaseRepo.cs" />
-    <Compile Include="IAddressRepository.cs" />
     <Compile Include="ICityRepository.cs" />
     <Compile Include="ICountryRepository.cs" />
     <Compile Include="IProjectRepository.cs" />
+    <Compile Include="ISubcontractorRepository.cs" />
+    <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Works\IAssignedWorkRepository.cs" />
     <Compile Include="Works\IWorkCategoryDesignationRepository.cs" />
     <Compile Include="Works\IWorkTypeRepository.cs" />
     <Compile Include="Works\IWorkCategoryRepository.cs" />

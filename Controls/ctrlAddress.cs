@@ -1,7 +1,6 @@
 ﻿using DTO.Addresses;
 using DTO.Cities;
 using DTO.Countries;
-using MyApplication.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +16,6 @@ namespace CivilEngineeringManager.Controls
         public ctrlAddress()
         {
             InitializeComponent();
-            //_countryService = countryService;
-            //_cityService = cityService;
         }
 
         #region Public Methods
@@ -33,10 +30,9 @@ namespace CivilEngineeringManager.Controls
             // --- Country ---
             if (cbxCountries.DataSource != null && cbxCountries.Items.Count > 0)
             {
-                if (cbxCountries.Items.Cast<object>()
-                    .Any(item => (int)((dynamic)item).ID == dto.ID_Country))
+                if (cbxCountries.Items.Cast<CountryDTO>().Any(item => item.ID == dto.Country_ID))
                 {
-                    cbxCountries.SelectedValue = dto.ID_Country;
+                    cbxCountries.SelectedValue = dto.Country_ID;
                 }
                 else
                 {
@@ -47,10 +43,9 @@ namespace CivilEngineeringManager.Controls
             // --- City ---
             if (cbxCities.DataSource != null && cbxCities.Items.Count > 0)
             {
-                if (cbxCities.Items.Cast<object>()
-                    .Any(item => (int)((dynamic)item).ID == dto.ID_City))
+                if (cbxCities.Items.Cast<CityDTO>().Any(item => item.ID == dto.City_ID))
                 {
-                    cbxCities.SelectedValue = dto.ID_City;
+                    cbxCities.SelectedValue = dto.City_ID;
                 }
                 else
                 {
@@ -65,46 +60,9 @@ namespace CivilEngineeringManager.Controls
             txtLandmark.Text = dto.Landmark ?? string.Empty;
         }
 
-        //public AddressDTO GetAddressDTO()
-        //{
-        //    int id = _currentAddress?.ID ?? 0;
-
-        //    int idCountry = 0;
-        //    int idCity = 0;
-
-        //    if (cbxCountries.SelectedValue is int selectedCountryId && selectedCountryId > 0)
-        //        idCountry = selectedCountryId;
-
-        //    if (cbxCities.SelectedValue is int selectedCityId && selectedCityId > 0)
-        //        idCity = selectedCityId;
-
-        //    return new AddressDTO(
-        //        id,
-        //        idCountry,
-        //        idCity,
-        //        txtMunicipality.Text?.Trim(),
-        //        txtPostalCode.Text?.Trim(),
-        //        txtPlaceName.Text?.Trim(),
-        //        txtLandmark.Text?.Trim()
-        //    );           
-        //}
-
-        public AddressCreateDTO GetAddressCreateDTO()
+        public AddressDTO GetAddressDTO()
         {
-            return new AddressCreateDTO(
-                Convert.ToInt32(cbxCountries.SelectedValue ?? 0),
-                Convert.ToInt32(cbxCities.SelectedValue ?? 0),
-                txtMunicipality.Text?.Trim(),
-                txtPostalCode.Text?.Trim(),
-                txtPlaceName.Text?.Trim(),
-                txtLandmark.Text?.Trim()
-            );
-        }
-
-        public AddressUpdateDTO GetAddressUpdateDTO()
-        {
-            return new AddressUpdateDTO(
-                _currentAddress?.ID ?? 0,
+            return new AddressDTO(
                 Convert.ToInt32(cbxCountries.SelectedValue ?? 0),
                 Convert.ToInt32(cbxCities.SelectedValue ?? 0),
                 txtMunicipality.Text?.Trim(),

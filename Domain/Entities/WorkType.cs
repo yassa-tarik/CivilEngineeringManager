@@ -79,7 +79,7 @@ namespace Domain.Entities
 
             // CreatedBy validation
             if (CreatedBy <= 0)
-                throw new InvalidOperationException("CreatedBy must be a valid user ID.");          
+                throw new InvalidOperationException("CreatedBy must be a valid user ID.");
 
             // WorkType_ID validation (if provided)
             if (WorkCategory_ID == null && Parent_ID == null)

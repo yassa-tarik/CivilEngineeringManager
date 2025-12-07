@@ -2,6 +2,7 @@
 using CivilEngineeringManager.Controls;
 using CivilEngineeringManager.UI.Enums;
 using MyApplication.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -18,22 +19,23 @@ namespace CivilEngineeringManager.Forms
             _childFormFactory = childFormFactory;
         }
 
-        private  void LoadProjectCards()
+        private async void LoadProjectCards()
         {
             // Clear existing cards
             flowLayoutPanelProjects.Controls.Clear();
 
-            //var projects = await _projectService.GetAllMinAsync(); 
-            var projects = GetProjectData();
+            var projects = await _projectService.GetAllMinAsync();
+            //var projects = GetProjectData();
 
             foreach (var project in projects)
             {
                 ctrlProjectCard card = new ctrlProjectCard();
-                card.ProjectId = project.Id;
+                card.ProjectId = project.ID;
                 card.ProjectName = project.Name;
                 card.ProjectProgress = project.Progress;
-                card.Width = 329; // Set a fixed width for your cards
-                card.Height = 227; // Set a fixed height
+                card.ProjectType = project.ProjectType;
+                card.Width = 302; // Set a fixed width for your cards
+                card.Height = 274; // Set a fixed height
                 card.Margin = new Padding(10); // Add some spacing between cards
                 card.Cursor = Cursors.Hand; // Make it look clickable
 
@@ -44,11 +46,12 @@ namespace CivilEngineeringManager.Forms
                     if (clickedCard != null)
                     {
                         _childFormFactory.CreateForm<frmAddEditReadProject>(FormMode.Read, clickedCard.ProjectId).ShowDialog();
-                        MessageBox.Show($"Project {clickedCard.ProjectName} (ID: {clickedCard.ProjectId}) clicked!");
+                        //MessageBox.Show($"Project {clickedCard.ProjectName} (ID: {clickedCard.ProjectId}) clicked!");
                         //Here you would open your "Détails du Projet" modal, passing the project ID
                         //OpenProjectDetails(int.Parse(clickedCard.ProjectId));
                     }
                 };
+                card.EditClick += (sender, e) => OpenAddEditReadFormForEdit(sender, e);
 
                 flowLayoutPanelProjects.Controls.Add(card);
             }
@@ -59,6 +62,16 @@ namespace CivilEngineeringManager.Forms
             LoadProjectCards();
         }
 
+        // event used for Edit project
+        private void OpenAddEditReadFormForEdit(object sender, EventArgs e)
+        {
+            ctrlProjectCard projectCard = sender as ctrlProjectCard;
+            if (projectCard != null)
+            {
+                _childFormFactory.CreateForm<frmAddEditReadProject>(FormMode.Edit, projectCard.ProjectId).ShowDialog();
+            }
+            frmProjects_Load(null, null);
+        }
 
         private void btnAddNewProject_Click(object sender, System.EventArgs e)
         {
@@ -87,5 +100,20 @@ namespace CivilEngineeringManager.Forms
         };
         }
 
+        private void textBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            txtSearch.Text = string.Empty;
+
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            //txtSearch.ForeColor = System.Drawing.Color.Black;
+            //if (txtSearch.Text == string.Empty)
+            //{
+            //    txtSearch.ForeColor = System.Drawing.Color.LightGray;
+            //    //txtSearch.Text = "search for project";
+            //}
+        }
     }
 }

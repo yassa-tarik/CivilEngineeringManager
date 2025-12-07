@@ -14,8 +14,7 @@ namespace DTO.Works.AssignedWorks
         /// <summary>
         /// Initializes a new instance of the AssignedWorkUpdateDTO class.
         /// </summary>
-        public AssignedWorkUpdateDTO(int id, int workSpec_ID, int subcontractor_ID, double assignedQuantity, DateTime assignedDate, decimal negotiatedUnitPrice, byte progress, AssignedWorkStatus status)
-            : base(workSpec_ID, subcontractor_ID, assignedQuantity, assignedDate, negotiatedUnitPrice, progress, status)
+        public AssignedWorkUpdateDTO(int id, int workSpec_ID, int subcontractor_ID, decimal negotiatedUnitPrice, double assignedQuantity, DateTime assignedDate, double producedQuantity, byte progress, AssignedWorkStatus status, DateTime endDate, bool isActive, bool isDeleted) : base(workSpec_ID, subcontractor_ID, negotiatedUnitPrice, assignedQuantity, assignedDate, producedQuantity, progress, status, endDate, isActive, isDeleted)
         {
             ID = id;
         }

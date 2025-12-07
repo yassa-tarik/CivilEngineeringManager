@@ -14,28 +14,16 @@ namespace Domain.Abstractions
         }
 
         //Risk race condition
-
-        protected  SqlConnection CreateConnection()
+        protected SqlConnection OpenConnection()
         {
             var connection = new SqlConnection(_connectionString);
             connection.Open();
             return connection;
         }
-        protected async Task<SqlConnection> CreateConnectionAsync()
-        {
-            var connection = new SqlConnection(_connectionString);
-            await connection.OpenAsync();
-            return connection;
-        }
-        //TODO: will use this method later
         protected async Task<SqlConnection> OpenConnectionAsync()
         {
             var connection = new SqlConnection(_connectionString);
-
-            // 1. Await the asynchronous operation
             await connection.OpenAsync();
-
-            // 2. Return the now-open connection
             return connection;
         }
     }

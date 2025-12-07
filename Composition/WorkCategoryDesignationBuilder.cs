@@ -1,11 +1,6 @@
 ﻿using Infrastructure.Persistence.Works;
 using MyApplication.Abstractions.Works;
 using MyApplication.Services.Works;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Composition
 {

@@ -1,9 +1,10 @@
-﻿using Domain.Abstractions.Works;
+﻿using Domain.Abstractions;
 using DTO.TreeDTOs;
 using DTO.Works.WorkCategories;
 using DTO.Works.WorkSpecs;
 using DTO.Works.WorkTypes;
 using MyApplication.Abstractions;
+using MyApplication.Abstractions.Trees;
 using MyApplication.Abstractions.Works;
 using MyApplication.Mappers;
 using System;
@@ -16,30 +17,28 @@ namespace MyApplication.Services.Trees
     /// <summary>
     /// A service responsible for retrieving and building a hierarchical tree of WorkCategories, WorkTypes, and WorkSpecs.
     /// </summary>
-    public class ProjectTreeService : IProjectTreeService
+    public class ProjectWorkSpecsTreeService : IProjectWorkSpecsTreeService
     {
-        private readonly IProjectService _projectService;
-        private readonly IWorkCategoryService _workCategoryService;
-        private readonly IWorkTypeService _workTypeService;
-        private readonly IWorkSpecService _workSpecService;
+        private readonly IProjectWorkDataService _projectWorkDataService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ProjectTreeService(IProjectService projectService, IWorkCategoryRepository workCategoryRepository, IWorkTypeService workTypeService, IWorkCategoryService workCategoryService, IWorkSpecService workSpecService)
+        public ProjectWorkSpecsTreeService(IUnitOfWork unitOfWork,
+            IProjectWorkDataService projectWorkDataService)
         {
-            _projectService = projectService;
-            _workTypeService = workTypeService;
-            _workCategoryService = workCategoryService;
-            _workSpecService = workSpecService;
+            _unitOfWork = unitOfWork;
+            _projectWorkDataService = projectWorkDataService;
         }
 
-        public async Task<ProjectTreeDTO> GetProjectTreeAsync(int projectID)
-        {            
+        public async Task<ProjectTreeDTO> GetProjectTreeForSpecificationsAsync(int projectID)
+        {
             //TODO: will change later to real project
-            var projectMin = _projectService.GetMockProjects().Find(p => p.ID == projectID);
+            var allProjectsMin = await _projectWorkDataService.Projects.GetAllMinAsync();
+            var projectMin = allProjectsMin.Find(p => p.ID == projectID);
             if (projectMin == null)
-                throw new Exception("project not found!");
+                throw new Exception("project not found!");//TODO: will check the default value
             var projectTree = new ProjectTreeDTO(projectMin.ID, projectMin.Name);
             //check if projectTree not empty to proceed otherwise stop
-            var categoryTrees = await GetWorkCategoryTreeAsync(projectID);
+            var categoryTrees = await GetWorkCategoryBranchAsync(projectID);
             foreach (var item in categoryTrees)
             {
                 projectTree.WorkCategories.Add(item);
@@ -51,22 +50,21 @@ namespace MyApplication.Services.Trees
         /// Builds the complete hierarchical tree for all work categories.
         /// </summary>
         /// <returns>A collection of WorkCategoryTreeDTO objects representing the full hierarchy.</returns>
-        public async Task<IEnumerable<WorkCategoryTreeDTO>> GetWorkCategoryTreeAsync(int projectID)
+        private async Task<IEnumerable<WorkCategoryTreeDTO>> GetWorkCategoryBranchAsync(int projectID)
         {
             //TODO: will fetch only one list that has the whole Tree for specific Project
-            // Step 1: Fetch all data from the database
-            var allCategories = await _workCategoryService.GetAllForProjectAsync(projectID);
+            var allCategories = await _projectWorkDataService.Categories.GetAllForProjectAsync(projectID);
             //TODO: will return empty initialized Tree
-            if (allCategories.Count <= 0) 
-            { 
+            if (allCategories.Count <= 0)
+            {
                 return new List<WorkCategoryTreeDTO>();
                 //throw new Exception($"No category exists for this project ID{projectID}"); 
             }
             var categoryListIDs = allCategories.Select(c => c.ID).ToList();
 
-            var allWorkTypes = await _workTypeService.GetAllForCategoriesRootsAsync(projectID);
-            //TODO: to be continued
-            var allWorkSpecsDTO = await _workSpecService.GetAllSpecsForCategoriesAndTypesAsync(projectID);
+            var allWorkTypes = await _projectWorkDataService.Types.GetAllForCategoriesRootsAsync(projectID);
+
+            var allWorkSpecsDTO = await _projectWorkDataService.Specs.GetAllSpecsForProjectAsync(projectID, isAssigned: false);
 
             // Step 2.0: Group WorkSpecs by WorkCategoryID for efficient lookup
             var workSpecsByWorkCategory = allWorkSpecsDTO.Where(ws => ws.WorkCategory_ID != null).GroupBy(ws => ws.WorkCategory_ID)
@@ -75,7 +73,7 @@ namespace MyApplication.Services.Trees
             // Step 2.1: Group WorkSpecs by WorkTypeID for efficient lookup
             var workSpecsByWorkType = allWorkSpecsDTO.Where(ws => ws.WorkType_ID != null).GroupBy(ws => ws.WorkType_ID).ToDictionary(g => g.Key, g => g.ToList());
 
-            // Step 3: Map all WorkTypes to their DTOs and build the hierarchy
+            // Step 3: Map all WorkTypes to their Parents(WorkType) and build the hierarchy
             var workTypeMap = allWorkTypes.ToDictionary(
                 wt => wt.ID,
                 wt => new WorkTypeTreeDTO
@@ -110,53 +108,63 @@ namespace MyApplication.Services.Trees
             return categoryTrees;
         }
 
-        //TODO: wrap in Transaction
+        //wraped in Transaction
         public async Task<bool> SaveProjectTree(ProjectTreeDTO projectTreeDTO)
         {
-            //TODO: put this method into Transaction
-            if (projectTreeDTO == null)
+            await _unitOfWork.BeginAsync();
+            try
             {
-                return false;
-            }
-            if (projectTreeDTO.WorkCategories.Count <= 0)
-            {
-                return false;
-            }
-            int categoryID;
-            foreach (var category in projectTreeDTO.WorkCategories)
-            {
-
-                if (category.ID > 0)
+                //TODO: put this method into Transaction
+                if (projectTreeDTO == null)
                 {
-                    WorkCategoryUpdateDTO newCategory = WorkCategoryMapper.TreeDtoToUpdateDTO(category);
-                    // Update the category
-                    categoryID = await _workCategoryService.UpdateAsync(newCategory);
+                    return false;
                 }
-                else
+                if (projectTreeDTO.WorkCategories.Count <= 0)
                 {
-                    WorkCategoryCreateDTO newCategory = WorkCategoryMapper.TreeDtoToCreateDTO(category);
-                    // Add new Category using Category Service and Get the new ID
-                    categoryID = await _workCategoryService.AddAsync(newCategory);
+                    return false;
                 }
-                // Save its Children by calling another method recursively
-                SaveWorkSpecs(category.WorkSpecs, categoryID, null);
-                await SaveWorkTypes(category.WorkTypes, categoryID, null);
+                int newCategoryID;
+                foreach (var category in projectTreeDTO.WorkCategories)
+                {
+                    if (category.ID > 0)
+                    {
+                        WorkCategoryUpdateDTO newCategory = WorkCategoryMapper.TreeDtoToUpdateDTO(category);
+                        //TODO: add sqlConnection and sqlTransaction
+                        // Update the category
+                        newCategoryID = await _projectWorkDataService.Categories.UpdateAsyncInTransaction(newCategory, _unitOfWork);
+                    }
+                    else
+                    {
+                        WorkCategoryCreateDTO newCategory = WorkCategoryMapper.TreeDtoToCreateDTO(category);
+                        // Add new Category using Category Service and Get the new ID
+                        newCategoryID = await _projectWorkDataService.Categories.AddAsyncInTransaction(newCategory, _unitOfWork);
+                    }
+                    // Save its Children by calling another method recursively
+                    await SaveWorkSpecs(category.WorkSpecs, newCategoryID, null, _unitOfWork);
+                    await SaveWorkTypes(category.WorkTypes, newCategoryID, null, _unitOfWork);
+                }
+                await _unitOfWork.CommitAsync();
+                return true;
             }
-            return true;
+            catch (Exception)
+            {
+                await _unitOfWork.RollbackAsync();
+                throw;
+            }
         }
 
-        private async Task<bool> SaveWorkTypes(ICollection<WorkTypeTreeDTO> workTypes, int? categoryParentID, int? typeParentID)
+        //wraped in Transaction
+        private async Task<bool> SaveWorkTypes(ICollection<WorkTypeTreeDTO> workTypes, int? categoryParentID, int? typeParentID, IUnitOfWork uow)
         {
             try
             {
                 int newTypeID;
                 foreach (var type in workTypes)
                 {
-
                     if (type.ID > 0)
                     {
                         WorkTypeUpdateDTO newTypeDTO = WorkTypeMapper.TreeDtoToUpdateDTO(type);
-                        newTypeID = await _workTypeService.UpdateAsync(newTypeDTO);
+                        newTypeID = await _projectWorkDataService.Types.UpdateAsyncInTransaction(newTypeDTO, uow);
                     }
                     else
                     {
@@ -171,26 +179,28 @@ namespace MyApplication.Services.Trees
                             newTypeCreateDTO.Parent_ID = typeParentID.Value;
                             newTypeCreateDTO.WorkCategory_ID = null; //double check
                         }
-                        newTypeID = await _workTypeService.AddAsync(newTypeCreateDTO);
+
+                        newTypeID = await _projectWorkDataService.Types.AddAsyncInTransaction(newTypeCreateDTO, uow);
                     }
                     if (type.WorkSpecs.Count > 0)
                     {
-                        SaveWorkSpecs(type.WorkSpecs, null, newTypeID);
+                        await SaveWorkSpecs(type.WorkSpecs, null, newTypeID, uow);
                     }
                     if (type.WorkTypes.Count > 0)
                     {
-                        await SaveWorkTypes(type.WorkTypes, null, type.ID);
+                        await SaveWorkTypes(type.WorkTypes, null, newTypeID, uow);
                     }
                 }
             }
             catch (Exception)
             {
-                return false;
+                throw;
             }
             return true;
         }
 
-        private bool SaveWorkSpecs(ICollection<WorkSpecUpdateDTO> workSpecs, int? categoryParentID, int? typeParentID)
+        //wraped in Transaction
+        private async Task<bool> SaveWorkSpecs(ICollection<WorkSpecUpdateDTO> workSpecs, int? categoryParentID, int? typeParentID, IUnitOfWork uow)
         {
             //TODO: make boolean flag later
             try
@@ -199,7 +209,8 @@ namespace MyApplication.Services.Trees
                 {
                     if (workSpec.ID > 0)
                     {
-                        _workSpecService.UpdateAsync(workSpec);
+                        //TODO: add transaction overloading
+                        await _projectWorkDataService.Specs.UpdateAsyncInTransaction(workSpec, uow);
                     }
                     else
                     {
@@ -214,13 +225,13 @@ namespace MyApplication.Services.Trees
                             workSpec.WorkType_ID = null; //double check
                         }
                         WorkSpecCreateDTO createDTO = WorkSpecMapper.UpdateDtoToCreateDto(workSpec);
-                        _workSpecService.AddAsync(createDTO);
+                        await _projectWorkDataService.Specs.AddAsyncInTransaction(createDTO, uow);
                     }
                 }
             }
             catch (Exception)
             {
-                return false;
+                throw;
             }
             return true;
         }

@@ -5,6 +5,7 @@ using Infrastructure.Persistence.Works;
 using Microsoft.Extensions.DependencyInjection;
 using MyApplication;
 using MyApplication.Abstractions;
+using MyApplication.Abstractions.Trees;
 using MyApplication.Abstractions.Works;
 using MyApplication.Services;
 using MyApplication.Services.Trees;
@@ -18,14 +19,17 @@ namespace Composition
         {
             // --- Repositories ---
             // Lifetime: Scoped is common for database contexts/repositories.
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
-            services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<IWorkCategoryRepository, WorkCategoryRepository>();
             services.AddScoped<IWorkTypeRepository, WorkTypeRepository>();
             services.AddScoped<IWorkSpecRepository, WorkSpecRepository>();
             services.AddSingleton<ICountryRepository, CountryRepository>();
             services.AddSingleton<ICityRepository, CityRepository>();
             services.AddScoped<IWorkCategoryDesignationRepository, WorkCategoryDesignationRepository>();
+            services.AddScoped<IProjectWorkDataService, ProjecWorkMetadataService>();
+            services.AddScoped<ISubcontractorRepository, SubcontractorRepository>();
+            services.AddScoped<IAssignedWorkRepository, AssignedWorkRepository>();
             // ... add all other repositories
 
             // --- Services ---
@@ -37,8 +41,9 @@ namespace Composition
             services.AddScoped<IProjectService, ProjectService>();
             services.AddSingleton<ICountryService, CountryService>();
             services.AddSingleton<ICityService, CityService>();
-
-            services.AddScoped<IProjectTreeService, ProjectTreeService>();
+            services.AddScoped<ISubcontractorService, SubcontractorService>();
+            services.AddScoped<IProjectWorkSpecsTreeService, ProjectWorkSpecsTreeService>();
+            services.AddScoped<IAssignedWorkService, AssignedWorkService>();
             // ... add all other services (the container resolves their dependencies automatically)
 
             return services;

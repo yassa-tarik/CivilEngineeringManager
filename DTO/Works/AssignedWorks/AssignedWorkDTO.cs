@@ -9,28 +9,37 @@ namespace DTO.Works.AssignedWorks
     /// </summary>
     public class AssignedWorkDTO
     {
-        public int ID { get; set; }
-        public int WorkSpec_ID { get; set; }
-        public int Subcontractor_ID { get; set; }
-        public double AssignedQuantity { get; set; }
-        public DateTime AssignedDate { get; set; }
-        public decimal NegotiatedUnitPrice { get; set; }
-        public byte Progress { get; set; }
-        public AssignedWorkStatus Status { get; set; }
+        internal int ID { get; private set; }
+        internal int WorkSpec_ID { get; private set; }
+        internal int Subcontractor_ID { get; private set; }
+        internal decimal NegotiatedUnitPrice { get; private set; }
+        internal double AssignedQuantity { get; private set; } = 0;
+        internal DateTime AssignedDate { get; private set; }
+        internal double ProducedQuantity { get; private set; } = 0;
+
+        internal byte Progress { get; private set; }
+        internal AssignedWorkStatus Status { get; private set; }
+        internal DateTime EndDate { get; private set; }
+        internal bool IsActive { get; private set; }
+        internal bool IsDeleted { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the AssignedWorkDTO class.
         /// </summary>
-        public AssignedWorkDTO(int id, int workSpec_ID, int subcontractor_ID, double assignedQuantity, DateTime assignedDate, decimal negotiatedUnitPrice, byte progress, AssignedWorkStatus status)
+        public AssignedWorkDTO(int iD, int workSpec_ID, int subcontractor_ID, decimal negotiatedUnitPrice, double assignedQuantity, DateTime assignedDate, double producedQuantity, byte progress, AssignedWorkStatus status, DateTime endDate, bool isActive, bool isDeleted)
         {
-            ID = id;
+            ID = iD;
             WorkSpec_ID = workSpec_ID;
             Subcontractor_ID = subcontractor_ID;
+            NegotiatedUnitPrice = negotiatedUnitPrice;
             AssignedQuantity = assignedQuantity;
             AssignedDate = assignedDate;
-            NegotiatedUnitPrice = negotiatedUnitPrice;
+            ProducedQuantity = producedQuantity;
             Progress = progress;
             Status = status;
+            EndDate = endDate;
+            IsActive = isActive;
+            IsDeleted = isDeleted;
         }
     }
 }

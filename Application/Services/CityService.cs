@@ -1,8 +1,8 @@
 ﻿using Domain.Abstractions;
+using DTO.Cities;
 using MyApplication.Abstractions;
 using System.Collections.Generic;
 using System.Linq;
-using DTO.Cities;
 
 namespace MyApplication.Services
 {
@@ -15,24 +15,6 @@ namespace MyApplication.Services
         {
             _cityRepo = cityRepo;
         }
-
-        //public List<CityDTO> GetAll()
-        //{
-        //    if (_cachedCities == null)
-        //    {
-        //        var domainCities = _cityRepo.GetAll();
-        //        _cachedCities = domainCities
-        //            .Select(c => new CityDTO
-        //            (
-        //                c.Id,
-        //                c.Name,
-        //                c.CountryId
-        //            ))
-        //            .ToList();
-        //    }
-
-        //    return _cachedCities;
-        //}
 
         public List<CityDTO> GetByCountryId(int countryId)
         {

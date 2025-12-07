@@ -35,6 +35,7 @@
             this.olvUnitPrice = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvQuantity = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvTotal = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvIsAssigned = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.categoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.typeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,11 +56,13 @@
             // 
             // treeListView1
             // 
+            this.treeListView1.Alignment = System.Windows.Forms.ListViewAlignment.Default;
             this.treeListView1.AllColumns.Add(this.olvDesignation);
             this.treeListView1.AllColumns.Add(this.olvUnit);
             this.treeListView1.AllColumns.Add(this.olvUnitPrice);
             this.treeListView1.AllColumns.Add(this.olvQuantity);
             this.treeListView1.AllColumns.Add(this.olvTotal);
+            this.treeListView1.AllColumns.Add(this.olvIsAssigned);
             this.treeListView1.CellEditActivation = BrightIdeasSoftware.ObjectListView.CellEditActivateMode.DoubleClick;
             this.treeListView1.CellEditUseWholeCell = false;
             this.treeListView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -67,16 +70,21 @@
             this.olvUnit,
             this.olvUnitPrice,
             this.olvQuantity,
-            this.olvTotal});
+            this.olvTotal,
+            this.olvIsAssigned});
             this.treeListView1.ContextMenuStrip = this.contextMenuStrip1;
             this.treeListView1.Cursor = System.Windows.Forms.Cursors.Default;
             this.treeListView1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.treeListView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treeListView1.FullRowSelect = true;
             this.treeListView1.GridLines = true;
+            this.treeListView1.HeaderUsesThemes = true;
             this.treeListView1.HideSelection = false;
             this.treeListView1.Location = new System.Drawing.Point(20, 181);
             this.treeListView1.Name = "treeListView1";
+            this.treeListView1.RowHeight = 45;
+            this.treeListView1.SelectedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.treeListView1.SelectedColumnTint = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.treeListView1.ShowGroups = false;
             this.treeListView1.Size = new System.Drawing.Size(1201, 541);
             this.treeListView1.TabIndex = 0;
@@ -84,38 +92,59 @@
             this.treeListView1.View = System.Windows.Forms.View.Details;
             this.treeListView1.VirtualMode = true;
             this.treeListView1.CellEditFinished += new BrightIdeasSoftware.CellEditEventHandler(this.treeListView1_CellEditFinished);
+            this.treeListView1.SelectedIndexChanged += new System.EventHandler(this.treeListView1_SelectedIndexChanged);
             this.treeListView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.treeListView1_MouseClick);
             this.treeListView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.treeListView1_MouseDown);
             // 
             // olvDesignation
             // 
             this.olvDesignation.AspectName = "Designation";
+            this.olvDesignation.CellEditUseWholeCell = true;
+            this.olvDesignation.CellVerticalAlignment = System.Drawing.StringAlignment.Center;
+            this.olvDesignation.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.olvDesignation.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.olvDesignation.Text = "Designation";
             this.olvDesignation.Width = 650;
             // 
             // olvUnit
             // 
             this.olvUnit.AspectName = "Unit";
+            this.olvUnit.CellEditUseWholeCell = true;
+            this.olvUnit.CellVerticalAlignment = System.Drawing.StringAlignment.Center;
+            this.olvUnit.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.olvUnit.Text = "Unit";
             this.olvUnit.Width = 145;
             // 
             // olvUnitPrice
             // 
             this.olvUnitPrice.AspectName = "UnitPrice";
+            this.olvUnitPrice.AspectToStringFormat = "\"{0:C}\"";
+            this.olvUnitPrice.CellEditUseWholeCell = true;
             this.olvUnitPrice.Text = "Unit Price";
             this.olvUnitPrice.Width = 135;
             // 
             // olvQuantity
             // 
             this.olvQuantity.AspectName = "Quantity";
+            this.olvQuantity.CellEditUseWholeCell = true;
             this.olvQuantity.Text = "Quantity";
             this.olvQuantity.Width = 130;
             // 
             // olvTotal
             // 
             this.olvTotal.AspectName = "Amount";
+            this.olvTotal.AspectToStringFormat = "\"{0:C}\"";
             this.olvTotal.Text = "Total";
             this.olvTotal.Width = 120;
+            // 
+            // olvIsAssigned
+            // 
+            this.olvIsAssigned.AspectName = "IsAssigned";
+            this.olvIsAssigned.CheckBoxes = true;
+            this.olvIsAssigned.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.olvIsAssigned.Text = "Is Assigned";
+            this.olvIsAssigned.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.olvIsAssigned.Width = 120;
             // 
             // contextMenuStrip1
             // 
@@ -167,10 +196,10 @@
             // 
             // btnFind
             // 
-            this.btnFind.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFind.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFind.Location = new System.Drawing.Point(482, 67);
             this.btnFind.Name = "btnFind";
-            this.btnFind.Size = new System.Drawing.Size(144, 28);
+            this.btnFind.Size = new System.Drawing.Size(144, 31);
             this.btnFind.TabIndex = 9;
             this.btnFind.Text = "Find";
             this.btnFind.UseVisualStyleBackColor = true;
@@ -178,23 +207,23 @@
             // 
             // comboProjects
             // 
-            this.comboProjects.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboProjects.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboProjects.ForeColor = System.Drawing.SystemColors.MenuText;
             this.comboProjects.FormattingEnabled = true;
+            this.comboProjects.ItemHeight = 23;
             this.comboProjects.Location = new System.Drawing.Point(31, 67);
             this.comboProjects.Name = "comboProjects";
-            this.comboProjects.Size = new System.Drawing.Size(416, 28);
+            this.comboProjects.Size = new System.Drawing.Size(416, 31);
             this.comboProjects.TabIndex = 8;
-            this.comboProjects.Text = "Choose a Project";
-            this.comboProjects.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboProjects.SelectedIndexChanged += new System.EventHandler(this.comboProjects_SelectedIndexChanged);
             // 
             // comboCategories
             // 
-            this.comboCategories.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboCategories.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboCategories.FormattingEnabled = true;
             this.comboCategories.Location = new System.Drawing.Point(31, 143);
             this.comboCategories.Name = "comboCategories";
-            this.comboCategories.Size = new System.Drawing.Size(416, 28);
+            this.comboCategories.Size = new System.Drawing.Size(416, 32);
             this.comboCategories.Sorted = true;
             this.comboCategories.TabIndex = 10;
             this.comboCategories.SelectedIndexChanged += new System.EventHandler(this.comboCategories_SelectedIndexChanged);
@@ -223,10 +252,10 @@
             // 
             // btnRemove
             // 
-            this.btnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemove.Location = new System.Drawing.Point(683, 67);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(117, 28);
+            this.btnRemove.Size = new System.Drawing.Size(117, 31);
             this.btnRemove.TabIndex = 14;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
@@ -235,9 +264,10 @@
             // btnSaveTree
             // 
             this.btnSaveTree.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveTree.Location = new System.Drawing.Point(1137, 126);
+            this.btnSaveTree.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveTree.Location = new System.Drawing.Point(1095, 126);
             this.btnSaveTree.Name = "btnSaveTree";
-            this.btnSaveTree.Size = new System.Drawing.Size(84, 46);
+            this.btnSaveTree.Size = new System.Drawing.Size(126, 46);
             this.btnSaveTree.TabIndex = 15;
             this.btnSaveTree.Text = "Save Tree";
             this.btnSaveTree.UseVisualStyleBackColor = true;
@@ -248,7 +278,7 @@
             this.btnAddNewCat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddNewCat.Location = new System.Drawing.Point(482, 143);
             this.btnAddNewCat.Name = "btnAddNewCat";
-            this.btnAddNewCat.Size = new System.Drawing.Size(144, 28);
+            this.btnAddNewCat.Size = new System.Drawing.Size(144, 31);
             this.btnAddNewCat.TabIndex = 16;
             this.btnAddNewCat.Text = "Add new Category";
             this.btnAddNewCat.UseVisualStyleBackColor = true;
@@ -306,5 +336,6 @@
         private System.Windows.Forms.Button btnAddNewCat;
         private System.Windows.Forms.ToolStripMenuItem addNewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private BrightIdeasSoftware.OLVColumn olvIsAssigned;
     }
 }

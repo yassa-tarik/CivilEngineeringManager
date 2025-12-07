@@ -1,22 +1,12 @@
-﻿using Domain.Abstractions;
-using Domain.Abstractions.Works;
-using Infrastructure.Persistence;
-using Infrastructure.Persistence.Works;
-using MyApplication;
-using MyApplication.Abstractions;
-using MyApplication.Abstractions.Works;
-using MyApplication.Services.Trees;
-using MyApplication.Services.Works;
-
-namespace Composition
+﻿namespace Composition
 {
     public class ProjectBuilder
     {
+        /*
         private readonly IProjectRepository projectRepo = new ProjectRepository();
-        private readonly IAddressRepository addressRepo = new AddressRepository();
         public IProjectService BuildProjectService()
         {
-            return new ProjectService(projectRepo, addressRepo);
+            return new ProjectService(projectRepo);
         }
         public IProjectTreeService ProjectTreeService()
         {
@@ -31,5 +21,6 @@ namespace Composition
             IWorkSpecService workSpec = new WorkSpecService(workSpecRepo);
             return new ProjectTreeService(projectService, workCategoryRepo, workTypeService, workCategoryService, workSpec);
         }
+        */
     }
 }
